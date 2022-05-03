@@ -1,0 +1,45 @@
+{
+  "name": "@shopify/react-native-performance",
+  "version": "3.0.6",
+  "description": "A library for measuring the render times for the different flows in your app.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "react-native"
+  ],
+  "author": "shopify",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -b",
+    "lint": "yarn eslint . --ext .ts,.tsx",
+    "lint:fix": "yarn eslint . --ext .ts,.tsx --fix",
+    "test": "tsc -b && yarn jest"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/react-native-performance/issues"
+  },
+  "homepage": "https://github.com/shopify/react-native-performance#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shopify/react-native-performance.git"
+  },
+  "peerDependencies": {
+    "@babel/runtime": "*",
+    "react": "*",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "@quilted/react-testing": "^0.3.10",
+    "@testing-library/react-hooks": "^8.0.0",
+    "@testing-library/react-native": "^9.0.0",
+    "jest-extended": "^2.0.0",
+    "react-test-renderer": "17.0.2"
+  },
+  "files": [
+    "android",
+    "dist",
+    "ios",
+    "src",
+    "*.podspec"
+  ]
+}

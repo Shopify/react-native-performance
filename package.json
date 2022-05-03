@@ -1,0 +1,73 @@
+{
+  "name": "react-native-performance-monorepo",
+  "version": "1.0.0",
+  "description": "This monorepo contains the packages related to profiling performance of React Native apps.",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b && cd packages/flipper-plugin-react-native-performance && yarn build",
+    "version": "bin/version.mjs",
+    "release": "lerna version --conventional-commits",
+    "generate": "plop",
+    "flightcheck": "yarn build && yarn lint && yarn test",
+    "typescript": "tsc && cd packages/flipper-plugin-react-native-performance && tsc",
+    "lint": "yarn eslint . --ext .ts,.tsx",
+    "test": "tsc -b && yarn jest",
+    "ios": "yarn workspace fixture ios",
+    "android": "yarn workspace fixture android",
+    "start": "yarn workspace fixture start",
+    "bootstrap": "yarn && bundle install && yarn workspace fixture pods",
+    "prerelease": "bin/prerelease.mjs",
+    "purge": "rm -rf node_modules fixture/node_modules fixture/dist fixture/Pods"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/react-native-performance.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/react-native-performance/issues"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.13",
+    "@babel/runtime": "^7.12.13",
+    "@quilted/react-testing": "^0.3.10",
+    "@react-native-community/eslint-config": "^3.0.1",
+    "@shopify/eslint-plugin": "^41.0.0",
+    "@testing-library/react-hooks": "^8.0.0",
+    "@testing-library/react-native": "^9.0.0",
+    "@types/jest": "^27.0.3",
+    "@types/react": "17.0.44",
+    "@types/react-native": "0.67.6",
+    "@typescript-eslint/parser": "^5.5.0",
+    "abort-controller": "^3.0.0",
+    "babel-jest": "^28.0.3",
+    "chalk": "^5.0.0",
+    "eslint": "^8.4.0",
+    "graphql": "^16.1.0",
+    "jest": "^27.0.3",
+    "lerna": "^4.0.0",
+    "plop": "^3.0.2",
+    "press-any-key": "^0.1.1",
+    "prettier": "^2.2.1",
+    "react": "17.0.2",
+    "react-native": "0.68.1",
+    "react-test-renderer": "17.0.2",
+    "ts-jest": "^27.1.2",
+    "typescript": "^4.1.3"
+  },
+  "resolutions": {
+    "@types/react": "17.0.44"
+  },
+  "homepage": "https://github.com/Shopify/react-native-performance#readme",
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "fixture"
+    ],
+    "nohoist": [
+      "packages/flipper-plugin-react-native-performance"
+    ]
+  }
+}

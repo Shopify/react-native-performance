@@ -1,0 +1,26 @@
+{
+  "extends": "../shared/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "references": [
+    {
+      "path": "../packages/react-native-performance/"
+    },
+    {
+      "path": "../packages/react-native-performance-navigation/"
+    },
+    {
+      "path": "../packages/react-native-performance-navigation-drawer/"
+    },
+    {
+      "path": "../packages/react-native-performance-navigation-bottom-tabs/"
+    },
+    {
+      "path": "../packages/react-native-performance-lists-profiler/"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+team_id: 6ZYNJZSY2C
+type: enterprise
+apps:
+  - name: React Native Performance Snapshot
+    bundle_id: com.shopify.reactnativeperformance.fixture
+    services:
+      app_group: 'on'

@@ -1,0 +1,10 @@
+platform: ios
+version_file_path: fixture/Support/Version.xcconfig
+build_number_file_path: fixture/Support/BuildNumber.xcconfig
+description: This app showcases functionality of performance measurement packages - react-native-performance and other react-native-performance packages.
+ci:
+  require:
+    - react-native-performance
+slack:
+  channels:
+    - react-native-foundations-notis

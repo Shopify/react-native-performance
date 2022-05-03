@@ -1,0 +1,42 @@
+{
+  "name": "@shopify/react-native-performance-lists-profiler",
+  "version": "0.0.11",
+  "description": "Extension library atop @shopify/react-native-performance. Contains utilities for profiling the FlatList component.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "react-native"
+  ],
+  "author": "shopify",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -b",
+    "lint": "yarn eslint . --ext .ts,.tsx",
+    "lint:fix": "yarn eslint . --ext .ts,.tsx --fix",
+    "test": "tsc -b && yarn jest"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/react-native-performance/issues"
+  },
+  "homepage": "https://github.com/shopify/react-native-performance#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shopify/react-native-performance.git"
+  },
+  "peerDependencies": {
+    "@babel/runtime": "*",
+    "react": "^16.11.0",
+    "react-native": "*",
+    "react-native-flipper": "*"
+  },
+  "files": [
+    "android",
+    "dist",
+    "ios",
+    "src",
+    "*.podspec"
+  ],
+  "devDependencies": {
+    "react-native-flipper": "^0.144.0"
+  }
+}

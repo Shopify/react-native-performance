@@ -1,0 +1,18 @@
+{
+  "extends": "../../shared/tsconfig.base.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.test.ts?(x)"],
+  "references": [
+    {
+      "path": "../react-native-performance"
+    },
+    {
+      "path": "../react-native-performance-navigation"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "packages/react-native-performance/"
+    },
+    {
+      "path": "packages/react-native-performance-navigation/"
+    },
+    {
+      "path": "packages/react-native-performance-navigation-drawer/"
+    },
+    {
+      "path": "packages/react-native-performance-navigation-bottom-tabs/"
+    },
+    {
+      "path": "packages/react-native-performance-lists-profiler/"
+    },
+    {
+      "path": "./fixture/"
+    }
+  ]
+}

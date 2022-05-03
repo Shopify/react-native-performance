@@ -1,0 +1,49 @@
+{
+  "name": "@shopify/react-native-performance-navigation",
+  "version": "2.0.9",
+  "description": "Extension library atop @shopify/react-native-performance. Contains some utilities for easier profiling of apps using react-navigation.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "react-native"
+  ],
+  "author": "shopify",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -b",
+    "lint": "yarn eslint . --ext .ts,.tsx",
+    "lint:fix": "yarn eslint . --ext .ts,.tsx --fix",
+    "test": "tsc -b && yarn jest"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/react-native-performance/issues"
+  },
+  "homepage": "https://github.com/shopify/react-native-performance#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shopify/react-native-performance.git"
+  },
+  "peerDependencies": {
+    "@babel/runtime": "*",
+    "@react-navigation/core": "^6.2.1",
+    "@react-navigation/native": "^6.0.10",
+    "@react-navigation/stack": "^6.2.1",
+    "@shopify/react-native-performance": "^2.0.0",
+    "react": "*",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "@quilted/react-testing": "^0.3.10",
+    "@react-navigation/core": "^6.2.1",
+    "@react-navigation/native": "^6.0.10",
+    "@react-navigation/stack": "^6.2.1",
+    "@types/lodash.isequal": "^4.5.5"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "dependencies": {
+    "lodash.isequal": "^4.5.0"
+  }
+}

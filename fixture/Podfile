@@ -1,0 +1,34 @@
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+platform :ios, '11.0'
+
+target 'ReactNativePerformanceFixture' do
+  pod 'SwiftLint'
+
+  Dir.chdir(__dir__) do
+    use_native_modules!
+  end
+
+  use_react_native!(path: '../node_modules/react-native', hermes_enabled: false)
+
+  # We add all local packages as dependencies including the tests spec of each of them.
+  Dir.glob(File.expand_path('../packages/react-native-*/*.podspec', __dir__)).each do |podspec_path|
+    pod_name = File.basename(podspec_path).gsub('.podspec', '')
+    podspec_path = Pathname.new(File.dirname(podspec_path))
+                           .relative_path_from(Pathname.new(__dir__))
+                           .to_s
+    pod pod_name, path: podspec_path, testspecs: ['Tests']
+  end
+
+  # Enables Flipper.
+  #
+  # Note that if you have use_frameworks! enabled, Flipper will not work and
+  # you should disable these next few lines.
+  use_flipper!
+
+  post_install do |installer|
+    react_native_post_install(installer)
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+  end
+end
