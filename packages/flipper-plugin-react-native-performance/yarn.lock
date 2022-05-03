@@ -154,7 +154,7 @@
   dependencies:
     "@babel/highlight" "^7.16.7"
 
-"@babel/compat-data@^7.13.11", "@babel/compat-data@^7.16.4", "@babel/compat-data@^7.16.8", "@babel/compat-data@^7.17.0", "@babel/compat-data@^7.17.7":
+"@babel/compat-data@^7.13.11", "@babel/compat-data@^7.16.8", "@babel/compat-data@^7.17.0", "@babel/compat-data@^7.17.7":
   version "7.17.7"
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.17.7.tgz#078d8b833fbbcc95286613be8c716cef2b519fa2"
   integrity sha512-p8pdE6j0a29TNGebNm7NzYZWB3xVZJBZ7XGs42uAKzQo8VQ3F0By/cQCtUEABwIqw5zo6WA4NbmxsfzADzMKnQ==
@@ -2436,9 +2436,9 @@ async-validator@^4.0.2:
   integrity sha512-Pj2IR7u8hmUEDOwB++su6baaRi+QvsgajuFB9j95foM1N2gy5HM4z60hfusIO0fBPG5uLAEl6yCJr1jNSVugEQ==
 
 async@^2.4.0:
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/async/-/async-2.6.3.tgz#d72625e2344a3656e3a3ad4fa749fa83299d82ff"
-  integrity sha512-zflvls11DCy+dQWzTW2dzuilv8Z5X/pjfmZOWba6TNIVDm+2UDaJmXSOXlasHKfNBs8oo3M0aT50fDEWfKZjXg==
+  version "2.6.4"
+  resolved "https://registry.yarnpkg.com/async/-/async-2.6.4.tgz#706b7ff6084664cd7eae713f6f965433b5504221"
+  integrity sha512-mzo5dfJYwAn29PeiJ0zvwTo04zj8HDJj0Mn8TD7sno7q12prdbnasKJHhkm2c1LgrhlJ0teaea8860oxi51mGA==
   dependencies:
     lodash "^4.17.14"
 
@@ -3607,10 +3607,10 @@ find-up@^4.0.0, find-up@^4.1.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
-flipper-babel-transformer@0.142.0:
-  version "0.142.0"
-  resolved "https://registry.yarnpkg.com/flipper-babel-transformer/-/flipper-babel-transformer-0.142.0.tgz#589a3a9295c916f2ca4256ea11670fce89d3cd5b"
-  integrity sha512-fANbR3yR5vIScEP3+B83WZOdomzm48qSKbyfqMBBd+6EqEFdFyoLpC3ApGUR5/6i5JPpjns+9Y6Ui94ofWBaFQ==
+flipper-babel-transformer@0.144.0:
+  version "0.144.0"
+  resolved "https://registry.yarnpkg.com/flipper-babel-transformer/-/flipper-babel-transformer-0.144.0.tgz#fc1f40b8a248ffed72f9ee98bc68b49fa658cb0f"
+  integrity sha512-+LiJHBtrfwJbDqJs3Bs3pyVuCPRnju0zsKVlBR7aKHXnCTH3XKIrRHWPiD8DM+ma6L4HOihMkT174xR/Ks6qJg==
   dependencies:
     "@babel/core" "^7.17.8"
     "@babel/generator" "^7.17.3"
@@ -3632,28 +3632,28 @@ flipper-babel-transformer@0.142.0:
     fs-extra "^10.0.1"
     tslib "^2.3.1"
 
-flipper-common@0.142.0:
-  version "0.142.0"
-  resolved "https://registry.yarnpkg.com/flipper-common/-/flipper-common-0.142.0.tgz#fb8844c8904ddbd1210af61900cb8cc8c90f6289"
-  integrity sha512-VokRnzmY31qoaSYwKitu90eVSBGBAelFlRYfa5Is7/DcPM8Iwhmj0XjSun8oBNkYndidHbThRhbHnoT0M1tiLw==
+flipper-common@0.144.0:
+  version "0.144.0"
+  resolved "https://registry.yarnpkg.com/flipper-common/-/flipper-common-0.144.0.tgz#70d596f4b89c7b54ca6311740821eb4fa2cd8d8f"
+  integrity sha512-uL1xdCyJzsfvGB/X7FSwdEZZrM4MO/Ps1DQ2XvDek0F8hAKeubHYoGX1rnwKpW5GWu3I9W/iPnsvRHnv/UnORg==
 
-flipper-pkg-lib@0.142.0:
-  version "0.142.0"
-  resolved "https://registry.yarnpkg.com/flipper-pkg-lib/-/flipper-pkg-lib-0.142.0.tgz#5434135f4a12014f0f161981e3a708025b1c2e29"
-  integrity sha512-mJFGYxhHePwxw+wf4XviaU85HloDm8TQPL32NJOTuLs8oG6/B64ZBjYJ1p2HS4Rn3JJ6WkaI5DnazzQCug9WZw==
+flipper-pkg-lib@0.144.0:
+  version "0.144.0"
+  resolved "https://registry.yarnpkg.com/flipper-pkg-lib/-/flipper-pkg-lib-0.144.0.tgz#d7b17ab2e40fb5b7b80f4407c44287bd4dab3a75"
+  integrity sha512-91nYhYDJRT1ybJ27hLlb2W6yjBX8F8MUerMoFUgHhKo5B7t54u8kL/TIoExF0TIebA4cTfyrt55wOVb/nHTBDw==
   dependencies:
-    flipper-babel-transformer "0.142.0"
-    flipper-plugin-lib "0.142.0"
+    flipper-babel-transformer "0.144.0"
+    flipper-plugin-lib "0.144.0"
     fs-extra "^10.0.1"
     metro "^0.69.1"
     metro-cache "^0.69.1"
     metro-minify-terser "^0.66.2"
     npm-packlist "^4.0.0"
 
-flipper-pkg@^0.142.0:
-  version "0.142.0"
-  resolved "https://registry.yarnpkg.com/flipper-pkg/-/flipper-pkg-0.142.0.tgz#35b24ce88462f3b8f380cfb91a01481ce70efa99"
-  integrity sha512-EHKomjxomqKZcQsG1nZkRnfWfGDeWHUq3BdHHq1JGRCY/KCC+6WCpcisF/BfLyf9TaZI9/1mgZY9CteRkOEC5Q==
+flipper-pkg@^0.144.0:
+  version "0.144.0"
+  resolved "https://registry.yarnpkg.com/flipper-pkg/-/flipper-pkg-0.144.0.tgz#0569c04d606d1a13eecacdfefbab93ac3f09c94a"
+  integrity sha512-cLrsyVqD6EzzZWYRdcDJqhUJRhgn5VK+8Qfw5Dpk982Aw2KD6RI+XxbYf9FqSqfuxaT4ix1D4yYPdEqG2pODwQ==
   dependencies:
     "@oclif/command" "^1"
     "@oclif/config" "^1"
@@ -3663,23 +3663,23 @@ flipper-pkg@^0.142.0:
     ajv "^6.12.2"
     ajv-errors "^1.0.1"
     cli-ux "^6.0.9"
-    flipper-pkg-lib "0.142.0"
-    flipper-plugin-lib "0.142.0"
+    flipper-pkg-lib "0.144.0"
+    flipper-plugin-lib "0.144.0"
     fs-extra "^10.0.1"
     inquirer "^8.2.0"
     lodash "^4.17.21"
     recursive-readdir "^2.2.2"
 
-flipper-plugin-lib@0.142.0:
-  version "0.142.0"
-  resolved "https://registry.yarnpkg.com/flipper-plugin-lib/-/flipper-plugin-lib-0.142.0.tgz#5c8920649d4e972b3849f77ad1f5bade7fb4b01d"
-  integrity sha512-tVdtDwdOY6P357z6N1KY1xt+l8PTC5/OqeYXQbEjrcj84zLjLnUseHkdi5bacd7G2sC/iIyCQEf7grGYGMNR9Q==
+flipper-plugin-lib@0.144.0:
+  version "0.144.0"
+  resolved "https://registry.yarnpkg.com/flipper-plugin-lib/-/flipper-plugin-lib-0.144.0.tgz#383618ce40f4c9292373fe17901ba3302edfc871"
+  integrity sha512-DJKkx9VFCo5Ly7t4DHUtjoL+5EhR17Tw8/7/RqaPnXek9XWd7BnyT5Xvi5sefqOF3Mxm+zWdIl/PvBLSx+GGbQ==
   dependencies:
     algoliasearch "^4.13.0"
     decompress "^4.2.1"
     decompress-targz "^4.1.1"
     decompress-unzip "^4.0.1"
-    flipper-common "0.142.0"
+    flipper-common "0.144.0"
     fs-extra "^10.0.1"
     live-plugin-manager "^0.17.1"
     npm-api "^1.0.1"
@@ -3688,10 +3688,10 @@ flipper-plugin-lib@0.142.0:
     semver "^7.3.5"
     tmp "^0.2.1"
 
-flipper-plugin@^0.142.0:
-  version "0.142.0"
-  resolved "https://registry.yarnpkg.com/flipper-plugin/-/flipper-plugin-0.142.0.tgz#fa06710b886276b24349905b8e97398c68358a47"
-  integrity sha512-6FjIf155aYw5j6/WCo3grxA+DKtGqsajypGj52E2PafDib4qUVBCgiwKrw+6Px35kJcPAGWDc3DagjNXrALfcQ==
+flipper-plugin@^0.144.0:
+  version "0.144.0"
+  resolved "https://registry.yarnpkg.com/flipper-plugin/-/flipper-plugin-0.144.0.tgz#126c4647f721326562338fa0401c915f95ac9164"
+  integrity sha512-ekoOYdPT77Mmo4wvmGLdYEgi27yFK44VVaLW0747JQQLvZvpN/Rs1FfPWSXPXF5YYGus5VK1kb4nKotgJ5ktKQ==
   dependencies:
     "@ant-design/colors" "^6.0.0"
     "@emotion/css" "^11.7.1"
@@ -3701,7 +3701,7 @@ flipper-plugin@^0.142.0:
     "@types/react-color" "^3.0.6"
     "@types/react-dom" "^17.0.13"
     eventemitter3 "^4.0.7"
-    flipper-common "0.142.0"
+    flipper-common "0.144.0"
     immer "^9.0.12"
     js-base64 "^3.7.2"
     lodash "^4.17.21"
