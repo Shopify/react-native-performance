@@ -10,7 +10,7 @@
     "pods": "bundle exec pod install"
   },
   "dependencies": {
-    "@apollo/client": "^3.2.7",
+    "@apollo/client": "3.5.4",
     "@react-navigation/bottom-tabs": "6.3.1",
     "@react-navigation/drawer": "6.4.1",
     "@react-navigation/native": "6.0.10",
@@ -21,7 +21,7 @@
     "@shopify/react-native-performance-navigation": "2.0.9",
     "@shopify/react-native-performance-navigation-bottom-tabs": "2.0.6",
     "@shopify/react-native-performance-navigation-drawer": "2.0.7",
-    "graphql": "^16.1.0",
+    "graphql": "16.3.0",
     "graphql-tag": "2.12.6",
     "react": "17.0.2",
     "react-native": "0.68.1",
