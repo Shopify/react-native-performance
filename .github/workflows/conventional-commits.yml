@@ -1,0 +1,18 @@
+name: Conventional Commits Checker
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+jobs:
+  lint-commits:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2.3.1
+        with:
+          fetch-depth: 0
+      - name: Setup NodeJS and NPM
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.13.2
+      - name: Add @commitlint
+        run: npm install -g @commitlint/cli @commitlint/config-conventional
+      - run: bin/conventional-commits.sh "${{ github.event.pull_request.title }}" ${{ github.event.pull_request.commits }}
