@@ -176,7 +176,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
   - You would not be getting render pass reports even when the screen successfully renders.
   - When navigating to a different screen, you might have been getting errors saying
     "The navigation for one screen was already queued up..."
-  - https://github.com/Shopify/react-native-performance/pull/57/
 
 ## [1.1.3] - 2021-03-23
 
@@ -185,7 +184,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
   even when the profiler is disabled.
   - The library does not actively support RNWeb, but setting `enabled={false}`
     in that environment should gracefully mimic the absence of the library.
-  - https://github.com/Shopify/react-native-performance/pull/53/
 
 ## [1.1.2] - 2021-03-18
 

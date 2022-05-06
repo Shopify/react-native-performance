@@ -70,7 +70,6 @@ export const ReactNavigationPerformanceView = (props: Props) => {
   // This is to avoid emitting reports of render passes where user has not explicitly changed it.
   // `PerformanceMeasureView` will log a reused `renderPassName`
   // and subsequent render passes with a different `renderPassName` will still be reported.
-  // Check out this link for more details: https://github.com/Shopify/react-native-performance/pull/363
   if (shouldReportTransitionEnd) {
     renderProps.current = { renderPassName: TRANSITION_END, interactive };
   } else if (lastRenderPassName.current !== props.renderPassName) {

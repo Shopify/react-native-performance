@@ -24,7 +24,7 @@
     "url": "git+https://github.com/Shopify/react-native-performance.git"
   },
   "bugs": {
-    "url": "https://github.com/Shopify/react-native-performance/issues"
+    "url": "https://github.com/Shopify/react-native-performance-open-source/issues"
   },
   "publishConfig": {
     "access": "restricted"

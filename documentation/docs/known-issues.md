@@ -21,5 +21,3 @@ If you use a [bottom tab](https://reactnavigation.org/docs/bottom-tab-navigator)
   />
 </Tab.Navigator>
 ```
-
-The bug is tracked in [this](https://github.com/Shopify/react-native-performance/issues/118) issue.

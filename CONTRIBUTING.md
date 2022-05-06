@@ -86,7 +86,7 @@ The `package.json` file contains various scripts for common tasks:
 
 ### Submitting pull requests
 
-Please take some time to correctly fill our [pull request template](https://github.com/Shopify/react-native-performance/blob/main/.github/PULL_REQUEST_TEMPLATE.md) and detail the proposed changes. This will help reviewers to better understand the context of your PR and provide valuable insights.
+Please take some time to correctly fill our [pull request template](https://github.com/Shopify/react-native-performance-open-source/blob/main/.github/PULL_REQUEST_TEMPLATE.md) and detail the proposed changes. This will help reviewers to better understand the context of your PR and provide valuable insights.
 
 When you're sending a pull request:
 

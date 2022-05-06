@@ -36,5 +36,5 @@ Additionally, the library exposes a mock file that can be imported in your jest 
 
 ```ts
 // in your jest config file
-import '@shopify/react-native-performance/jest-mock';
+import '@shopify/react-native-performance-open-source/jest-mock';
 ```

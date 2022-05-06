@@ -33,12 +33,12 @@ Packages are set up to be compatible with [autolinking](https://github.com/react
 
 | Name | Version |
 | ---- | ------- |
-| [@shopify/flipper-plugin-react-native-performance](/packages/flipper-plugin-react-native-performance) | [0.0.13](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Fflipper-plugin-react-native-performance%400.0.13) |
-| [@shopify/react-native-performance](/packages/react-native-performance) | [3.0.6](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance%403.0.6) |
-| [@shopify/react-native-performance-lists-profiler](/packages/react-native-performance-lists-profiler) | [0.0.11](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance-lists-profiler%400.0.11) |
-| [@shopify/react-native-performance-navigation](/packages/react-native-performance-navigation) | [2.0.9](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance-navigation%402.0.9) |
-| [@shopify/react-native-performance-navigation-bottom-tabs](/packages/react-native-performance-navigation-bottom-tabs) | [2.0.6](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance-navigation-bottom-tabs%402.0.6) |
-| [@shopify/react-native-performance-navigation-drawer](/packages/react-native-performance-navigation-drawer) | [2.0.7](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance-navigation-drawer%402.0.7) |
+| [@shopify/flipper-plugin-react-native-performance](/packages/flipper-plugin-react-native-performance) | [0.0.13](https://github.com/Shopify/react-native-performance-open-source/releases/tag/%40shopify%2Fflipper-plugin-react-native-performance%400.0.13) |
+| [@shopify/react-native-performance](/packages/react-native-performance) | [3.0.6](https://github.com/Shopify/react-native-performance-open-source/releases/tag/%40shopify%2Freact-native-performance%403.0.6) |
+| [@shopify/react-native-performance-lists-profiler](/packages/react-native-performance-lists-profiler) | [0.0.11](https://github.com/Shopify/react-native-performance-open-source/releases/tag/%40shopify%2Freact-native-performance-lists-profiler%400.0.11) |
+| [@shopify/react-native-performance-navigation](/packages/react-native-performance-navigation) | [2.0.9](https://github.com/Shopify/react-native-performance-open-source/releases/tag/%40shopify%2Freact-native-performance-navigation%402.0.9) |
+| [@shopify/react-native-performance-navigation-bottom-tabs](/packages/react-native-performance-navigation-bottom-tabs) | [2.0.6](https://github.com/Shopify/react-native-performance-open-source/releases/tag/%40shopify%2Freact-native-performance-navigation-bottom-tabs%402.0.6) |
+| [@shopify/react-native-performance-navigation-drawer](/packages/react-native-performance-navigation-drawer) | [2.0.7](https://github.com/Shopify/react-native-performance-open-source/releases/tag/%40shopify%2Freact-native-performance-navigation-drawer%402.0.7) |
 
 ## Playground app
 

@@ -5,6 +5,6 @@
  *
  * ```ts
  * // in MyScreen.test.ts
- * import '@shopify/react-native-performance/mock'
+ * import '@shopify/react-native-performance-open-source/mock'
  * ```
  */

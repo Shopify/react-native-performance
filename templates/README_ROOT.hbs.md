@@ -34,7 +34,7 @@ Packages are set up to be compatible with [autolinking](https://github.com/react
 | Name | Version |
 | ---- | ------- |
 {{#each packages}}
-| [@shopify/{{name}}](/packages/{{name}}) | [{{version}}](https://github.com/Shopify/react-native-performance/releases/tag/{{releaseTag}}) |
+| [@shopify/{{name}}](/packages/{{name}}) | [{{version}}](https://github.com/Shopify/react-native-performance-open-source/releases/tag/{{releaseTag}}) |
 {{/each}}
 
 ## Playground app

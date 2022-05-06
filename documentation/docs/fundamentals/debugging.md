@@ -15,7 +15,7 @@ The performance library produces two error types:
 
 Only `fatal` errors make it to the error handler and get thrown to the app and (possibly) to the error dashboard. Those errors are legit and should be actionable. You can learn more about `fatal` errors [here](../errors).
 
-Internal `bug` errors signalize that something goes wrong or there is an unhandled flow that the library doesn't support yet. They will be shown when you are in **DEBUG** mode. When you stumble upon a `bug` error, we kindly ask you to [report an issue](https://github.com/Shopify/react-native-performance/issues/new), so we can look into it.
+Internal `bug` errors signalize that something goes wrong or there is an unhandled flow that the library doesn't support yet. They will be shown when you are in **DEBUG** mode. When you stumble upon a `bug` error, we kindly ask you to [report an issue](https://github.com/Shopify/react-native-performance-open-source/issues/new), so we can look into it.
 
 ## Logger
 

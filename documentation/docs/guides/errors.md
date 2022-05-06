@@ -30,4 +30,4 @@ Read more about measuring render times [here](fundamentals/measuring-render-time
 
 ### UnsupportedNavigatorError
 
-If you use `react-native-performance-navigation`, this package has `react-navigation` as its dependency. We currently support only navigators of types `stack`, `tab`, `drawer` and so if there is a new navigator that you would need support for, please [create a new Github issue](https://github.com/Shopify/react-native-performance/issues/new).
+If you use `react-native-performance-navigation`, this package has `react-navigation` as its dependency. We currently support only navigators of types `stack`, `tab`, `drawer` and so if there is a new navigator that you would need support for, please [create a new Github issue](https://github.com/Shopify/react-native-performance-open-source/issues/new).

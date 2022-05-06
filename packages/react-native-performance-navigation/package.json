@@ -16,7 +16,7 @@
     "test": "tsc -b && yarn jest"
   },
   "bugs": {
-    "url": "https://github.com/shopify/react-native-performance/issues"
+    "url": "https://github.com/shopify/react-native-performance-open-source/issues"
   },
   "homepage": "https://github.com/shopify/react-native-performance#readme",
   "repository": {

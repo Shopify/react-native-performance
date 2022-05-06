@@ -61,7 +61,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/shopify/react-native-performance/edit/main/docs/',
+          editUrl: 'https://github.com/shopify/react-native-performance-open-source/edit/main/documentation/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

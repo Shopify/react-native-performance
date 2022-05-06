@@ -56,7 +56,7 @@ const PerformanceProfiler = ({
         // and we want to save them from that complexity.
         if (error instanceof PerformanceProfilerError && error.type === "bug") {
           logger.error(
-            `You have hit an internal error, please report this: https://github.com/Shopify/react-native-performance/issues/new\n` +
+            `You have hit an internal error, please report this: https://github.com/Shopify/react-native-performance-open-source/issues/new\n` +
               `${error.name}: ${error.message}`
           );
         } else {
