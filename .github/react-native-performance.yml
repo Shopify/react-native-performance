@@ -1,0 +1,71 @@
+name: react-native-performance
+
+on: push
+
+env:
+  RUBY_VERSION: 3.0.3
+  NODE_VERSION: 16.13.0
+
+jobs:
+  build-ts:
+    name: "Build Typescript"
+    runs-on: self-hosted
+    steps:
+      - name: Setup node
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install Yarn
+        run: npm install --global yarn
+      - name: Checkout
+      - uses: actions/checkout@v3
+      - run: |
+          yarn
+          yarn build
+  build-fixture-ts:
+    name: "Build fixture Typescript"
+    runs-on: self-hosted
+    steps:
+      - name: Setup node
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install Yarn
+        run: npm install --global yarn
+      - name: Checkout
+      - uses: actions/checkout@v3
+      - run: |
+          yarn
+          cd fixture
+          yarn
+          yarn build
+  lint-ts:
+    name: "Lint Typescript"
+    runs-on: self-hosted
+    steps:
+      - name: Setup node
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install Yarn
+        run: npm install --global yarn
+      - name: Checkout
+      - uses: actions/checkout@v3
+      - run: |
+          yarn
+          yarn lint
+  test-ts:
+    name: "Test Typescript"
+    runs-on: self-hosted
+    steps:
+      - name: Setup node
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install Yarn
+        run: npm install --global yarn
+      - name: Checkout
+      - uses: actions/checkout@v3
+      - run: |
+          yarn
+          yarn test --forceExit
