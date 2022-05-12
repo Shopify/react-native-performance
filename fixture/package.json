@@ -10,7 +10,7 @@
     "pods": "bundle exec pod install"
   },
   "dependencies": {
-    "@apollo/client": "3.5.4",
+    "@apollo/client": "3.6.2",
     "@react-navigation/bottom-tabs": "6.3.1",
     "@react-navigation/drawer": "6.4.1",
     "@react-navigation/native": "6.0.10",
