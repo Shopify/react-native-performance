@@ -11,10 +11,14 @@ jobs:
     name: "Build Typescript"
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v3
+      - name: Setup node
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Install Yarn
+        run: npm install --global yarn
+      - name: Checkout
+      - uses: actions/checkout@v3
       - run: |
           yarn
           yarn build
@@ -22,10 +26,14 @@ jobs:
     name: "Build fixture Typescript"
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v3
+      - name: Setup node
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Install Yarn
+        run: npm install --global yarn
+      - name: Checkout
+      - uses: actions/checkout@v3
       - run: |
           yarn
           cd fixture
@@ -35,10 +43,14 @@ jobs:
     name: "Lint Typescript"
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v3
+      - name: Setup node
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Install Yarn
+        run: npm install --global yarn
+      - name: Checkout
+      - uses: actions/checkout@v3
       - run: |
           yarn
           yarn lint
@@ -46,64 +58,14 @@ jobs:
     name: "Test Typescript"
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v3
+      - name: Setup node
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Install Yarn
+        run: npm install --global yarn
+      - name: Checkout
+      - uses: actions/checkout@v3
       - run: |
           yarn
           yarn test --forceExit
-  metro-ios:
-    name: "Metro bundling for iOS"
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - run: |
-          yarn
-          yarn build
-          cd fixture
-          yarn
-          mkdir -p /tmp/artifacts
-          yarn react-native bundle --entry-file index.js --platform ios --bundle-output /tmp/artifacts/bundle.js --sourcemap-output /tmp/artifacts/output.map
-      - name: Archive iOS bundle artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ios-bundle-artifacts
-          path: /tmp/artifacts
-  metro-android:
-    name: "Metro bundling for Android"
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - run: |
-          cd fixture
-          yarn
-          cd android
-          mkdir -p /tmp/artifacts
-          ./gradlew bundleDebugJsAndAssets
-  build-android:
-    name: "Build Android"
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: ruby setup
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ env.RUBY_VERSION }}
-          bundler-cache: true
-      - run: |
-          bundle install
-          cd fixture
-          yarn
-          cd android
-          ./gradlew assembleDebug
-          
