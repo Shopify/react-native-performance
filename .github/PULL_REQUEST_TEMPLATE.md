@@ -12,9 +12,9 @@ Fixes (issue #)
 Please include a summary of what you want to achieve in this pull request. Remember to indicate the affected package(s).
 -->
 
-### Reviewers’ hat-rack :tophat:
+### Test plan
 
-<!-- Tophatting instructions, and/or what you want reviewers to concentrate on. -->
+<!-- Describe the steps to test this change so that a reviewer can verify it. -->
 
 ## Checklist
 

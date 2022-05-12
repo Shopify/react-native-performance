@@ -87,11 +87,6 @@ jobs:
           cd android
           mkdir -p /tmp/artifacts
           ./gradlew bundleDebugJsAndAssets
-      - name: Archive Android bundle artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: android-bundle-artifacts
-          path: /tmp/artifacts
   build-ios:
     name: "Build iOS"
     runs-on: macos-latest
@@ -132,3 +127,4 @@ jobs:
           yarn
           cd android
           ./gradlew assembleDebug
+          
