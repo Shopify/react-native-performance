@@ -9,7 +9,7 @@ env:
 jobs:
   build-ts:
     name: "Build Typescript"
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -20,7 +20,7 @@ jobs:
           yarn build
   build-fixture-ts:
     name: "Build fixture Typescript"
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -33,7 +33,7 @@ jobs:
           yarn build
   lint-ts:
     name: "Lint Typescript"
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -44,7 +44,7 @@ jobs:
           yarn lint
   test-ts:
     name: "Test Typescript"
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -75,7 +75,7 @@ jobs:
           path: /tmp/artifacts
   metro-android:
     name: "Metro bundling for Android"
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -87,30 +87,9 @@ jobs:
           cd android
           mkdir -p /tmp/artifacts
           ./gradlew bundleDebugJsAndAssets
-  build-ios:
-    name: "Build iOS"
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: ruby setup
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ env.RUBY_VERSION }}
-          bundler-cache: true
-      - run: |
-          bundle install
-          cd fixture
-          yarn
-          cd ios
-          bundle exec pod install
-          mkdir -p /tmp/artifacts
-          set -o pipefail && env NSUnbufferedIO=YES xcodebuild clean build -scheme FlatListPro -workspace FlatListPro.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 11,OS=latest' | tee /tmp/artifacts/ios_build.log
   build-android:
     name: "Build Android"
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
