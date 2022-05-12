@@ -5,7 +5,7 @@ labels: 'bug'
 
 ---
 
-Thanks for taking the time to fill out this bug report!
+<!-- Thanks for taking the time to fill out this bug report!
 
 If this is not a bug report, please use other relevant channels:
 - [Create a feature proposal on Discussions](https://github.com/Shopify/react-native-performance/discussions/new)
@@ -14,7 +14,7 @@ If this is not a bug report, please use other relevant channels:
 Before you proceed:
 
 - Make sure you are on latest versions of React Native Performance packages and their dependencies.
-- If you are having an issue with your machine or build tools, the issue belongs on another repository as that is outside of the scope of React Native Performance.
+- If you are having an issue with your machine or build tools, the issue belongs on another repository as that is outside of the scope of React Native Performance. -->
 
 ## Current behavior
 
