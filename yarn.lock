@@ -4090,9 +4090,9 @@ ansicolors@~0.3.2:
   integrity sha1-ZlWX3oap/+Oqm/vmyuXG6kJrSXk=
 
 antd@^4.18.8:
-  version "4.20.2"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-4.20.2.tgz#1ed2042a091eecfebd9650c014a1a2e57430ff2b"
-  integrity sha512-b+Gq1EY8LmcS/ARei/dGI0bWQlJ/j3f3oJ6XjM+ryyT5YWxvf7X3mGc++bTGuLmjn6+/icRL1zItIgcvplcomg==
+  version "4.20.4"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-4.20.4.tgz#63064be2ead13b6ad7585b58a8e71bcd380d170a"
+  integrity sha512-xtaMNuRvumMXQLsoAwiQRY5rEJVRtJGumby3aPIJdWXwBtZ7eDDuXbT/Uo8xT8rTND0cK5rRQlxMyisCJrZD9Q==
   dependencies:
     "@ant-design/colors" "^6.0.0"
     "@ant-design/icons" "^4.7.0"
