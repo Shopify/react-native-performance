@@ -37,7 +37,7 @@
     "react-native": "*"
   },
   "devDependencies": {
-    "@quilted/react-testing": "^0.3.10",
+    "@quilted/react-testing": "^0.5.11",
     "@react-navigation/core": "^6.2.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/stack": "^6.2.1",
