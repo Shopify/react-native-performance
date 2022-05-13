@@ -12,14 +12,14 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Setup node
-      - uses: actions/setup-node@v3
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install Yarn
         run: npm install --global yarn
       - name: Checkout
-      - uses: actions/checkout@v3
-      - run: |
+        uses: actions/checkout@v3
+        run: |
           yarn
           yarn build
   build-fixture-ts:
@@ -27,14 +27,14 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Setup node
-      - uses: actions/setup-node@v3
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install Yarn
         run: npm install --global yarn
       - name: Checkout
-      - uses: actions/checkout@v3
-      - run: |
+        uses: actions/checkout@v3
+        run: |
           yarn
           cd fixture
           yarn
@@ -44,14 +44,14 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Setup node
-      - uses: actions/setup-node@v3
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install Yarn
         run: npm install --global yarn
       - name: Checkout
-      - uses: actions/checkout@v3
-      - run: |
+        uses: actions/checkout@v3
+        run: |
           yarn
           yarn lint
   test-ts:
@@ -59,13 +59,13 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Setup node
-      - uses: actions/setup-node@v3
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install Yarn
         run: npm install --global yarn
       - name: Checkout
-      - uses: actions/checkout@v3
-      - run: |
+        uses: actions/checkout@v3
+        run: |
           yarn
           yarn test --forceExit
