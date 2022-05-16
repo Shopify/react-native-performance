@@ -37,6 +37,6 @@
     "*.podspec"
   ],
   "devDependencies": {
-    "react-native-flipper": "^0.144.0"
+    "react-native-flipper": "^0.145.0"
   }
 }
