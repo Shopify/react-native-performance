@@ -74,7 +74,7 @@ We use [TypeScript](https://www.typescriptlang.org/) for type checking, [ESLint]
 
 The `package.json` file contains various scripts for common tasks:
 
-- `yarn bootstrap`: setup project by installing all dependencies and pods.
+- `yarn up`: setup project by installing all dependencies and pods.
 - `yarn typescript`: type-check files with TypeScript.
 - `yarn lint`/`yarn lint --fix`: lint files with ESLint/try to fix lint issues.
 - `yarn flightcheck`: check types, linting, and tests all together.
