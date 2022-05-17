@@ -8,19 +8,19 @@
 
 Performance measurement for your React Native apps.
 
-Documentation can be found at [react-native-performance.docs.shopify.io](https://react-native-performance.docs.shopify.io/)
+Documentation can be found at [shopify.github.io/react-native-performance](https://shopify.github.io/react-native-performance)
 
 
-<img src="https://badge.buildkite.com/a19f57510b2dae4110bba6bdf73051dc6b080e43a22f2ff5f3.svg" alt="Build status"/>
+<img src="https://github.com/shopify/react-native-performance/actions/workflows/react-native-performance.yml/badge.svg?main" alt="Build status"/>
+<img src="https://img.shields.io/npm/l/@shopify/react-native-performance" alt="license: MIT"/>
+<img src="https://img.shields.io/discord/928252803867107358" alt="Discord chat"/>
 <a href="https://lerna.js.org" title="lerna">
   <img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="lerna"/>
 </a>
-<img src="https://img.shields.io/npm/l/@shopify/react-native-performance" alt="license: MIT"/>
-<img src="https://img.shields.io/discord/928252803867107358" alt="Discord chat"/>
 
 ---
 
-[Installation](#install-⬇️) | [Packages](#packages) | [Playground app](#playground-app) | [Contributing](#contributing)
+[Installation](#install) | [Packages](#package-versions) | [Playground app](#playground-app) | [Contributing](#contributing)
 
 
 ## Install
