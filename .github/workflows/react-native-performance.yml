@@ -1,4 +1,4 @@
-name: CI
+name: react-native-performance
 
 on: push
 
@@ -11,26 +11,30 @@ jobs:
     name: "Build Typescript"
     runs-on: self-hosted
     steps:
-      - uses: actions/setup-node@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install Yarn
         run: npm install --global yarn
-      - uses: actions/checkout@v3
-      - run: |
+      - name: Checkout
+        uses: actions/checkout@v3
+        run: |
           yarn
           yarn build
   build-fixture-ts:
     name: "Build fixture Typescript"
     runs-on: self-hosted
     steps:
-      - uses: actions/setup-node@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install Yarn
         run: npm install --global yarn
-      - name: actions/checkout@v3
-      - run: |
+      - name: Checkout
+        uses: actions/checkout@v3
+        run: |
           yarn
           cd fixture
           yarn
@@ -39,25 +43,29 @@ jobs:
     name: "Lint Typescript"
     runs-on: self-hosted
     steps:
-      - uses: actions/setup-node@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install Yarn
         run: npm install --global yarn
-      - uses: actions/checkout@v3
-      - run: |
+      - name: Checkout
+        uses: actions/checkout@v3
+        run: |
           yarn
           yarn lint
   test-ts:
     name: "Test Typescript"
     runs-on: self-hosted
     steps:
-      - uses: actions/setup-node@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install Yarn
         run: npm install --global yarn
-      - uses: actions/checkout@v3
-      - run: |
+      - name: Checkout
+        uses: actions/checkout@v3
+        run: |
           yarn
           yarn test --forceExit
