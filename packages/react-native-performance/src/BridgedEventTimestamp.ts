@@ -1,4 +1,4 @@
-import { getNativeTime } from "./utils";
+import {getNativeTime} from './utils';
 
 export class BridgedEventTimestampBuilder {
   private _nativeTimestamp: Promise<number> | undefined;
@@ -7,7 +7,7 @@ export class BridgedEventTimestampBuilder {
   nativeTimestamp(nativeTimestamp: Promise<number> | number | undefined) {
     if (nativeTimestamp === undefined) {
       this._nativeTimestamp = undefined;
-    } else if (typeof nativeTimestamp === "number") {
+    } else if (typeof nativeTimestamp === 'number') {
       this._nativeTimestamp = Promise.resolve(nativeTimestamp);
     } else {
       this._nativeTimestamp = nativeTimestamp;
@@ -34,12 +34,10 @@ export class BridgedEventTimestampBuilder {
       return new BridgedEventTimestamp(Date.now(), this._nativeTimestamp);
     }
 
-    const { jsNowWithEpochReference, nativeTimestampWithEpochReference } =
-      translateNativeTimestampToEpochReference(this._nativeTimestamp);
-    return new BridgedEventTimestamp(
-      jsNowWithEpochReference,
-      nativeTimestampWithEpochReference
+    const {jsNowWithEpochReference, nativeTimestampWithEpochReference} = translateNativeTimestampToEpochReference(
+      this._nativeTimestamp,
     );
+    return new BridgedEventTimestamp(jsNowWithEpochReference, nativeTimestampWithEpochReference);
   }
 }
 
@@ -48,10 +46,7 @@ export default class BridgedEventTimestamp {
    * The time it took for the native event to be consumed on the JS side.
    */
   get jsNativeLatency(): Promise<number> | undefined {
-    return (
-      this.nativeTimestamp &&
-      this.nativeTimestamp.then((timestamp) => this.jsTimestamp - timestamp)
-    );
+    return this.nativeTimestamp && this.nativeTimestamp.then(timestamp => this.jsTimestamp - timestamp);
   }
 
   /**
@@ -64,10 +59,7 @@ export default class BridgedEventTimestamp {
    */
   readonly jsTimestamp: number;
 
-  constructor(
-    jsTimestamp: number,
-    nativeTimestamp: Promise<number> | undefined
-  ) {
+  constructor(jsTimestamp: number, nativeTimestamp: Promise<number> | undefined) {
     this.jsTimestamp = jsTimestamp;
     this.nativeTimestamp = nativeTimestamp;
   }
@@ -76,12 +68,8 @@ export default class BridgedEventTimestamp {
     return (
       `{` +
       `jsTimestamp: ${this.jsTimestamp}, ` +
-      `nativeTimestamp: ${
-        this.nativeTimestamp === undefined ? "undefined" : "Promise<number>"
-      }, ` +
-      `jsNativeLatency: ${
-        this.jsNativeLatency === undefined ? "undefined" : "Promise<number>"
-      }` +
+      `nativeTimestamp: ${this.nativeTimestamp === undefined ? 'undefined' : 'Promise<number>'}, ` +
+      `jsNativeLatency: ${this.jsNativeLatency === undefined ? 'undefined' : 'Promise<number>'}` +
       `}`
     );
   }
@@ -93,37 +81,26 @@ export default class BridgedEventTimestamp {
  * @param nativeTimestampWithSystemBootReference: Timestamp received from native context from react-native referencing system boot time.
  * @returns Timestamp referencing system boot time.
  */
-function translateNativeTimestampToEpochReference(
-  nativeTimestampWithSystemBootReference: Promise<number>
-) {
+function translateNativeTimestampToEpochReference(nativeTimestampWithSystemBootReference: Promise<number>) {
   const jsNowWithEpochReference = Date.now();
 
-  const nativeTimestampWithEpochReference = Promise.all([
-    getNativeTime(),
-    nativeTimestampWithSystemBootReference,
-  ]).then(
+  const nativeTimestampWithEpochReference = Promise.all([getNativeTime(), nativeTimestampWithSystemBootReference]).then(
     ([
-      {
-        nativeTimeSinceEpochMillis: nativeNowWithEpochReference,
-        nativeUptimeMillis: nativeNowWithSystemBootReference,
-      },
+      {nativeTimeSinceEpochMillis: nativeNowWithEpochReference, nativeUptimeMillis: nativeNowWithSystemBootReference},
       nativeTimestampWithSystemBootReference,
     ]) => {
       // If the JS <-> native communication were instantaneous, the nativeTimeSinceEpochMillis === jsNowWithEpochReference.
       // nativeCallLatency captures the deviation from this ideal.
-      const bridgeLatency =
-        nativeNowWithEpochReference - jsNowWithEpochReference;
+      const bridgeLatency = nativeNowWithEpochReference - jsNowWithEpochReference;
       // The same latency would also be applicable to the system uptime values.
       // So we can reverse calculate what the "JS now" would have been in the system boot time reference system.
-      const jsNowWithSystemBootReference =
-        nativeNowWithSystemBootReference - bridgeLatency;
+      const jsNowWithSystemBootReference = nativeNowWithSystemBootReference - bridgeLatency;
       /**
        * Both `jsNowWithSystemBootReference` and `nativeTimestampSystemBootReference` use the same reference time: system boot.
        * The difference between these two will give the millisecond difference between "now" and the requested timestamp.
        * Since it's a time-delta, it will also be applicable to the other reference system: epoch.
        */
-      const millisElapsed =
-        jsNowWithSystemBootReference - nativeTimestampWithSystemBootReference;
+      const millisElapsed = jsNowWithSystemBootReference - nativeTimestampWithSystemBootReference;
       /**
        * If millisElapsed is negative, we assume that `nativeTimestampWithSystemBootReference` is actually not referencing system boot time but epoch time.
        * This change was introduced in the following commit and released with react-native version 0.65.0:
@@ -138,7 +115,7 @@ function translateNativeTimestampToEpochReference(
       } else {
         return jsNowWithEpochReference - millisElapsed;
       }
-    }
+    },
   );
 
   return {

@@ -1,7 +1,7 @@
-import { useCallback } from "react";
+import {useCallback} from 'react';
 
-import GestureResponderEvent from "../GestureResponderEvent";
-import { useStateController } from "../state-machine";
+import GestureResponderEvent from '../GestureResponderEvent';
+import {useStateController} from '../state-machine';
 
 interface CommonArgs {
   source?: string;
@@ -41,7 +41,7 @@ const useStartProfiler = () => {
         });
       }
     },
-    [stateController]
+    [stateController],
   );
 
   return startTimer;

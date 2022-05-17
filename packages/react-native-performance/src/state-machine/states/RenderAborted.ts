@@ -1,9 +1,9 @@
-import State, { StateProps } from "./State";
+import State, {StateProps} from './State';
 
 interface RenderAbortedProps extends StateProps {}
 
 class RenderAborted extends State {
-  static readonly STATE_NAME = "RenderAborted";
+  static readonly STATE_NAME = 'RenderAborted';
 
   constructor(props: RenderAbortedProps) {
     super(props);

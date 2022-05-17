@@ -1,5 +1,5 @@
-import BridgedEventTimestamp from "../../BridgedEventTimestamp";
-import OngoingOperationsRegistry from "../OngoingOperationsRegistry";
+import BridgedEventTimestamp from '../../BridgedEventTimestamp';
+import OngoingOperationsRegistry from '../OngoingOperationsRegistry';
 
 export interface StateProps {
   destinationScreen: string;
@@ -46,14 +46,11 @@ abstract class State {
     return this._ongoingOperations;
   }
 
-  onOperationStarted(
-    operationName: string,
-    abortController?: AbortController
-  ): State {
+  onOperationStarted(operationName: string, abortController?: AbortController): State {
     const newOngoingOperations = this.ongoingOperations.onOperationStarted(
       this.destinationScreen,
       operationName,
-      abortController
+      abortController,
     );
     return this.updateOngoingOperations(newOngoingOperations);
   }
@@ -62,16 +59,13 @@ abstract class State {
     const newOngoingOperations = this.ongoingOperations.onOperationCompleted(
       this.destinationScreen,
       operationName,
-      cancelled
+      cancelled,
     );
     return this.updateOngoingOperations(newOngoingOperations);
   }
 
   onAllOngoingOperationsCancelled(): State {
-    const newOngoingOperations =
-      this.ongoingOperations.onAllOngoingOperationsCancelled(
-        this.destinationScreen
-      );
+    const newOngoingOperations = this.ongoingOperations.onAllOngoingOperationsCancelled(this.destinationScreen);
     return this.updateOngoingOperations(newOngoingOperations);
   }
 
@@ -93,9 +87,7 @@ abstract class State {
     };
   }
 
-  private updateOngoingOperations(
-    ongoingOperations: OngoingOperationsRegistry
-  ): State {
+  private updateOngoingOperations(ongoingOperations: OngoingOperationsRegistry): State {
     if (this.ongoingOperations === ongoingOperations) {
       return this;
     }

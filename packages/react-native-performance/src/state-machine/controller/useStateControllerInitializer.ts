@@ -1,11 +1,11 @@
-import { useEffect, useRef } from "react";
+import {useEffect, useRef} from 'react';
 
-import { ErrorHandler } from "../../utils";
+import {ErrorHandler} from '../../utils';
 
-import StateController, { OnStateChangedListener } from "./StateController";
-import EnabledStateController from "./EnabledStateController";
-import DisabledStateController from "./DisabledStateController";
-import ErrorHandlerStateController from "./ErrorHandlerStateController";
+import StateController, {OnStateChangedListener} from './StateController';
+import EnabledStateController from './EnabledStateController';
+import DisabledStateController from './DisabledStateController';
+import ErrorHandlerStateController from './ErrorHandlerStateController';
 
 export default function useStateControllerInitializer({
   enabled,
@@ -20,18 +20,11 @@ export default function useStateControllerInitializer({
   useRenderTimeouts: boolean;
   renderTimeoutMillis: number;
 }): StateController {
-  const prevStateController = useRef<ErrorHandlerStateController | undefined>(
-    undefined
-  );
+  const prevStateController = useRef<ErrorHandlerStateController | undefined>(undefined);
 
   const newStateController = (() => {
-    if (
-      prevStateController.current === undefined ||
-      enabled !== prevStateController.current.isEnabled
-    ) {
-      const innerController = enabled
-        ? new EnabledStateController()
-        : new DisabledStateController();
+    if (prevStateController.current === undefined || enabled !== prevStateController.current.isEnabled) {
+      const innerController = enabled ? new EnabledStateController() : new DisabledStateController();
       return new ErrorHandlerStateController(innerController, errorHandler);
     }
 
@@ -58,12 +51,12 @@ export default function useStateControllerInitializer({
           }
         : {
             enabled: false,
-          }
+          },
     );
 
     return () => {
       newStateController.removeStateChangedListener(reportEmitter);
-      newStateController.configureRenderTimeout({ enabled: false });
+      newStateController.configureRenderTimeout({enabled: false});
     };
   });
 

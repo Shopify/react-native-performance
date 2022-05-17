@@ -1,6 +1,6 @@
-import State, { StateProps } from "./State";
+import State, {StateProps} from './State';
 
-type FlowType = "app_boot" | "flow_start" | "flow_reset";
+type FlowType = 'app_boot' | 'flow_start' | 'flow_reset';
 
 export interface StartedProps extends StateProps {
   sourceScreen: string | undefined;
@@ -8,11 +8,11 @@ export interface StartedProps extends StateProps {
 }
 
 export default class Started extends State {
-  static readonly STATE_NAME = "Started";
+  static readonly STATE_NAME = 'Started';
   readonly sourceScreen: string | undefined;
   readonly type: FlowType;
 
-  constructor({ sourceScreen, type, ...rest }: StartedProps) {
+  constructor({sourceScreen, type, ...rest}: StartedProps) {
     super(rest);
     this.sourceScreen = sourceScreen;
     this.type = type;

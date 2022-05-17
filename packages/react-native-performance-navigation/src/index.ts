@@ -1,2 +1,2 @@
-export { default as useProfiledNavigation } from "./useProfiledNavigation";
-export { ReactNavigationPerformanceView } from "./ReactNavigationPerformanceView";
+export {default as useProfiledNavigation} from './useProfiledNavigation';
+export {ReactNavigationPerformanceView} from './ReactNavigationPerformanceView';

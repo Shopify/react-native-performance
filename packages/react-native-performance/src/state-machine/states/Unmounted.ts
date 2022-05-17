@@ -1,9 +1,9 @@
-import State, { StateProps } from "./State";
+import State, {StateProps} from './State';
 
 export interface UnmountedProps extends StateProps {}
 
 export default class Unmounted extends State {
-  static readonly STATE_NAME = "Unmounted";
+  static readonly STATE_NAME = 'Unmounted';
 
   constructor(props: UnmountedProps) {
     super(props);

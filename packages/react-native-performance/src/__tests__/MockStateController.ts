@@ -1,4 +1,4 @@
-import { StateController } from "../state-machine";
+import {StateController} from '../state-machine';
 
 export default class MockStateController implements StateController {
   configureRenderTimeout = jest.fn();

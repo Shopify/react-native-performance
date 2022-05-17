@@ -1,16 +1,9 @@
-import React, { useState, useEffect } from "react";
-import {
-  PluginClient,
-  usePlugin,
-  createState,
-  useValue,
-  Layout,
-  styled,
-} from "flipper-plugin";
-import { Button } from "antd";
+import React, {useState, useEffect} from 'react';
+import {PluginClient, usePlugin, createState, useValue, Layout, styled} from 'flipper-plugin';
+import {Button} from 'antd';
 
-import ListTTIChart, { ListTTIData } from "./ListTTIChart";
-import BlankAreaChart, { BlankData } from "./BlankAreaChart";
+import ListTTIChart, {ListTTIData} from './ListTTIChart';
+import BlankAreaChart, {BlankData} from './BlankAreaChart';
 
 interface Events {
   newBlankData: BlankData;
@@ -21,34 +14,31 @@ interface Events {
 // API: https://fbflipper.com/docs/extending/flipper-plugin#pluginclient
 export const plugin = (client: PluginClient<Events>) => {
   const blankData = createState<Map<string, BlankData[]>>(new Map(), {
-    persist: "newBlankData",
+    persist: 'newBlankData',
   });
   const listTTIData = createState<Map<string, ListTTIData[]>>(new Map(), {
-    persist: "newListTTIData",
+    persist: 'newListTTIData',
   });
 
-  client.onMessage("newBlankData", (newData) => {
-    blankData.update((currentData) => {
+  client.onMessage('newBlankData', newData => {
+    blankData.update(currentData => {
       const currentListData = currentData.get(newData.listName) ?? [];
       currentData.set(newData.listName, [...currentListData, newData]);
     });
   });
 
-  client.onMessage("newListTTIData", (newListTTIData) => {
-    listTTIData.update((currentData) => {
+  client.onMessage('newListTTIData', newListTTIData => {
+    listTTIData.update(currentData => {
       const currentListData = currentData.get(newListTTIData.listName) ?? [];
-      currentData.set(newListTTIData.listName, [
-        ...currentListData,
-        newListTTIData,
-      ]);
+      currentData.set(newListTTIData.listName, [...currentListData, newListTTIData]);
     });
   });
 
-  return { blankData, listTTIData };
+  return {blankData, listTTIData};
 };
 
 const randomColor = () => {
-  let color = "#";
+  let color = '#';
   for (let i = 0; i < 6; i++) {
     const random = Math.random();
     const bit = (random * 16) | 0;
@@ -64,7 +54,7 @@ export const Component = () => {
   const [colors, setColors] = useState<Map<string, string>>(new Map());
   const listTTIData = useValue(instance.listTTIData);
   const listNames = Array.from(listTTIData.keys());
-  listNames.forEach((listNames) => {
+  listNames.forEach(listNames => {
     if (colors.has(listNames)) {
       return;
     }
@@ -77,9 +67,9 @@ export const Component = () => {
         <BlankAreaChart colors={colors} blankData={blankData} />
         <ListTTIChart listColors={colors} listTTIData={listTTIData} />
       </Layout.ScrollContainer>
-      <div style={{ display: "inline-block", margin: "auto" }}>
+      <div style={{display: 'inline-block', margin: 'auto'}}>
         <Button
-          style={{ marginBottom: "10px" }}
+          style={{marginBottom: '10px'}}
           onClick={() => {
             instance.blankData.set(new Map());
             instance.listTTIData.set(new Map());

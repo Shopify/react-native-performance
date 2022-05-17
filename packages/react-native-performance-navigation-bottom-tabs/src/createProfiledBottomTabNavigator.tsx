@@ -1,47 +1,37 @@
-import React, { useMemo, useCallback } from "react";
-import {
-  createBottomTabNavigator,
-  BottomTabBar,
-  BottomTabBarProps,
-} from "@react-navigation/bottom-tabs";
+import React, {useMemo, useCallback} from 'react';
+import {createBottomTabNavigator, BottomTabBar, BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import {
   GestureResponderEvent,
   useStartProfiler,
   useErrorHandler,
   DESTINATION_SCREEN_NAME_PLACEHOLDER,
   PerformanceProfilerError,
-} from "@shopify/react-native-performance";
-import {
-  View,
-  TouchableWithoutFeedbackProps,
-  TouchableWithoutFeedback,
-} from "react-native";
+} from '@shopify/react-native-performance';
+import {View, TouchableWithoutFeedbackProps, TouchableWithoutFeedback} from 'react-native';
 
-import FixedSizeStack from "./FixedSizeStack";
+import FixedSizeStack from './FixedSizeStack';
 
-export const DEFAULT_SOURCE_NAME = "BottomTabBar";
+export const DEFAULT_SOURCE_NAME = 'BottomTabBar';
 
-type UIEvent =
-  | React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  | GestureResponderEvent;
+type UIEvent = React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent;
 
 type InnerTabBarType = (props: BottomTabBarProps) => React.ReactNode;
 
-type TouchableProps = Omit<TouchableWithoutFeedbackProps, "onPress"> & {
+type TouchableProps = Omit<TouchableWithoutFeedbackProps, 'onPress'> & {
   children: React.ReactNode;
   onPress?: (event: UIEvent) => void;
 };
 
 export class MissingTabBarTimestampError extends PerformanceProfilerError {
-  readonly name = "MissingTabBarTimestampError";
+  readonly name = 'MissingTabBarTimestampError';
   readonly destinationScreen: string;
   constructor(destinationScreen: string) {
     super(
-      "Could not capture the native touch timestamp of the tab bar button. " +
-        "As a result, the TTI timer will not start when the navigation button was pressed. " +
-        "Instead, it will start when the JS Touchable.onPress code was executed. This may lead to imprecise TTI " +
-        "values (shorter than what the user actually perceived).",
-      "bug"
+      'Could not capture the native touch timestamp of the tab bar button. ' +
+        'As a result, the TTI timer will not start when the navigation button was pressed. ' +
+        'Instead, it will start when the JS Touchable.onPress code was executed. This may lead to imprecise TTI ' +
+        'values (shorter than what the user actually perceived).',
+      'bug',
     );
     this.destinationScreen = destinationScreen;
     Object.setPrototypeOf(this, MissingTabBarTimestampError.prototype);
@@ -65,19 +55,14 @@ function ProfiledTabBarComponent({
   const wrappedNavigation = useMemo(() => {
     const wrappedNavigation = Object.create(navigation);
 
-    const emit: typeof navigation.emit = (event) => {
-      if (event.type === "tabPress") {
+    const emit: typeof navigation.emit = event => {
+      if (event.type === 'tabPress') {
         const lastRecordedEvent = tabPressEventRecorder.pop();
-        if (
-          !lastRecordedEvent ||
-          !("timestamp" in lastRecordedEvent.nativeEvent)
-        ) {
-          errorHandler(
-            new MissingTabBarTimestampError(DESTINATION_SCREEN_NAME_PLACEHOLDER)
-          );
+        if (!lastRecordedEvent || !('timestamp' in lastRecordedEvent.nativeEvent)) {
+          errorHandler(new MissingTabBarTimestampError(DESTINATION_SCREEN_NAME_PLACEHOLDER));
         }
         const uiEvent =
-          lastRecordedEvent && "timestamp" in lastRecordedEvent.nativeEvent
+          lastRecordedEvent && 'timestamp' in lastRecordedEvent.nativeEvent
             ? {
                 nativeEvent: {
                   timestamp: lastRecordedEvent.nativeEvent.timestamp,
@@ -102,8 +87,8 @@ function ProfiledTabBarComponent({
 }
 
 export default function createProfiledBottomTabNavigator<
-  TParamList extends { [key: string]: { [key: string]: unknown } | undefined }
->({ source = DEFAULT_SOURCE_NAME }: { source?: string } = {}) {
+  TParamList extends {[key: string]: {[key: string]: unknown} | undefined},
+>({source = DEFAULT_SOURCE_NAME}: {source?: string} = {}) {
   const tabPressEventRecorder = new FixedSizeStack<UIEvent>(1);
   const Tab = createBottomTabNavigator<TParamList>();
 
@@ -125,35 +110,27 @@ export default function createProfiledBottomTabNavigator<
     );
   }
 
-  const ProfiledNavigator: typeof Tab["Navigator"] = (props) => {
+  const ProfiledNavigator: typeof Tab['Navigator'] = props => {
     return (
       <Tab.Navigator
         {...props}
-        tabBar={(tabBarProps) =>
-          buildProfiledTabBar({ ...tabBarProps, InnerTabBar: props.tabBar })
-        }
+        tabBar={tabBarProps => buildProfiledTabBar({...tabBarProps, InnerTabBar: props.tabBar})}
       />
     );
   };
 
-  function buildProfiledBottomTabBarButton<
-    T extends TouchableProps = TouchableProps
-  >({
+  function buildProfiledBottomTabBarButton<T extends TouchableProps = TouchableProps>({
     Touchable,
   }: {
     Touchable?: React.ComponentType<T>;
   } = {}) {
-    const ProfiledTouchable = ({ onPress, style, children, ...rest }: T) => {
+    const ProfiledTouchable = ({onPress, style, children, ...rest}: T) => {
       const profilerStartingOnPress = useCallback(
-        (
-          event:
-            | React.MouseEvent<HTMLAnchorElement, MouseEvent>
-            | GestureResponderEvent
-        ) => {
+        (event: React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent) => {
           tabPressEventRecorder.push(event);
           onPress?.(event);
         },
-        [onPress]
+        [onPress],
       );
 
       const TouchableComponent = Touchable ?? TouchableWithoutFeedback;
@@ -173,5 +150,5 @@ export default function createProfiledBottomTabNavigator<
   const ProfiledTab: typeof Tab = Object.create(Tab);
   ProfiledTab.Navigator = ProfiledNavigator;
 
-  return { Tab: ProfiledTab, buildProfiledBottomTabBarButton };
+  return {Tab: ProfiledTab, buildProfiledBottomTabBarButton};
 }

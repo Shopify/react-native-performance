@@ -11,11 +11,7 @@ interface ListsProfilerProps {
    * @param offsetEnd - Offset at the end of the list (bottom when the list is vertical)
    * @param listName - Name of the list that triggered the event defined in the list performance view
    */
-  onBlankArea?: (
-    offsetStart: number,
-    offsetEnd: number,
-    listName: string
-  ) => void;
+  onBlankArea?: (offsetStart: number, offsetEnd: number, listName: string) => void;
   children: JSX.Element;
 }
 

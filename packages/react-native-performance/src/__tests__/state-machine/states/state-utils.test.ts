@@ -1,27 +1,22 @@
-import OngoingOperationsRegistry from "../../../state-machine/OngoingOperationsRegistry";
-import { Started } from "../../../state-machine/states";
-import State, { StateProps } from "../../../state-machine/states/State";
+import OngoingOperationsRegistry from '../../../state-machine/OngoingOperationsRegistry';
+import {Started} from '../../../state-machine/states';
+import State, {StateProps} from '../../../state-machine/states/State';
 import {
   getFlowStartState,
   reverseReduce,
   reverseTraverse,
   UndefinedPreviousStateError,
-} from "../../../state-machine/states/state-utils";
-import { BridgedEventTimestampBuilder } from "../../../BridgedEventTimestamp";
+} from '../../../state-machine/states/state-utils';
+import {BridgedEventTimestampBuilder} from '../../../BridgedEventTimestamp';
 
 class MockState extends State {
-  static readonly STATE_NAME = "MockState";
+  static readonly STATE_NAME = 'MockState';
   readonly payload: string | undefined;
 
-  constructor({
-    payload,
-    ...rest
-  }: { payload?: string } & Omit<StateProps, "timestamp">) {
+  constructor({payload, ...rest}: {payload?: string} & Omit<StateProps, 'timestamp'>) {
     super({
       ...rest,
-      timestamp: new BridgedEventTimestampBuilder()
-        .nativeTimestamp(1000)
-        .build(),
+      timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
     });
     this.payload = payload;
   }
@@ -38,35 +33,35 @@ class MockState extends State {
   }
 }
 
-describe("state-machine/states/state-utils", () => {
-  describe("reverseTraverse", () => {
-    it("traverses the states", () => {
+describe('state-machine/states/state-utils', () => {
+  describe('reverseTraverse', () => {
+    it('traverses the states', () => {
       const state1 = new MockState({
-        destinationScreen: "some_screen",
-        componentInstanceId: "id",
+        destinationScreen: 'some_screen',
+        componentInstanceId: 'id',
         previousState: undefined,
-        snapshotId: Promise.resolve("1"),
+        snapshotId: Promise.resolve('1'),
         operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state2 = new MockState({
-        destinationScreen: "some_screen",
-        componentInstanceId: "id",
+        destinationScreen: 'some_screen',
+        componentInstanceId: 'id',
         previousState: state1,
-        snapshotId: Promise.resolve("2"),
+        snapshotId: Promise.resolve('2'),
         operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state3 = new MockState({
-        destinationScreen: "some_screen",
-        componentInstanceId: "id",
+        destinationScreen: 'some_screen',
+        componentInstanceId: 'id',
         previousState: state2,
-        snapshotId: Promise.resolve("3"),
+        snapshotId: Promise.resolve('3'),
         operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       let actualVisitedStates = new Array<State>();
-      reverseTraverse(state3, (currentPass) => {
+      reverseTraverse(state3, currentPass => {
         actualVisitedStates.push(currentPass);
       });
 
@@ -74,7 +69,7 @@ describe("state-machine/states/state-utils", () => {
 
       actualVisitedStates = [];
 
-      reverseTraverse(state2, (currentPass) => {
+      reverseTraverse(state2, currentPass => {
         actualVisitedStates.push(currentPass);
       });
 
@@ -82,40 +77,40 @@ describe("state-machine/states/state-utils", () => {
 
       actualVisitedStates = [];
 
-      reverseTraverse(state1, (currentPass) => {
+      reverseTraverse(state1, currentPass => {
         actualVisitedStates.push(currentPass);
       });
 
       expect(actualVisitedStates).toStrictEqual([state1]);
     });
 
-    it("stops traversing when the operation returns true", () => {
+    it('stops traversing when the operation returns true', () => {
       const state1 = new MockState({
-        destinationScreen: "some_screen",
-        componentInstanceId: "id",
+        destinationScreen: 'some_screen',
+        componentInstanceId: 'id',
         previousState: undefined,
-        snapshotId: Promise.resolve("1"),
+        snapshotId: Promise.resolve('1'),
         operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state2 = new MockState({
-        destinationScreen: "some_screen",
-        componentInstanceId: "id",
+        destinationScreen: 'some_screen',
+        componentInstanceId: 'id',
         previousState: state1,
-        snapshotId: Promise.resolve("2"),
+        snapshotId: Promise.resolve('2'),
         operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state3 = new MockState({
-        destinationScreen: "some_screen",
-        componentInstanceId: "id",
+        destinationScreen: 'some_screen',
+        componentInstanceId: 'id',
         previousState: state2,
-        snapshotId: Promise.resolve("3"),
+        snapshotId: Promise.resolve('3'),
         operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const actualVisitedStates = new Array<State>();
-      reverseTraverse(state3, (currentPass) => {
+      reverseTraverse(state3, currentPass => {
         actualVisitedStates.push(currentPass);
         if (currentPass === state2) {
           return true;
@@ -125,33 +120,33 @@ describe("state-machine/states/state-utils", () => {
       expect(actualVisitedStates).toStrictEqual([state3, state2]);
     });
 
-    it("continues traversing when the operation returns false", () => {
+    it('continues traversing when the operation returns false', () => {
       const state1 = new MockState({
-        destinationScreen: "some_screen",
-        componentInstanceId: "id",
+        destinationScreen: 'some_screen',
+        componentInstanceId: 'id',
         previousState: undefined,
-        snapshotId: Promise.resolve("1"),
+        snapshotId: Promise.resolve('1'),
         operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state2 = new MockState({
-        destinationScreen: "some_screen",
-        componentInstanceId: "id",
+        destinationScreen: 'some_screen',
+        componentInstanceId: 'id',
         previousState: state1,
-        snapshotId: Promise.resolve("2"),
+        snapshotId: Promise.resolve('2'),
         operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state3 = new MockState({
-        destinationScreen: "some_screen",
-        componentInstanceId: "id",
+        destinationScreen: 'some_screen',
+        componentInstanceId: 'id',
         previousState: state2,
-        snapshotId: Promise.resolve("3"),
+        snapshotId: Promise.resolve('3'),
         operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const actualVisitedStates = new Array<State>();
-      reverseTraverse(state3, (currentPass) => {
+      reverseTraverse(state3, currentPass => {
         actualVisitedStates.push(currentPass);
         return false;
       });
@@ -160,32 +155,32 @@ describe("state-machine/states/state-utils", () => {
     });
   });
 
-  describe("reverseReduce", () => {
-    it("reduces the entire state history", () => {
+  describe('reverseReduce', () => {
+    it('reduces the entire state history', () => {
       const state1 = new MockState({
-        destinationScreen: "some_screen",
-        componentInstanceId: "id",
+        destinationScreen: 'some_screen',
+        componentInstanceId: 'id',
         previousState: undefined,
-        payload: "1",
-        snapshotId: Promise.resolve("1"),
+        payload: '1',
+        snapshotId: Promise.resolve('1'),
         operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state2 = new MockState({
-        destinationScreen: "some_screen",
-        componentInstanceId: "id",
+        destinationScreen: 'some_screen',
+        componentInstanceId: 'id',
         previousState: state1,
-        payload: "2",
-        snapshotId: Promise.resolve("2"),
+        payload: '2',
+        snapshotId: Promise.resolve('2'),
         operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state3 = new MockState({
-        destinationScreen: "some_screen",
-        componentInstanceId: "id",
+        destinationScreen: 'some_screen',
+        componentInstanceId: 'id',
         previousState: state2,
-        payload: "3",
-        snapshotId: Promise.resolve("3"),
+        payload: '3',
+        snapshotId: Promise.resolve('3'),
         operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
@@ -198,15 +193,15 @@ describe("state-machine/states/state-utils", () => {
             throw new Error(`Unknown state in chain: ${state}.`);
           }
         },
-        ""
+        '',
       );
 
-      expect(reduced).toBe("321");
+      expect(reduced).toBe('321');
     });
   });
 
-  describe("getFlowStartState", () => {
-    it("returns this if this is a flow start state", () => {
+  describe('getFlowStartState', () => {
+    it('returns this if this is a flow start state', () => {
       const state1 = new Started({} as any);
       const state2 = new Started({} as any);
 
@@ -214,12 +209,12 @@ describe("state-machine/states/state-utils", () => {
       expect(getFlowStartState(state2)).toBe(state2);
     });
 
-    it("throws an error if a non-flow start state has an undefined previous state", () => {
+    it('throws an error if a non-flow start state has an undefined previous state', () => {
       const state1 = new MockState({
-        destinationScreen: "some_screen",
-        componentInstanceId: "id",
+        destinationScreen: 'some_screen',
+        componentInstanceId: 'id',
         previousState: undefined,
-        snapshotId: Promise.resolve("1"),
+        snapshotId: Promise.resolve('1'),
         operationsSnapshot: new OngoingOperationsRegistry(),
       });
 

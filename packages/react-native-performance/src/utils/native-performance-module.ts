@@ -1,8 +1,8 @@
-import { NativeModules } from "react-native";
+import {NativeModules} from 'react-native';
 
-import { NativeModuleNotFoundError } from "../exceptions";
+import {NativeModuleNotFoundError} from '../exceptions';
 
-const NATIVE_MODULE_NAME = "Performance";
+const NATIVE_MODULE_NAME = 'Performance';
 
 class NativePerformanceModule {
   constructor() {
@@ -19,9 +19,7 @@ class NativePerformanceModule {
   }
 
   getNativeStartupTimestamp() {
-    return NativeModules[
-      NATIVE_MODULE_NAME
-    ].getNativeStartupTimestamp() as Promise<string>;
+    return NativeModules[NATIVE_MODULE_NAME].getNativeStartupTimestamp() as Promise<string>;
   }
 
   getNativeUuid() {
@@ -30,23 +28,17 @@ class NativePerformanceModule {
 }
 
 export async function getNativeTime() {
-  const {
-    timeSinceEpochMillis: timeSinceEpochMillisString,
-    uptimeMillis: uptimeMillisString,
-  } = await new NativePerformanceModule().getNativeTime();
+  const {timeSinceEpochMillis: timeSinceEpochMillisString, uptimeMillis: uptimeMillisString} =
+    await new NativePerformanceModule().getNativeTime();
 
-  const nativeTimeSinceEpochMillis = Number.parseFloat(
-    timeSinceEpochMillisString
-  );
+  const nativeTimeSinceEpochMillis = Number.parseFloat(timeSinceEpochMillisString);
   const nativeUptimeMillis = Number.parseFloat(uptimeMillisString);
 
-  return { nativeTimeSinceEpochMillis, nativeUptimeMillis };
+  return {nativeTimeSinceEpochMillis, nativeUptimeMillis};
 }
 
 export async function getNativeStartupTimestamp() {
-  return Number.parseFloat(
-    await new NativePerformanceModule().getNativeStartupTimestamp()
-  );
+  return Number.parseFloat(await new NativePerformanceModule().getNativeStartupTimestamp());
 }
 
 export async function getNativeUuid() {

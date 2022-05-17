@@ -1,10 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import {useCallback, useEffect, useState} from 'react';
 
-export default function useCountdownTimer({
-  durationSeconds,
-}: {
-  durationSeconds: number;
-}): [number, () => void] {
+export default function useCountdownTimer({durationSeconds}: {durationSeconds: number}): [number, () => void] {
   const [secondsLeft, setSecondsLeft] = useState(durationSeconds);
   const [restartCounter, setRestartCounter] = useState(0);
 
@@ -12,7 +8,7 @@ export default function useCountdownTimer({
     setSecondsLeft(durationSeconds);
 
     const intervalId = setInterval(() => {
-      setSecondsLeft((currentSecondsLeft) => {
+      setSecondsLeft(currentSecondsLeft => {
         const newSecondsLeft = currentSecondsLeft - 1;
         if (newSecondsLeft <= 0) {
           clearInterval(intervalId);
@@ -27,7 +23,7 @@ export default function useCountdownTimer({
   }, [durationSeconds, restartCounter]);
 
   const restart = useCallback(() => {
-    setRestartCounter((counter) => counter + 1);
+    setRestartCounter(counter => counter + 1);
     setSecondsLeft(durationSeconds);
   }, [durationSeconds]);
 

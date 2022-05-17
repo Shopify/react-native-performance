@@ -1,9 +1,9 @@
-import State, { StateProps } from "./State";
+import State, {StateProps} from './State';
 
 export interface MountedProps extends StateProps {}
 
 export default class Mounted extends State {
-  static readonly STATE_NAME = "Mounted";
+  static readonly STATE_NAME = 'Mounted';
 
   constructor(props: MountedProps) {
     super(props);

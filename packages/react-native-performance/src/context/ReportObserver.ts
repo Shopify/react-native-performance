@@ -1,4 +1,4 @@
-import { RenderPassReport } from "../RenderPassReport";
+import {RenderPassReport} from '../RenderPassReport';
 
 type ReportObserver = (report: RenderPassReport) => void;
 

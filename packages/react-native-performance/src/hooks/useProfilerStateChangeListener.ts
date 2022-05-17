@@ -1,8 +1,8 @@
-import { useCallback, useEffect } from "react";
+import {useCallback, useEffect} from 'react';
 
-import { useStateController, OnStateChangedListener } from "../state-machine";
-import { State } from "../state-machine/states";
-import { matchesPattern } from "../utils";
+import {useStateController, OnStateChangedListener} from '../state-machine';
+import {State} from '../state-machine/states';
+import {matchesPattern} from '../utils';
 
 interface Props {
   destinationScreen?: RegExp | string;
@@ -10,11 +10,11 @@ interface Props {
 }
 
 export default function useProfilerStateChangeListener({
-  destinationScreen: destinationScreenToReportPattern = new RegExp("^.*$"),
+  destinationScreen: destinationScreenToReportPattern = new RegExp('^.*$'),
   onStateChanged,
 }: Props) {
   const destinationScreenSource =
-    typeof destinationScreenToReportPattern === "string"
+    typeof destinationScreenToReportPattern === 'string'
       ? destinationScreenToReportPattern
       : destinationScreenToReportPattern.source;
 
@@ -29,13 +29,11 @@ export default function useProfilerStateChangeListener({
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [destinationScreenSource, onStateChanged]
+    [destinationScreenSource, onStateChanged],
   );
 
   useEffect(() => {
-    const currentState = stateController.getCurrentStateFor(
-      destinationScreenToReportPattern
-    );
+    const currentState = stateController.getCurrentStateFor(destinationScreenToReportPattern);
     if (currentState !== undefined) {
       onStateChanged(currentState);
     }
@@ -44,10 +42,5 @@ export default function useProfilerStateChangeListener({
       stateController.removeStateChangedListener(onStateChangedListener);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    stateController,
-    onStateChangedListener,
-    onStateChanged,
-    destinationScreenSource,
-  ]);
+  }, [stateController, onStateChangedListener, onStateChanged, destinationScreenSource]);
 }

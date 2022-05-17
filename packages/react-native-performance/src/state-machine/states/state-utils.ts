@@ -1,16 +1,13 @@
-import { PerformanceProfilerError } from "../../exceptions";
+import {PerformanceProfilerError} from '../../exceptions';
 
-import Started from "./Started";
-import State from "./State";
+import Started from './Started';
+import State from './State';
 
 export class UndefinedPreviousStateError extends PerformanceProfilerError {
-  readonly name = "UndefinedPreviousStateError";
+  readonly name = 'UndefinedPreviousStateError';
   readonly destinationScreen: string;
   constructor(destinationScreen: string, state: State) {
-    super(
-      `Only flow start states are allowed to have an undefined previous state. ${state}`,
-      "bug"
-    );
+    super(`Only flow start states are allowed to have an undefined previous state. ${state}`, 'bug');
     this.destinationScreen = destinationScreen;
     Object.setPrototypeOf(this, UndefinedPreviousStateError.prototype);
   }
@@ -36,12 +33,8 @@ function normalize(options: TraversalOptions | undefined) {
   };
 }
 
-export function reverseTraverse(
-  start: State,
-  operation: (_: State) => boolean | void,
-  options?: TraversalOptions
-) {
-  const { stopAtStartState } = normalize(options);
+export function reverseTraverse(start: State, operation: (_: State) => boolean | void, options?: TraversalOptions) {
+  const {stopAtStartState} = normalize(options);
   let current: State | undefined = start;
   while (current !== undefined) {
     const abort = operation(current);
@@ -59,15 +52,15 @@ export function reverseReduce<T>(
   start: State,
   operation: (currentState: State, reducedValue: T) => T,
   initial: T,
-  options?: TraversalOptions
+  options?: TraversalOptions,
 ): T {
   let reduced = initial;
   reverseTraverse(
     start,
-    (state) => {
+    state => {
       reduced = operation(state, reduced);
     },
-    options
+    options,
   );
   return reduced;
 }

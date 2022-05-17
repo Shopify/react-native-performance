@@ -1,4 +1,4 @@
-import StateController from "./StateController";
+import StateController from './StateController';
 
 export default class DisabledStateController implements StateController {
   readonly isEnabled = false;

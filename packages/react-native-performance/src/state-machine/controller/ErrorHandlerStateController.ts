@@ -1,19 +1,13 @@
-import GestureResponderEvent from "../../GestureResponderEvent";
-import { ErrorHandler } from "../../utils";
+import GestureResponderEvent from '../../GestureResponderEvent';
+import {ErrorHandler} from '../../utils';
 
-import StateController, {
-  OnStateChangedListener,
-  RenderTimeoutConfig,
-} from "./StateController";
+import StateController, {OnStateChangedListener, RenderTimeoutConfig} from './StateController';
 
 export default class ErrorHandlerStateController implements StateController {
   readonly innerStateController: StateController;
   readonly errorHandler: ErrorHandler;
 
-  constructor(
-    innerStateController: StateController,
-    errorHandler: ErrorHandler
-  ) {
+  constructor(innerStateController: StateController, errorHandler: ErrorHandler) {
     this.innerStateController = innerStateController;
     this.errorHandler = errorHandler;
   }
@@ -55,10 +49,7 @@ export default class ErrorHandlerStateController implements StateController {
     }
   }
 
-  onScreenMounted(props: {
-    destinationScreen: string;
-    componentInstanceId: string;
-  }) {
+  onScreenMounted(props: {destinationScreen: string; componentInstanceId: string}) {
     try {
       this.innerStateController.onScreenMounted(props);
     } catch (error) {
@@ -74,10 +65,7 @@ export default class ErrorHandlerStateController implements StateController {
     }
   }
 
-  onScreenUnmounted(props: {
-    destinationScreen: string;
-    componentInstanceId: string;
-  }) {
+  onScreenUnmounted(props: {destinationScreen: string; componentInstanceId: string}) {
     try {
       this.innerStateController.onScreenUnmounted(props);
     } catch (error) {

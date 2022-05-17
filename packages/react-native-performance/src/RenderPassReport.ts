@@ -4,11 +4,11 @@ export interface ResourceAcquisitionStatus {
     [operationName: string]:
       | {
           durationMillis: number;
-          status: "completed" | "cancelled";
+          status: 'completed' | 'cancelled';
         }
       | {
           durationMillis?: never;
-          status: "ongoing";
+          status: 'ongoing';
         };
   };
 }
@@ -51,7 +51,4 @@ export interface SnapshotInfo {
   resourceAcquisitionStatus: ResourceAcquisitionStatus;
 }
 
-export type RenderPassReport = SnapshotInfo &
-  FlowInfo &
-  RenderPassStartInfo &
-  RenderPassEndInfo;
+export type RenderPassReport = SnapshotInfo & FlowInfo & RenderPassStartInfo & RenderPassEndInfo;

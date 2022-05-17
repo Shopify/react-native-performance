@@ -1,14 +1,14 @@
-import { useState } from "react";
+import {useState} from 'react';
 
-import { State } from "../state-machine/states";
+import {State} from '../state-machine/states';
 
-import useProfilerStateChangeListener from "./useProfilerStateChangeListener";
+import useProfilerStateChangeListener from './useProfilerStateChangeListener';
 
 interface Props {
   destinationScreen?: RegExp | string;
 }
 
-export default function useProfilerState({ destinationScreen }: Props) {
+export default function useProfilerState({destinationScreen}: Props) {
   const [state, setState] = useState<State | undefined>(undefined);
   useProfilerStateChangeListener({
     destinationScreen,
