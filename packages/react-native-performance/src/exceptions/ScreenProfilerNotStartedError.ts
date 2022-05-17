@@ -1,9 +1,9 @@
-import { DOCUMENTATION_LINKS } from "../constants";
+import {DOCUMENTATION_LINKS} from '../constants';
 
-import PerformanceProfilerError from "./PerformanceProfilerError";
+import PerformanceProfilerError from './PerformanceProfilerError';
 
 export default class ScreenProfilerNotStartedError extends PerformanceProfilerError {
-  readonly name = "ScreenProfilerNotStartedError";
+  readonly name = 'ScreenProfilerNotStartedError';
   readonly destinationScreen: string;
 
   constructor(destinationScreen: string, componentInstanceId: string) {
@@ -12,7 +12,7 @@ export default class ScreenProfilerNotStartedError extends PerformanceProfilerEr
         `while a subsequent render flow event was (render pass start, data operation profiling, etc.). You seem to have used some profiling API ` +
         "but likely forgot to use the 'useStartProfiler' hook to start the flow. Read the usage here: " +
         `${DOCUMENTATION_LINKS.measuringTTITimes}.`,
-      "fatal"
+      'fatal',
     );
     this.destinationScreen = destinationScreen;
     Object.setPrototypeOf(this, ScreenProfilerNotStartedError.prototype);

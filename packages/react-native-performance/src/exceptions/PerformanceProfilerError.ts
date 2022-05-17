@@ -3,7 +3,7 @@
  *
  * `fatal` errors are thrown when we detect incorrect usage of the library and are passed to `errorHandler` in `PerformanceProfiler`.
  */
-export type PerformanceProfilerErrorType = "fatal" | "bug";
+export type PerformanceProfilerErrorType = 'fatal' | 'bug';
 
 export default abstract class PerformanceProfilerError extends Error {
   readonly type: PerformanceProfilerErrorType;

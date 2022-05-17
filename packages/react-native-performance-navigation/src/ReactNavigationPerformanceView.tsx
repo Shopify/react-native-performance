@@ -1,16 +1,12 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import type { ComponentProps } from "react";
-import {
-  PerformanceMeasureView,
-  inMemoryCounter,
-  useStateController,
-} from "@shopify/react-native-performance";
-import { useNavigation } from "@react-navigation/native";
-import { useFocusEffect } from "@react-navigation/core";
-import type { ParamListBase } from "@react-navigation/native";
-import type { StackNavigationProp } from "@react-navigation/stack";
+import React, {useEffect, useState, useRef, useCallback} from 'react';
+import type {ComponentProps} from 'react';
+import {PerformanceMeasureView, inMemoryCounter, useStateController} from '@shopify/react-native-performance';
+import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/core';
+import type {ParamListBase} from '@react-navigation/native';
+import type {StackNavigationProp} from '@react-navigation/stack';
 
-const TRANSITION_END = "transition-end";
+const TRANSITION_END = 'transition-end';
 
 export type Props = ComponentProps<typeof PerformanceMeasureView>;
 
@@ -19,10 +15,9 @@ export type Props = ComponentProps<typeof PerformanceMeasureView>;
  * If the screen is not mounted in a react-navigation context, it might misbehave and is therefore not recommended.
  */
 export const ReactNavigationPerformanceView = (props: Props) => {
-  const { addListener, getState } =
-    useNavigation<StackNavigationProp<ParamListBase>>();
+  const {addListener, getState} = useNavigation<StackNavigationProp<ParamListBase>>();
   // Stack is the only navigation type that has a `transitionEnd` event.
-  const isStack = getState().type === "stack";
+  const isStack = getState().type === 'stack';
 
   const [transitionEnded, setTransitionEnded] = useState(!isStack);
   // We only want to report `TRANSITION_END` render pass once.
@@ -34,14 +29,14 @@ export const ReactNavigationPerformanceView = (props: Props) => {
   useFocusEffect(
     useCallback(() => {
       stateController.stopFlowIfNeeded(componentInstanceId);
-    }, [stateController, componentInstanceId])
+    }, [stateController, componentInstanceId]),
   );
 
   useEffect(() => {
     if (!isStack) {
       return;
     }
-    return addListener("transitionEnd", () => {
+    return addListener('transitionEnd', () => {
       setTransitionEnded(true);
     });
   }, [addListener, isStack]);
@@ -72,9 +67,9 @@ export const ReactNavigationPerformanceView = (props: Props) => {
   // and subsequent render passes with a different `renderPassName` will still be reported.
   // Check out this link for more details: https://github.com/Shopify/react-native-performance/pull/363
   if (shouldReportTransitionEnd) {
-    renderProps.current = { renderPassName: TRANSITION_END, interactive };
+    renderProps.current = {renderPassName: TRANSITION_END, interactive};
   } else if (lastRenderPassName.current !== props.renderPassName) {
-    renderProps.current = { renderPassName: props.renderPassName, interactive };
+    renderProps.current = {renderPassName: props.renderPassName, interactive};
   }
   lastRenderPassName.current = props.renderPassName;
 

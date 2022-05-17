@@ -1,1 +1,1 @@
-export { default as createProfiledBottomTabNavigator } from "./createProfiledBottomTabNavigator";
+export {default as createProfiledBottomTabNavigator} from './createProfiledBottomTabNavigator';

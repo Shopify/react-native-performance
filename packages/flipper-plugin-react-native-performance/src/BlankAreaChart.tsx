@@ -1,15 +1,7 @@
-import React from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  LineChart,
-  Line,
-} from "recharts";
+import React from 'react';
+import {BarChart, Bar, XAxis, YAxis, Tooltip, LineChart, Line} from 'recharts';
 
-import Header from "./Header";
+import Header from './Header';
 
 export interface BlankData {
   listName: string;
@@ -21,15 +13,15 @@ interface BlankAreaChartProps {
   blankData: Map<string, BlankData[]>;
 }
 
-const BlankAreaChart = ({ colors, blankData }: BlankAreaChartProps) => {
+const BlankAreaChart = ({colors, blankData}: BlankAreaChartProps) => {
   const listNames = Array.from(blankData.keys());
 
-  const averageData: any = Array.from(blankData.keys()).map((listName) => {
+  const averageData: any = Array.from(blankData.keys()).map(listName => {
     const listBlankData = blankData.get(listName) ?? [];
-    const sum: number = listBlankData.reduce((sum, { offset }) => {
+    const sum: number = listBlankData.reduce((sum, {offset}) => {
       return sum + offset;
     }, 0);
-    const average: any = { listName };
+    const average: any = {listName};
     average[listName] = sum / listBlankData.length;
     return average;
   });
@@ -40,12 +32,12 @@ const BlankAreaChart = ({ colors, blankData }: BlankAreaChartProps) => {
       <LineChart width={730} height={250}>
         <XAxis dataKey="screenName" />
         <YAxis
-          tickFormatter={(millis) => {
+          tickFormatter={millis => {
             return `${millis} px`;
           }}
         />
         <Tooltip />
-        {listNames.map((listName) => {
+        {listNames.map(listName => {
           return (
             <Line
               key={listName}
@@ -64,20 +56,13 @@ const BlankAreaChart = ({ colors, blankData }: BlankAreaChartProps) => {
       <BarChart width={400} height={400} data={averageData}>
         <XAxis dataKey="listName" />
         <YAxis
-          tickFormatter={(millis) => {
+          tickFormatter={millis => {
             return `${millis} px`;
           }}
         />
         <Tooltip />
-        {listNames.map((listName) => {
-          return (
-            <Bar
-              dataKey={listName}
-              key={listName}
-              stackId="a"
-              fill={colors.get(listName)}
-            />
-          );
+        {listNames.map(listName => {
+          return <Bar dataKey={listName} key={listName} stackId="a" fill={colors.get(listName)} />;
         })}
       </BarChart>
     </>

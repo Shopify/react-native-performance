@@ -1,1 +1,1 @@
-export { default as PerformanceProfiler } from "./PerformanceProfiler";
+export {default as PerformanceProfiler} from './PerformanceProfiler';

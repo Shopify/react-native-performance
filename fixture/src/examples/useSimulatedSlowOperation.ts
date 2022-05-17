@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import {useCallback} from 'react';
 
 export default function useSimulatedSlowOperation<T>({
   delaySeconds,
@@ -8,7 +8,7 @@ export default function useSimulatedSlowOperation<T>({
   result: T;
 }): () => Promise<T> {
   return useCallback(() => {
-    const promise = new Promise<T>((resolve) => {
+    const promise = new Promise<T>(resolve => {
       setTimeout(() => {
         resolve(result);
       }, delaySeconds * 1000);

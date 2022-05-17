@@ -46,7 +46,7 @@ The [fixture](/fixture) directory contains a native iOS and Android project with
 
 To run the app locally:
 
-- `yarn bootstrap`
+- `yarn up`
 - `yarn ios` or `yarn android` to launch iOS or Android app.
 
 ## Contributing

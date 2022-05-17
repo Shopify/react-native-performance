@@ -1,26 +1,25 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { renderHook, WrapperComponent } from "@testing-library/react-hooks";
+import {renderHook, WrapperComponent} from '@testing-library/react-hooks';
 
-import useStartProfiler from "../../hooks/useStartProfiler";
-import { StateController } from "../../state-machine";
-import profilerTestWrapper from "../profilerTestWrapper";
+import useStartProfiler from '../../hooks/useStartProfiler';
+import {StateController} from '../../state-machine';
+import profilerTestWrapper from '../profilerTestWrapper';
 
-describe("hooks/useStartProfiler", () => {
+describe('hooks/useStartProfiler', () => {
   let mockStateController: StateController;
   let wrapper: WrapperComponent<any>;
 
   beforeEach(() => {
-    ({ wrapper, stateController: mockStateController } = profilerTestWrapper());
+    ({wrapper, stateController: mockStateController} = profilerTestWrapper());
   });
 
-  it("calls stateController.onNavigationStarted when reset is undefined", () => {
-    const start = renderHook(() => useStartProfiler(), { wrapper }).result
-      .current;
+  it('calls stateController.onNavigationStarted when reset is undefined', () => {
+    const start = renderHook(() => useStartProfiler(), {wrapper}).result.current;
 
     expect(mockStateController.onNavigationStarted).not.toHaveBeenCalled();
 
     start({
-      source: "SomeSourceScreen",
+      source: 'SomeSourceScreen',
       uiEvent: {
         nativeEvent: {
           timestamp: 1000,
@@ -30,7 +29,7 @@ describe("hooks/useStartProfiler", () => {
 
     expect(mockStateController.onNavigationStarted).toHaveBeenCalledTimes(1);
     expect(mockStateController.onNavigationStarted).toHaveBeenCalledWith({
-      sourceScreen: "SomeSourceScreen",
+      sourceScreen: 'SomeSourceScreen',
       uiEvent: {
         nativeEvent: {
           timestamp: 1000,
@@ -39,15 +38,14 @@ describe("hooks/useStartProfiler", () => {
     });
   });
 
-  it("calls stateController.onNavigationStarted when reset is explicitly set to false", () => {
-    const start = renderHook(() => useStartProfiler(), { wrapper }).result
-      .current;
+  it('calls stateController.onNavigationStarted when reset is explicitly set to false', () => {
+    const start = renderHook(() => useStartProfiler(), {wrapper}).result.current;
 
     // @ts-ignore
     expect(mockStateController.onNavigationStarted).not.toHaveBeenCalled();
 
     start({
-      source: "SomeSourceScreen",
+      source: 'SomeSourceScreen',
       uiEvent: {
         nativeEvent: {
           timestamp: 1000,
@@ -58,7 +56,7 @@ describe("hooks/useStartProfiler", () => {
 
     expect(mockStateController.onNavigationStarted).toHaveBeenCalledTimes(1);
     expect(mockStateController.onNavigationStarted).toHaveBeenCalledWith({
-      sourceScreen: "SomeSourceScreen",
+      sourceScreen: 'SomeSourceScreen',
       uiEvent: {
         nativeEvent: {
           timestamp: 1000,
@@ -67,52 +65,49 @@ describe("hooks/useStartProfiler", () => {
     });
   });
 
-  it("calls stateController.onFlowReset when the flow is reset", () => {
-    const start = renderHook(() => useStartProfiler(), { wrapper }).result
-      .current;
+  it('calls stateController.onFlowReset when the flow is reset', () => {
+    const start = renderHook(() => useStartProfiler(), {wrapper}).result.current;
     expect(mockStateController.onFlowReset).not.toHaveBeenCalled();
     start({
-      source: "SomeSourceScreen",
-      destination: "SomeDestinationScreen",
+      source: 'SomeSourceScreen',
+      destination: 'SomeDestinationScreen',
       reset: true,
     });
     expect(mockStateController.onFlowReset).toHaveBeenCalledTimes(1);
     expect(mockStateController.onFlowReset).toHaveBeenCalledWith({
-      sourceScreen: "SomeSourceScreen",
-      destinationScreen: "SomeDestinationScreen",
+      sourceScreen: 'SomeSourceScreen',
+      destinationScreen: 'SomeDestinationScreen',
     });
   });
 
-  it("provides the renderTimeoutMillisOverride when one is provided on navigation start", () => {
-    const start = renderHook(() => useStartProfiler(), { wrapper }).result
-      .current;
+  it('provides the renderTimeoutMillisOverride when one is provided on navigation start', () => {
+    const start = renderHook(() => useStartProfiler(), {wrapper}).result.current;
     expect(mockStateController.onNavigationStarted).not.toHaveBeenCalled();
     start({
-      source: "SomeSourceScreen",
+      source: 'SomeSourceScreen',
       renderTimeoutMillisOverride: 34,
       reset: false,
     });
     expect(mockStateController.onNavigationStarted).toHaveBeenCalledTimes(1);
     expect(mockStateController.onNavigationStarted).toHaveBeenCalledWith({
-      sourceScreen: "SomeSourceScreen",
+      sourceScreen: 'SomeSourceScreen',
       renderTimeoutMillisOverride: 34,
     });
   });
 
-  it("provides the renderTimeoutMillisOverride when one is provided on flow reset", () => {
-    const start = renderHook(() => useStartProfiler(), { wrapper }).result
-      .current;
+  it('provides the renderTimeoutMillisOverride when one is provided on flow reset', () => {
+    const start = renderHook(() => useStartProfiler(), {wrapper}).result.current;
     expect(mockStateController.onFlowReset).not.toHaveBeenCalled();
     start({
-      source: "SomeSourceScreen",
-      destination: "SomeSourceScreen",
+      source: 'SomeSourceScreen',
+      destination: 'SomeSourceScreen',
       renderTimeoutMillisOverride: 34,
       reset: true,
     });
     expect(mockStateController.onFlowReset).toHaveBeenCalledTimes(1);
     expect(mockStateController.onFlowReset).toHaveBeenCalledWith({
-      sourceScreen: "SomeSourceScreen",
-      destinationScreen: "SomeSourceScreen",
+      sourceScreen: 'SomeSourceScreen',
+      destinationScreen: 'SomeSourceScreen',
       renderTimeoutMillisOverride: 34,
     });
   });

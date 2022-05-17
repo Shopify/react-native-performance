@@ -1,12 +1,12 @@
-import React, { useRef, useContext, useCallback } from "react";
+import React, {useRef, useContext, useCallback} from 'react';
 
-import { ListsProfilerContext } from "./ListsProfilerContext";
+import {ListsProfilerContext} from './ListsProfilerContext';
 import {
   FlatListPerformanceViewNativeComponent,
   OnBlankAreaEvent,
   OnInteractiveEvent,
-} from "./FlatListPerformanceViewNativeComponent";
-import ListsProfilerProps from "./ListsProfilerProps";
+} from './FlatListPerformanceViewNativeComponent';
+import ListsProfilerProps from './ListsProfilerProps';
 
 interface FlatListPerformanceViewProps {
   /**
@@ -28,23 +28,19 @@ const FlatListPerformanceView = ({
   const time = useRef(Date.now()).current;
   const listsProfilerController = useContext(ListsProfilerContext);
   const onInteractiveCallback = useCallback(
-    ({ nativeEvent }: OnInteractiveEvent) => {
+    ({nativeEvent}: OnInteractiveEvent) => {
       const tti = nativeEvent.timestamp - time;
       onInteractive(tti, listName);
       listsProfilerController.onInteractive(tti, listName);
     },
-    [listsProfilerController, onInteractive, listName, time]
+    [listsProfilerController, onInteractive, listName, time],
   );
   const onBlankAreaCallback = useCallback(
-    ({ nativeEvent }: OnBlankAreaEvent) => {
+    ({nativeEvent}: OnBlankAreaEvent) => {
       onBlankArea(nativeEvent.offsetStart, nativeEvent.offsetEnd, listName);
-      listsProfilerController.onBlankArea(
-        nativeEvent.offsetStart,
-        nativeEvent.offsetEnd,
-        listName
-      );
+      listsProfilerController.onBlankArea(nativeEvent.offsetStart, nativeEvent.offsetEnd, listName);
     },
-    [onBlankArea, listsProfilerController, listName]
+    [onBlankArea, listsProfilerController, listName],
   );
   return (
     <FlatListPerformanceViewNativeComponent

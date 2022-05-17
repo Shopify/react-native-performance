@@ -1,12 +1,12 @@
-import React, { ReactNode, useEffect, useState, useRef } from "react";
-import { InteractionManager, StyleSheet } from "react-native";
+import React, {ReactNode, useEffect, useState, useRef} from 'react';
+import {InteractionManager, StyleSheet} from 'react-native';
 
-import { inMemoryCounter } from "./utils";
-import { getPerformanceMarker } from "./PerformanceMarker";
-import { StateController, useStateController } from "./state-machine";
+import {inMemoryCounter} from './utils';
+import {getPerformanceMarker} from './PerformanceMarker';
+import {StateController, useStateController} from './state-machine';
 
-export const DEFAULT_NON_INTERACTIVE_RENDER_PASS_NAME = "loading";
-export const DEFAULT_INTERACTIVE_RENDER_PASS_NAME = "interactive";
+export const DEFAULT_NON_INTERACTIVE_RENDER_PASS_NAME = 'loading';
+export const DEFAULT_INTERACTIVE_RENDER_PASS_NAME = 'interactive';
 
 const DEFAULT_INTERACTIVE = false;
 
@@ -31,19 +31,13 @@ type SlowRenderOptimizeProps =
       slowRenderPlaceholder?: never;
     };
 
-type PerformanceMeasureViewProps = BaseProps &
-  RenderStateProps &
-  SlowRenderOptimizeProps;
+type PerformanceMeasureViewProps = BaseProps & RenderStateProps & SlowRenderOptimizeProps;
 
-const normalizeRenderState = (
-  props: RenderStateProps
-): { interactive: boolean; renderPassName: string } => {
+const normalizeRenderState = (props: RenderStateProps): {interactive: boolean; renderPassName: string} => {
   const interactive = props.interactive ?? DEFAULT_INTERACTIVE;
   const renderPassName =
     props.renderPassName ??
-    (interactive
-      ? DEFAULT_INTERACTIVE_RENDER_PASS_NAME
-      : DEFAULT_NON_INTERACTIVE_RENDER_PASS_NAME);
+    (interactive ? DEFAULT_INTERACTIVE_RENDER_PASS_NAME : DEFAULT_NON_INTERACTIVE_RENDER_PASS_NAME);
 
   return {
     interactive,
@@ -62,8 +56,7 @@ const PerformanceMeasureView = ({
 
   const [show, setShow] = useState(!optimizeForSlowRenderComponents);
 
-  const { interactive, renderPassName } =
-    normalizeRenderState(renderStateProps);
+  const {interactive, renderPassName} = normalizeRenderState(renderStateProps);
 
   useEffect(() => {
     if (optimizeForSlowRenderComponents) {
@@ -73,10 +66,8 @@ const PerformanceMeasureView = ({
     }
   }, [optimizeForSlowRenderComponents]);
 
-  const componentInstanceId = useRef(
-    renderStateProps.componentInstanceId ?? inMemoryCounter()
-  ).current;
-  useTrackComponentMounts({ stateController, screenName, componentInstanceId });
+  const componentInstanceId = useRef(renderStateProps.componentInstanceId ?? inMemoryCounter()).current;
+  useTrackComponentMounts({stateController, screenName, componentInstanceId});
 
   if (stateController.isEnabled) {
     if (show) {
@@ -87,7 +78,7 @@ const PerformanceMeasureView = ({
             componentInstanceId={componentInstanceId}
             key={renderPassName}
             destinationScreen={screenName}
-            interactive={interactive ? "TRUE" : "FALSE"}
+            interactive={interactive ? 'TRUE' : 'FALSE'}
             renderPassName={renderPassName}
             style={styles.invisible}
           />

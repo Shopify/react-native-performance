@@ -1,8 +1,8 @@
-import { LogLevel } from "../../utils";
-import logger from "../../utils/Logger";
+import {LogLevel} from '../../utils';
+import logger from '../../utils/Logger';
 
-describe("utils/Logger", () => {
-  const debugMessage = "Debug message";
+describe('utils/Logger', () => {
+  const debugMessage = 'Debug message';
 
   beforeEach(() => {
     console.debug = jest.fn();
@@ -11,7 +11,7 @@ describe("utils/Logger", () => {
     console.error = jest.fn();
   });
 
-  it("logs all messages with logLevel = Debug", async () => {
+  it('logs all messages with logLevel = Debug', async () => {
     logger.logLevel = LogLevel.Debug;
 
     logger.debug(debugMessage);
@@ -27,7 +27,7 @@ describe("utils/Logger", () => {
     expect(console.error as jest.Mock).toBeCalledWith(debugMessage);
   });
 
-  it("logs only Info & Warn & Error messages with logLevel = Info", async () => {
+  it('logs only Info & Warn & Error messages with logLevel = Info', async () => {
     logger.logLevel = LogLevel.Info;
 
     logger.debug(debugMessage);
@@ -43,7 +43,7 @@ describe("utils/Logger", () => {
     expect(console.error as jest.Mock).toBeCalledWith(debugMessage);
   });
 
-  it("logs only Warn & Error messages with logLevel = Warn", async () => {
+  it('logs only Warn & Error messages with logLevel = Warn', async () => {
     logger.logLevel = LogLevel.Warn;
 
     logger.debug(debugMessage);
@@ -59,7 +59,7 @@ describe("utils/Logger", () => {
     expect(console.error as jest.Mock).toBeCalledWith(debugMessage);
   });
 
-  it("logs only Error messages with logLevel = Error", async () => {
+  it('logs only Error messages with logLevel = Error', async () => {
     logger.logLevel = LogLevel.Error;
 
     logger.debug(debugMessage);

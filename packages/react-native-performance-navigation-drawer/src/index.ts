@@ -1,1 +1,1 @@
-export { default as createProfiledDrawerNavigator } from "./createProfiledDrawerNavigator";
+export {default as createProfiledDrawerNavigator} from './createProfiledDrawerNavigator';

@@ -1,9 +1,4 @@
-import {
-  useNavigation,
-  NavigationProp,
-  ParamListBase,
-  StackActionHelpers,
-} from "@react-navigation/native";
+import {useNavigation, NavigationProp, ParamListBase, StackActionHelpers} from '@react-navigation/native';
 import {
   useStartProfiler,
   FlowStartArgs,
@@ -11,26 +6,22 @@ import {
   useErrorHandler,
   DESTINATION_SCREEN_NAME_PLACEHOLDER,
   PerformanceProfilerError,
-} from "@shopify/react-native-performance";
-import { useCallback, useMemo } from "react";
-import isDeepEqual from "lodash.isequal";
+} from '@shopify/react-native-performance';
+import {useCallback, useMemo} from 'react';
+import isDeepEqual from 'lodash.isequal';
 
-type StartTimerArgs = Omit<FlowStartArgs, "reset" | "destination">;
+type StartTimerArgs = Omit<FlowStartArgs, 'reset' | 'destination'>;
 
-const PROFILED_APIS = ["navigate", "push", "replace"] as const;
+const PROFILED_APIS = ['navigate', 'push', 'replace'] as const;
 type ProfiledAPISType = typeof PROFILED_APIS[number];
 
 class UnexpectedPropertyType extends PerformanceProfilerError {
-  readonly name = "UnexpectedPropertyType";
+  readonly name = 'UnexpectedPropertyType';
   readonly destinationScreen: string;
-  constructor(
-    destinationScreen: string,
-    functionName: string,
-    propertyType: string
-  ) {
+  constructor(destinationScreen: string, functionName: string, propertyType: string) {
     super(
       `Expected '${functionName}' to be a function defined on the inner navigator, but it was of type '${propertyType}'.`,
-      "bug"
+      'bug',
     );
     this.destinationScreen = destinationScreen;
     Object.setPrototypeOf(this, UnexpectedPropertyType.prototype);
@@ -41,24 +32,23 @@ class UnexpectedPropertyType extends PerformanceProfilerError {
  * Getting the ParamList of CompositeNavigationProp would not work without inferring State and Options, even though they are not used.
  */
 //
-type GetParamListType<T extends NavigationProp<ParamListBase>> =
-  T extends NavigationProp<
-    infer ParamList,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    infer RouteName,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    infer NavigatorID,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    infer State,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    infer Options
-  >
-    ? ParamList
-    : unknown;
+type GetParamListType<T extends NavigationProp<ParamListBase>> = T extends NavigationProp<
+  infer ParamList,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  infer RouteName,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  infer NavigatorID,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  infer State,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  infer Options
+>
+  ? ParamList
+  : unknown;
 
 interface BaseNavigationSignatures<T extends NavigationProp<ParamListBase>> {
   navigate<TRouteName extends keyof GetParamListType<T>>(
@@ -77,7 +67,7 @@ interface BaseNavigationSignatures<T extends NavigationProp<ParamListBase>> {
           name: TRouteName;
           key?: string;
           params: GetParamListType<T>[TRouteName];
-        }
+        },
   ): void;
 
   navigate<TRouteName extends keyof GetParamListType<T>>(
@@ -98,56 +88,52 @@ interface BaseNavigationSignatures<T extends NavigationProp<ParamListBase>> {
           name: TRouteName;
           key?: string;
           params: GetParamListType<T>[TRouteName];
-        }
+        },
   ): void;
 }
 
-type StackNavigationSignatures<T extends NavigationProp<ParamListBase>> =
-  T extends StackActionHelpers<ParamListBase>
-    ? {
-        replace<TRouteName extends keyof GetParamListType<T>>(
-          ...args: undefined extends GetParamListType<T>[TRouteName]
-            ? [TRouteName] | [TRouteName, GetParamListType<T>[TRouteName]]
-            : [TRouteName, GetParamListType<T>[TRouteName]]
-        ): void;
+type StackNavigationSignatures<T extends NavigationProp<ParamListBase>> = T extends StackActionHelpers<ParamListBase>
+  ? {
+      replace<TRouteName extends keyof GetParamListType<T>>(
+        ...args: undefined extends GetParamListType<T>[TRouteName]
+          ? [TRouteName] | [TRouteName, GetParamListType<T>[TRouteName]]
+          : [TRouteName, GetParamListType<T>[TRouteName]]
+      ): void;
 
-        replace<TRouteName extends keyof GetParamListType<T>>(
-          startTimerArgs: StartTimerArgs,
-          ...args: undefined extends GetParamListType<T>[TRouteName]
-            ? [TRouteName] | [TRouteName, GetParamListType<T>[TRouteName]]
-            : [TRouteName, GetParamListType<T>[TRouteName]]
-        ): void;
+      replace<TRouteName extends keyof GetParamListType<T>>(
+        startTimerArgs: StartTimerArgs,
+        ...args: undefined extends GetParamListType<T>[TRouteName]
+          ? [TRouteName] | [TRouteName, GetParamListType<T>[TRouteName]]
+          : [TRouteName, GetParamListType<T>[TRouteName]]
+      ): void;
 
-        push<TRouteName extends keyof GetParamListType<T>>(
-          ...args: undefined extends GetParamListType<T>[TRouteName]
-            ? [TRouteName] | [TRouteName, GetParamListType<T>[TRouteName]]
-            : [TRouteName, GetParamListType<T>[TRouteName]]
-        ): void;
+      push<TRouteName extends keyof GetParamListType<T>>(
+        ...args: undefined extends GetParamListType<T>[TRouteName]
+          ? [TRouteName] | [TRouteName, GetParamListType<T>[TRouteName]]
+          : [TRouteName, GetParamListType<T>[TRouteName]]
+      ): void;
 
-        push<TRouteName extends keyof GetParamListType<T>>(
-          startTimerArgs: StartTimerArgs,
-          ...args: undefined extends GetParamListType<T>[TRouteName]
-            ? [TRouteName] | [TRouteName, GetParamListType<T>[TRouteName]]
-            : [TRouteName, GetParamListType<T>[TRouteName]]
-        ): void;
-      }
-    : {
-        replace?: never;
-        push?: never;
-      };
+      push<TRouteName extends keyof GetParamListType<T>>(
+        startTimerArgs: StartTimerArgs,
+        ...args: undefined extends GetParamListType<T>[TRouteName]
+          ? [TRouteName] | [TRouteName, GetParamListType<T>[TRouteName]]
+          : [TRouteName, GetParamListType<T>[TRouteName]]
+      ): void;
+    }
+  : {
+      replace?: never;
+      push?: never;
+    };
 
-export type ProfiledNavigator<T extends NavigationProp<ParamListBase>> = Omit<
-  T,
-  ProfiledAPISType
-> &
+export type ProfiledNavigator<T extends NavigationProp<ParamListBase>> = Omit<T, ProfiledAPISType> &
   BaseNavigationSignatures<T> &
   StackNavigationSignatures<T>;
 
 function isStartTimerArgs(arg: any): arg is StartTimerArgs {
   return (
     isGestureResponderEvent(arg?.uiEvent) ||
-    typeof arg?.source === "string" ||
-    typeof arg?.renderTimeoutMillisOverride === "number" ||
+    typeof arg?.source === 'string' ||
+    typeof arg?.renderTimeoutMillisOverride === 'number' ||
     isDeepEqual(arg, {})
   );
 }
@@ -162,22 +148,20 @@ function extractStartNavigationArgs(args: any[]): [StartTimerArgs, any[]] {
   return [startTimerArgs, navArgs];
 }
 
-const useProfiledNavigation = <
-  T extends NavigationProp<ParamListBase>
->(): ProfiledNavigator<T> => {
+const useProfiledNavigation = <T extends NavigationProp<ParamListBase>>(): ProfiledNavigator<T> => {
   const navigation: any = useNavigation();
   const startTimer = useStartProfiler();
   const errorHandler = useErrorHandler();
 
   const wrapperBuilder = useCallback(
     (functionName: ProfiledAPISType) => {
-      if (typeof navigation[functionName] !== "function") {
+      if (typeof navigation[functionName] !== 'function') {
         errorHandler(
           new UnexpectedPropertyType(
             DESTINATION_SCREEN_NAME_PLACEHOLDER,
             functionName,
-            typeof navigation[functionName]
-          )
+            typeof navigation[functionName],
+          ),
         );
         return undefined;
       }
@@ -196,19 +180,16 @@ const useProfiledNavigation = <
 
       return profiledVersion;
     },
-    [navigation, startTimer, errorHandler]
+    [navigation, startTimer, errorHandler],
   );
 
   const profiledNavigation: ProfiledNavigator<T> = useMemo(() => {
-    const profiledNavigation = PROFILED_APIS.reduce(
-      (profiledNavigation, functionName) => {
-        if (functionName in navigation) {
-          profiledNavigation[functionName] = wrapperBuilder(functionName);
-        }
-        return profiledNavigation;
-      },
-      {} as { [key in ProfiledAPISType]: ReturnType<typeof wrapperBuilder> }
-    );
+    const profiledNavigation = PROFILED_APIS.reduce((profiledNavigation, functionName) => {
+      if (functionName in navigation) {
+        profiledNavigation[functionName] = wrapperBuilder(functionName);
+      }
+      return profiledNavigation;
+    }, {} as {[key in ProfiledAPISType]: ReturnType<typeof wrapperBuilder>});
 
     return Object.setPrototypeOf(profiledNavigation, navigation);
   }, [wrapperBuilder, navigation]);

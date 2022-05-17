@@ -1,45 +1,24 @@
-import {
-  RenderTimeoutError,
-  ScreenProfilerNotStartedError,
-  PerformanceProfilerError,
-} from "../../exceptions";
-import {
-  getNativeStartupTimestamp,
-  getNativeUuid,
-  matchesPattern,
-} from "../../utils";
-import GestureResponderEvent from "../../GestureResponderEvent";
-import BridgedEventTimestamp, {
-  BridgedEventTimestampBuilder,
-} from "../../BridgedEventTimestamp";
-import {
-  State,
-  RenderAborted,
-  Started,
-  Rendered,
-  Mounted,
-  Unmounted,
-} from "../states";
-import OngoingOperationsRegistry from "../OngoingOperationsRegistry";
-import { reverseReduce, reverseTraverse } from "../states/state-utils";
-import logger, { LogLevel } from "../../utils/Logger";
+import {RenderTimeoutError, ScreenProfilerNotStartedError, PerformanceProfilerError} from '../../exceptions';
+import {getNativeStartupTimestamp, getNativeUuid, matchesPattern} from '../../utils';
+import GestureResponderEvent from '../../GestureResponderEvent';
+import BridgedEventTimestamp, {BridgedEventTimestampBuilder} from '../../BridgedEventTimestamp';
+import {State, RenderAborted, Started, Rendered, Mounted, Unmounted} from '../states';
+import OngoingOperationsRegistry from '../OngoingOperationsRegistry';
+import {reverseReduce, reverseTraverse} from '../states/state-utils';
+import logger, {LogLevel} from '../../utils/Logger';
 
-import StateController, {
-  RenderTimeoutConfig,
-  OnStateChangedListener,
-} from "./StateController";
+import StateController, {RenderTimeoutConfig, OnStateChangedListener} from './StateController';
 
-export const DESTINATION_SCREEN_NAME_PLACEHOLDER =
-  "__unknown_destination_screen__";
+export const DESTINATION_SCREEN_NAME_PLACEHOLDER = '__unknown_destination_screen__';
 
 class InvalidNewDestinationScreenError extends PerformanceProfilerError {
-  readonly name = "InvalidNewDestinationScreenError";
+  readonly name = 'InvalidNewDestinationScreenError';
   readonly destinationScreen: string;
 
   constructor(destinationScreen: string, newDestinationScreen: string) {
     super(
       `The destinationScreen (${destinationScreen}) does not match the one recorded inside the new state object (${newDestinationScreen}).`,
-      "bug"
+      'bug',
     );
     this.destinationScreen = destinationScreen;
     Object.setPrototypeOf(this, InvalidNewDestinationScreenError.prototype);
@@ -47,13 +26,13 @@ class InvalidNewDestinationScreenError extends PerformanceProfilerError {
 }
 
 class InvalidOldDestinationScreenError extends PerformanceProfilerError {
-  readonly name = "InvalidOldDestinationScreenError";
+  readonly name = 'InvalidOldDestinationScreenError';
   readonly destinationScreen: string;
 
   constructor(destinationScreen: string, oldDestinationScreen: string) {
     super(
       `The destinationScreen (${destinationScreen}) does not match the one recorded inside the old state object (${oldDestinationScreen}).`,
-      "bug"
+      'bug',
     );
     this.destinationScreen = destinationScreen;
     Object.setPrototypeOf(this, InvalidOldDestinationScreenError.prototype);
@@ -61,13 +40,13 @@ class InvalidOldDestinationScreenError extends PerformanceProfilerError {
 }
 
 export class InvalidMountStateError extends PerformanceProfilerError {
-  readonly name = "InvalidMountStateError";
+  readonly name = 'InvalidMountStateError';
   readonly destinationScreen: string;
 
   constructor(destinationScreen: string, componentInstanceId: string) {
     super(
       `No matching ${Mounted.STATE_NAME} state found for componentInstanceId ${componentInstanceId} for screen ${destinationScreen}.`,
-      "bug"
+      'bug',
     );
     this.destinationScreen = destinationScreen;
     Object.setPrototypeOf(this, InvalidMountStateError.prototype);
@@ -75,12 +54,12 @@ export class InvalidMountStateError extends PerformanceProfilerError {
 }
 
 export class ReuseComponentInstanceIDError extends PerformanceProfilerError {
-  readonly name = "ReuseSnapshotIDError";
+  readonly name = 'ReuseSnapshotIDError';
   readonly destinationScreen: string;
   constructor(destinationScreen: string, componentInstanceId: string) {
     super(
       `Cannot reuse the same snapshotId ${componentInstanceId} for successive mounts of screen ${destinationScreen}.`,
-      "bug"
+      'bug',
     );
     this.destinationScreen = destinationScreen;
     Object.setPrototypeOf(this, ReuseComponentInstanceIDError.prototype);
@@ -88,12 +67,12 @@ export class ReuseComponentInstanceIDError extends PerformanceProfilerError {
 }
 
 class InvalidStateError extends PerformanceProfilerError {
-  readonly name = "InvalidStateError";
+  readonly name = 'InvalidStateError';
   readonly destinationScreen: string;
   constructor(destinationScreen: string, stateName: string) {
     super(
       `Something went wrong. The state corresponding to the DESTINATION_SCREEN_NAME_PLACEHOLDER screen name should only ever be of type ${Started.STATE_NAME}. It actually is: ${stateName}`,
-      "bug"
+      'bug',
     );
     this.destinationScreen = destinationScreen;
     Object.setPrototypeOf(this, InvalidStateError.prototype);
@@ -104,13 +83,13 @@ class InvalidStateError extends PerformanceProfilerError {
  * This can happen if you have a non-standard navigation flow, such as here: https://github.com/Shopify/react-native-performance/issues/97
  */
 export class MultipleFlowsError extends PerformanceProfilerError {
-  readonly name = "MultipleFlowsError";
+  readonly name = 'MultipleFlowsError';
   readonly destinationScreen: string;
   constructor(destinationScreen: string) {
     super(
-      "The navigation for one screen was already queued up when another one was added. This " +
-        "could imply that a previously queued screen was never rendered.",
-      "fatal"
+      'The navigation for one screen was already queued up when another one was added. This ' +
+        'could imply that a previously queued screen was never rendered.',
+      'fatal',
     );
     this.destinationScreen = destinationScreen;
     Object.setPrototypeOf(this, MultipleFlowsError.prototype);
@@ -136,7 +115,7 @@ export default class EnabledStateController implements StateController {
         .build(),
       sourceScreen: undefined,
       renderTimeoutMillisOverride: undefined,
-      type: "app_boot",
+      type: 'app_boot',
     });
   }
 
@@ -161,21 +140,14 @@ export default class EnabledStateController implements StateController {
         }
         return indices;
       }, [])
-      .forEach((index) => {
+      .forEach(index => {
         this.onStateChangedListeners.splice(index, 1);
       });
   }
 
-  getCurrentStateFor(
-    destinationScreenToReportPattern: string | RegExp
-  ): State | undefined {
+  getCurrentStateFor(destinationScreenToReportPattern: string | RegExp): State | undefined {
     for (const state of this.stateRegistry.values()) {
-      if (
-        matchesPattern(
-          state.destinationScreen,
-          destinationScreenToReportPattern
-        )
-      ) {
+      if (matchesPattern(state.destinationScreen, destinationScreenToReportPattern)) {
         return state;
       }
     }
@@ -192,13 +164,9 @@ export default class EnabledStateController implements StateController {
     uiEvent?: GestureResponderEvent;
     renderTimeoutMillisOverride?: number;
   }) {
-    const oldState = this.stateRegistry.get(
-      DESTINATION_SCREEN_NAME_PLACEHOLDER
-    );
-    if (oldState instanceof Started && oldState.type === "app_boot") {
-      logger.debug(
-        "Skipping starting new flow after navigation started since app_boot flow is already in progress"
-      );
+    const oldState = this.stateRegistry.get(DESTINATION_SCREEN_NAME_PLACEHOLDER);
+    if (oldState instanceof Started && oldState.type === 'app_boot') {
+      logger.debug('Skipping starting new flow after navigation started since app_boot flow is already in progress');
       return;
     }
     this.onFlowStart({
@@ -208,27 +176,15 @@ export default class EnabledStateController implements StateController {
         .build(),
       sourceScreen,
       renderTimeoutMillisOverride,
-      type: "flow_start",
+      type: 'flow_start',
     });
   }
 
-  onScreenMounted({
-    destinationScreen,
-    componentInstanceId,
-  }: {
-    destinationScreen: string;
-    componentInstanceId: string;
-  }) {
+  onScreenMounted({destinationScreen, componentInstanceId}: {destinationScreen: string; componentInstanceId: string}) {
     if (this.stateRegistry.has(componentInstanceId)) {
-      throw new ReuseComponentInstanceIDError(
-        destinationScreen,
-        componentInstanceId
-      );
+      throw new ReuseComponentInstanceIDError(destinationScreen, componentInstanceId);
     }
-    const oldState = this.safeGetCurrentState(
-      destinationScreen,
-      componentInstanceId
-    );
+    const oldState = this.safeGetCurrentState(destinationScreen, componentInstanceId);
 
     this.changeStateTo(
       destinationScreen,
@@ -240,7 +196,7 @@ export default class EnabledStateController implements StateController {
         previousState: oldState,
         operationsSnapshot: oldState.ongoingOperations,
         timestamp: new BridgedEventTimestampBuilder().build(),
-      })
+      }),
     );
   }
 
@@ -254,10 +210,7 @@ export default class EnabledStateController implements StateController {
     if (!this.stateRegistry.get(componentInstanceId)) {
       throw new InvalidMountStateError(destinationScreen, componentInstanceId);
     }
-    const oldState = this.safeGetCurrentState(
-      destinationScreen,
-      componentInstanceId
-    );
+    const oldState = this.safeGetCurrentState(destinationScreen, componentInstanceId);
 
     const unmounted = new Unmounted({
       destinationScreen,
@@ -270,10 +223,7 @@ export default class EnabledStateController implements StateController {
 
     this.changeStateTo(destinationScreen, componentInstanceId, unmounted);
 
-    const isScreenReadyForUnmount = this.hasMatchingMountUnmountPairs(
-      destinationScreen,
-      componentInstanceId
-    );
+    const isScreenReadyForUnmount = this.hasMatchingMountUnmountPairs(destinationScreen, componentInstanceId);
 
     if (isScreenReadyForUnmount) {
       this.stopWatchdogTimerForComponent(componentInstanceId);
@@ -281,12 +231,9 @@ export default class EnabledStateController implements StateController {
       const reachedInteractiveRenderedState = reverseReduce(
         oldState,
         (state, reachedInteractiveRenderedState) => {
-          return (
-            reachedInteractiveRenderedState ||
-            (state instanceof Rendered && state.interactive)
-          );
+          return reachedInteractiveRenderedState || (state instanceof Rendered && state.interactive);
         },
-        false
+        false,
       );
 
       if (!reachedInteractiveRenderedState) {
@@ -300,7 +247,7 @@ export default class EnabledStateController implements StateController {
             operationsSnapshot: oldState.ongoingOperations,
             timestamp: new BridgedEventTimestampBuilder().build(),
             snapshotId: getNativeUuid(),
-          })
+          }),
         );
       }
 
@@ -322,20 +269,12 @@ export default class EnabledStateController implements StateController {
     renderTimeoutMillisOverride?: number;
     componentInstanceId: string;
   }) {
-    const oldState = this.safeGetCurrentState(
-      destinationScreen,
-      componentInstanceId
-    );
+    const oldState = this.safeGetCurrentState(destinationScreen, componentInstanceId);
     this.stopWatchdogTimerForComponent(componentInstanceId);
 
-    const stateWithAbortedOperations =
-      oldState.onAllOngoingOperationsCancelled();
+    const stateWithAbortedOperations = oldState.onAllOngoingOperationsCancelled();
     if (stateWithAbortedOperations !== oldState) {
-      this.changeStateTo(
-        destinationScreen,
-        componentInstanceId,
-        stateWithAbortedOperations
-      );
+      this.changeStateTo(destinationScreen, componentInstanceId, stateWithAbortedOperations);
     }
 
     this.changeStateTo(
@@ -354,14 +293,11 @@ export default class EnabledStateController implements StateController {
         previousState: stateWithAbortedOperations,
         snapshotId: getNativeUuid(),
         operationsSnapshot: new OngoingOperationsRegistry(),
-        type: "flow_reset",
-      })
+        type: 'flow_reset',
+      }),
     );
 
-    this.addRenderWatchdogTimerIfEnabled(
-      componentInstanceId,
-      renderTimeoutMillisOverride
-    );
+    this.addRenderWatchdogTimerIfEnabled(componentInstanceId, renderTimeoutMillisOverride);
   }
 
   onRenderPassCompleted(props: {
@@ -371,10 +307,7 @@ export default class EnabledStateController implements StateController {
     interactive: boolean;
     componentInstanceId: string;
   }) {
-    const oldState = this.safeGetCurrentState(
-      props.destinationScreen,
-      props.componentInstanceId
-    );
+    const oldState = this.safeGetCurrentState(props.destinationScreen, props.componentInstanceId);
     if (props.interactive) {
       this.stopWatchdogTimerForComponent(props.componentInstanceId);
     }
@@ -383,18 +316,11 @@ export default class EnabledStateController implements StateController {
       ...props,
       previousState: oldState,
       operationsSnapshot: oldState.ongoingOperations,
-      timestamp: new BridgedEventTimestampBuilder()
-        .nativeTimestamp(props.timestamp)
-        .epochReference()
-        .build(),
+      timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(props.timestamp).epochReference().build(),
       snapshotId: getNativeUuid(),
     });
 
-    this.changeStateTo(
-      props.destinationScreen,
-      props.componentInstanceId,
-      nextState
-    );
+    this.changeStateTo(props.destinationScreen, props.componentInstanceId, nextState);
   }
 
   private onFlowStart({
@@ -405,23 +331,20 @@ export default class EnabledStateController implements StateController {
   }: {
     timestamp: BridgedEventTimestamp;
     sourceScreen: string | undefined;
-    type: "app_boot" | "flow_start";
+    type: 'app_boot' | 'flow_start';
     renderTimeoutMillisOverride: number | undefined;
   }) {
     let startedMultipleFlows = false;
     if (this.stateRegistry.has(DESTINATION_SCREEN_NAME_PLACEHOLDER)) {
       startedMultipleFlows = true;
-      const oldState = this.stateRegistry.get(
-        DESTINATION_SCREEN_NAME_PLACEHOLDER
-      )!;
+      const oldState = this.stateRegistry.get(DESTINATION_SCREEN_NAME_PLACEHOLDER)!;
       this.stopWatchdogTimerForComponent(DESTINATION_SCREEN_NAME_PLACEHOLDER);
-      const stateWithAbortedOperations =
-        oldState.onAllOngoingOperationsCancelled();
+      const stateWithAbortedOperations = oldState.onAllOngoingOperationsCancelled();
       if (stateWithAbortedOperations !== oldState) {
         this.changeStateTo(
           DESTINATION_SCREEN_NAME_PLACEHOLDER,
           DESTINATION_SCREEN_NAME_PLACEHOLDER,
-          stateWithAbortedOperations
+          stateWithAbortedOperations,
         );
       }
       this.stateRegistry.delete(DESTINATION_SCREEN_NAME_PLACEHOLDER);
@@ -441,13 +364,10 @@ export default class EnabledStateController implements StateController {
         snapshotId: getNativeUuid(),
         operationsSnapshot: new OngoingOperationsRegistry(),
         type,
-      })
+      }),
     );
 
-    this.addRenderWatchdogTimerIfEnabled(
-      DESTINATION_SCREEN_NAME_PLACEHOLDER,
-      renderTimeoutMillisOverride
-    );
+    this.addRenderWatchdogTimerIfEnabled(DESTINATION_SCREEN_NAME_PLACEHOLDER, renderTimeoutMillisOverride);
 
     // Throw the error at the very end to ensure that if this warning is suppressed, the state machine
     // still continues operating in a semi-reasonable way. We're choosing to drop the previous "Started"
@@ -466,9 +386,7 @@ export default class EnabledStateController implements StateController {
     const oldState = this.stateRegistry.get(componentInstanceId);
     if (oldState !== undefined) {
       this.stateRegistry.delete(DESTINATION_SCREEN_NAME_PLACEHOLDER);
-      const watchdogTimerId = this.findWatchdogTimerIdForComponent(
-        DESTINATION_SCREEN_NAME_PLACEHOLDER
-      );
+      const watchdogTimerId = this.findWatchdogTimerIdForComponent(DESTINATION_SCREEN_NAME_PLACEHOLDER);
       if (watchdogTimerId !== undefined) {
         clearTimeout(watchdogTimerId);
         this.watchdogTimers.delete(watchdogTimerId);
@@ -476,112 +394,69 @@ export default class EnabledStateController implements StateController {
     }
   }
 
-  private safeGetCurrentState(
-    destinationScreen: string,
-    componentInstanceId: string
-  ): State {
+  private safeGetCurrentState(destinationScreen: string, componentInstanceId: string): State {
     this.onDestinationScreenNameAcquired({
       destinationScreen,
       componentInstanceId,
     });
     const oldState = this.stateRegistry.get(componentInstanceId);
     if (oldState === undefined) {
-      throw new ScreenProfilerNotStartedError(
-        destinationScreen,
-        componentInstanceId
-      );
+      throw new ScreenProfilerNotStartedError(destinationScreen, componentInstanceId);
     }
     return oldState;
   }
 
-  private onDestinationScreenNameAcquired(props: {
-    destinationScreen: string;
-    componentInstanceId: string;
-  }) {
+  private onDestinationScreenNameAcquired(props: {destinationScreen: string; componentInstanceId: string}) {
     const oldState = this.stateRegistry.get(props.componentInstanceId);
 
-    if (
-      oldState === undefined &&
-      this.stateRegistry.has(DESTINATION_SCREEN_NAME_PLACEHOLDER)
-    ) {
+    if (oldState === undefined && this.stateRegistry.has(DESTINATION_SCREEN_NAME_PLACEHOLDER)) {
       // Migrate the previous state that was linked to an unknown screen name
       // to this one. The destination screen's name is unknown when the "start flow" or "start app" events arrive.
-      const actualOldState = this.stateRegistry.get(
-        DESTINATION_SCREEN_NAME_PLACEHOLDER
-      )!;
+      const actualOldState = this.stateRegistry.get(DESTINATION_SCREEN_NAME_PLACEHOLDER)!;
       if (!(actualOldState instanceof Started)) {
-        throw new InvalidStateError(
-          props.destinationScreen,
-          actualOldState.getStateName()
-        );
+        throw new InvalidStateError(props.destinationScreen, actualOldState.getStateName());
       }
 
-      const migratedState = actualOldState.updateState(
-        props.destinationScreen,
-        props.componentInstanceId
-      );
+      const migratedState = actualOldState.updateState(props.destinationScreen, props.componentInstanceId);
       this.stateRegistry.set(props.componentInstanceId, migratedState);
       this.stateRegistry.delete(DESTINATION_SCREEN_NAME_PLACEHOLDER);
-      const watchdogTimerId = this.findWatchdogTimerIdForComponent(
-        DESTINATION_SCREEN_NAME_PLACEHOLDER
-      );
+      const watchdogTimerId = this.findWatchdogTimerIdForComponent(DESTINATION_SCREEN_NAME_PLACEHOLDER);
       if (watchdogTimerId !== undefined) {
         this.watchdogTimers.set(watchdogTimerId, props.componentInstanceId);
       }
-      this.onStateChangedListeners.forEach((listener) =>
-        listener(props.destinationScreen, actualOldState, migratedState)
+      this.onStateChangedListeners.forEach(listener =>
+        listener(props.destinationScreen, actualOldState, migratedState),
       );
     }
   }
 
-  private changeStateTo(
-    destinationScreen: string,
-    componentInstanceId: string,
-    newState: State
-  ) {
+  private changeStateTo(destinationScreen: string, componentInstanceId: string, newState: State) {
     if (destinationScreen !== newState.destinationScreen) {
-      throw new InvalidNewDestinationScreenError(
-        destinationScreen,
-        newState.destinationScreen
-      );
+      throw new InvalidNewDestinationScreenError(destinationScreen, newState.destinationScreen);
     }
 
     const oldState = this.stateRegistry.get(componentInstanceId);
 
-    if (
-      oldState !== undefined &&
-      oldState.destinationScreen !== destinationScreen
-    ) {
-      throw new InvalidOldDestinationScreenError(
-        destinationScreen,
-        oldState.destinationScreen
-      );
+    if (oldState !== undefined && oldState.destinationScreen !== destinationScreen) {
+      throw new InvalidOldDestinationScreenError(destinationScreen, oldState.destinationScreen);
     }
 
     this.stateRegistry.set(componentInstanceId, newState);
-    this.onStateChangedListeners.forEach((listener) =>
-      listener(destinationScreen, oldState, newState)
-    );
+    this.onStateChangedListeners.forEach(listener => listener(destinationScreen, oldState, newState));
     logger.debug(`State: ${newState.toString()}`);
     assertRenderPassNamesUnique(newState);
   }
 
   private stopWatchdogTimerForComponent(componentInstanceId: string) {
-    const watchdogTimerId =
-      this.findWatchdogTimerIdForComponent(componentInstanceId);
+    const watchdogTimerId = this.findWatchdogTimerIdForComponent(componentInstanceId);
     if (watchdogTimerId !== undefined) {
       clearTimeout(watchdogTimerId);
       this.watchdogTimers.delete(watchdogTimerId);
     }
   }
 
-  private findWatchdogTimerIdForComponent(
-    componentInstanceId: string
-  ): number | undefined {
-    for (const [
-      watchdogTimerId,
-      _componentInstanceId,
-    ] of this.watchdogTimers.entries()) {
+  private findWatchdogTimerIdForComponent(componentInstanceId: string): number | undefined {
+    for (const [watchdogTimerId, _componentInstanceId] of this.watchdogTimers.entries()) {
       if (_componentInstanceId === componentInstanceId) {
         return watchdogTimerId;
       }
@@ -591,23 +466,19 @@ export default class EnabledStateController implements StateController {
 
   private addRenderWatchdogTimerIfEnabled(
     componentInstanceId: string,
-    renderTimeoutMillisOverride: number | undefined = undefined
+    renderTimeoutMillisOverride: number | undefined = undefined,
   ) {
     if (!this.renderTimeoutConfig.enabled) {
       return;
     }
 
-    const effectiveTimeoutMillis =
-      renderTimeoutMillisOverride ??
-      this.renderTimeoutConfig.renderTimeoutMillis;
-    const { onRenderTimeout } = this.renderTimeoutConfig;
+    const effectiveTimeoutMillis = renderTimeoutMillisOverride ?? this.renderTimeoutConfig.renderTimeoutMillis;
+    const {onRenderTimeout} = this.renderTimeoutConfig;
 
     const timeoutId = setTimeout(() => {
       // Re-fetch the screen name from the map, because the main screen's placeholder
       // name might've been replaced with the actual name by this point.
-      const currentComponentInstanceId = this.watchdogTimers.get(
-        timeoutId
-      ) as string;
+      const currentComponentInstanceId = this.watchdogTimers.get(timeoutId) as string;
       const currentState = this.stateRegistry.get(currentComponentInstanceId);
 
       this.watchdogTimers.delete(timeoutId);
@@ -617,25 +488,13 @@ export default class EnabledStateController implements StateController {
         reverseReduce(
           currentState,
           (state, reachedInteractiveRenderedState) => {
-            return (
-              reachedInteractiveRenderedState ||
-              (state instanceof Rendered && state.interactive)
-            );
+            return reachedInteractiveRenderedState || (state instanceof Rendered && state.interactive);
           },
-          false
+          false,
         );
 
-      if (
-        currentState !== undefined &&
-        reachedInteractiveRenderedState === false
-      ) {
-        onRenderTimeout(
-          new RenderTimeoutError(
-            currentState.destinationScreen,
-            effectiveTimeoutMillis,
-            currentState
-          )
-        );
+      if (currentState !== undefined && reachedInteractiveRenderedState === false) {
+        onRenderTimeout(new RenderTimeoutError(currentState.destinationScreen, effectiveTimeoutMillis, currentState));
       }
     }, effectiveTimeoutMillis);
 
@@ -643,16 +502,12 @@ export default class EnabledStateController implements StateController {
   }
 
   private clearAllWatchdogTimers() {
-    this.watchdogTimers.forEach((_, watchdogTimerId) =>
-      clearTimeout(watchdogTimerId)
-    );
+    this.watchdogTimers.forEach((_, watchdogTimerId) => clearTimeout(watchdogTimerId));
     this.watchdogTimers.clear();
   }
 
   private addWatchdogTimersForUnwatchedComponents() {
-    const componentInstanceIdsWithWatchdogs = new Set(
-      this.watchdogTimers.values()
-    );
+    const componentInstanceIdsWithWatchdogs = new Set(this.watchdogTimers.values());
     for (const state of this.stateRegistry.values()) {
       if (!componentInstanceIdsWithWatchdogs.has(state.componentInstanceId)) {
         this.addRenderWatchdogTimerIfEnabled(state.componentInstanceId);
@@ -660,10 +515,7 @@ export default class EnabledStateController implements StateController {
     }
   }
 
-  private hasMatchingMountUnmountPairs(
-    destinationScreen: string,
-    componentInstanceId: string
-  ) {
+  private hasMatchingMountUnmountPairs(destinationScreen: string, componentInstanceId: string) {
     interface MountUnmountRecord {
       mounted?: Mounted;
       unmounted?: Unmounted;
@@ -672,10 +524,7 @@ export default class EnabledStateController implements StateController {
     const oldState = this.stateRegistry.get(componentInstanceId);
 
     if (oldState === undefined) {
-      throw new ScreenProfilerNotStartedError(
-        destinationScreen,
-        componentInstanceId
-      );
+      throw new ScreenProfilerNotStartedError(destinationScreen, componentInstanceId);
     }
 
     const mountUnmountRecord = reverseReduce(
@@ -698,10 +547,10 @@ export default class EnabledStateController implements StateController {
         // It's possible that the flow was reset after the screen was mounted. So we need to traverse back all the way
         // to the first known state in the chain, and not stop at the last "Started" state.
         stopAtStartState: false,
-      }
+      },
     ).values();
 
-    for (const { mounted, unmounted } of mountUnmountRecord) {
+    for (const {mounted, unmounted} of mountUnmountRecord) {
       if (mounted === undefined || unmounted === undefined) {
         return false;
       }
@@ -718,21 +567,18 @@ function assertRenderPassNamesUnique(finalState: State) {
 
   const seenRenderPasses: Map<string, Rendered> = new Map();
 
-  reverseTraverse(finalState, (state) => {
+  reverseTraverse(finalState, state => {
     if (state instanceof Rendered) {
       const previousRenderedState = seenRenderPasses.get(state.renderPassName);
-      if (
-        previousRenderedState !== undefined &&
-        previousRenderedState.snapshotId !== state.snapshotId
-      ) {
+      if (previousRenderedState !== undefined && previousRenderedState.snapshotId !== state.snapshotId) {
         logger.info(
           `Looks like you used the same render pass name '${state.renderPassName}' multiple times on the ${state.destinationScreen} screen. ` +
             'A renderPassName can help uniquely identifying a UI state in which a given screen can render (e.g., "loading", "cached_render", "first_contentful_paint", etc.). ' +
-            "If you do not expect to see the same renderPassName multiple times, it is often a sign that your screen might be going through " +
-            "some unexpected state changes. If you are debugging a performance issue, we recommend:\n" +
-            "i) debugging the prop/state change that is leading to these unnecessary re-renders, and fix them if the re-renders were not expected,\n" +
-            "ii) assigning different renderPassNames to these render passes so that you can distinguish between them in the output reports if the re-renders were expected or\n" +
-            'iii) notifying the profiler library of that via the useProfilerStart hook and by setting "reset: true" if the re-render is occurring because the flow is essentially being restarted.'
+            'If you do not expect to see the same renderPassName multiple times, it is often a sign that your screen might be going through ' +
+            'some unexpected state changes. If you are debugging a performance issue, we recommend:\n' +
+            'i) debugging the prop/state change that is leading to these unnecessary re-renders, and fix them if the re-renders were not expected,\n' +
+            'ii) assigning different renderPassNames to these render passes so that you can distinguish between them in the output reports if the re-renders were expected or\n' +
+            'iii) notifying the profiler library of that via the useProfilerStart hook and by setting "reset: true" if the re-render is occurring because the flow is essentially being restarted.',
         );
       }
       seenRenderPasses.set(state.renderPassName, state);

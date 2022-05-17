@@ -1,4 +1,4 @@
-import State, { StateProps } from "./State";
+import State, {StateProps} from './State';
 
 export interface RenderedProps extends StateProps {
   renderPassName: string;
@@ -6,11 +6,11 @@ export interface RenderedProps extends StateProps {
 }
 
 class Rendered extends State {
-  static readonly STATE_NAME = "Rendered";
+  static readonly STATE_NAME = 'Rendered';
   readonly renderPassName: string;
   readonly interactive: boolean;
 
-  constructor({ renderPassName, interactive, ...rest }: RenderedProps) {
+  constructor({renderPassName, interactive, ...rest}: RenderedProps) {
     super(rest);
     this.renderPassName = renderPassName;
     this.interactive = interactive;

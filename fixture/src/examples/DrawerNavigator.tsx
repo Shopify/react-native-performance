@@ -1,10 +1,10 @@
-import React, { useState, useContext, useRef } from "react";
-import { Text, Button } from "react-native";
-import { useStartProfiler } from "@shopify/react-native-performance";
-import { ReactNavigationPerformanceView } from "@shopify/react-native-performance-navigation";
-import { createProfiledDrawerNavigator } from "@shopify/react-native-performance-navigation-drawer";
+import React, {useState, useContext, useRef} from 'react';
+import {Text, Button} from 'react-native';
+import {useStartProfiler} from '@shopify/react-native-performance';
+import {ReactNavigationPerformanceView} from '@shopify/react-native-performance-navigation';
+import {createProfiledDrawerNavigator} from '@shopify/react-native-performance-navigation-drawer';
 
-import { NavigationKeys } from "../constants";
+import {NavigationKeys} from '../constants';
 
 /**
  * This screen simulates an example where multiple screens can be
@@ -16,12 +16,7 @@ import { NavigationKeys } from "../constants";
 type ValueOf<T> = T[keyof T];
 
 type Props = {
-  [key in ValueOf<
-    Pick<
-      typeof NavigationKeys,
-      "DRAWER_NAVIGATOR_SCREEN_1" | "DRAWER_NAVIGATOR_SCREEN_2"
-    >
-  >]: undefined;
+  [key in ValueOf<Pick<typeof NavigationKeys, 'DRAWER_NAVIGATOR_SCREEN_1' | 'DRAWER_NAVIGATOR_SCREEN_2'>>]: undefined;
 };
 
 const Drawer = createProfiledDrawerNavigator<Props>();
@@ -31,15 +26,9 @@ interface GlobalState {
   incrementCounter: () => void;
 }
 
-const GlobalStateContext = React.createContext<GlobalState | undefined>(
-  undefined
-);
+const GlobalStateContext = React.createContext<GlobalState | undefined>(undefined);
 
-const DrawerScreen = ({
-  navigationKey,
-}: {
-  navigationKey: keyof typeof NavigationKeys;
-}) => {
+const DrawerScreen = ({navigationKey}: {navigationKey: keyof typeof NavigationKeys}) => {
   const screenName = NavigationKeys[navigationKey];
   const globalState = useContext(GlobalStateContext);
   const startProfiler = useStartProfiler();
@@ -64,21 +53,14 @@ const DrawerScreen = ({
     <ReactNavigationPerformanceView
       screenName={screenName}
       interactive={globalState !== undefined}
-      renderPassName={
-        globalState === undefined
-          ? "loading"
-          : `interactive_${globalState.counter}`
-      }
+      renderPassName={globalState === undefined ? 'loading' : `interactive_${globalState.counter}`}
     >
       {globalState && (
         <>
           <Text>
             Hello {screenName}. Counter: {globalState.counter}
           </Text>
-          <Button
-            onPress={globalState.incrementCounter}
-            title="Increment counter"
-          />
+          <Button onPress={globalState.incrementCounter} title="Increment counter" />
         </>
       )}
     </ReactNavigationPerformanceView>
@@ -97,7 +79,7 @@ const DrawerNavigator = () => {
   const [contextValue, setContextValue] = useState<GlobalState>({
     counter: 0,
     incrementCounter: () => {
-      setContextValue((currentContext) => {
+      setContextValue(currentContext => {
         return {
           ...currentContext,
           counter: currentContext.counter + 1,
@@ -109,14 +91,8 @@ const DrawerNavigator = () => {
   return (
     <GlobalStateContext.Provider value={contextValue}>
       <Drawer.Navigator>
-        <Drawer.Screen
-          name={NavigationKeys.DRAWER_NAVIGATOR_SCREEN_1}
-          component={DrawerScreen1}
-        />
-        <Drawer.Screen
-          name={NavigationKeys.DRAWER_NAVIGATOR_SCREEN_2}
-          component={DrawerScreen2}
-        />
+        <Drawer.Screen name={NavigationKeys.DRAWER_NAVIGATOR_SCREEN_1} component={DrawerScreen1} />
+        <Drawer.Screen name={NavigationKeys.DRAWER_NAVIGATOR_SCREEN_2} component={DrawerScreen2} />
       </Drawer.Navigator>
     </GlobalStateContext.Provider>
   );

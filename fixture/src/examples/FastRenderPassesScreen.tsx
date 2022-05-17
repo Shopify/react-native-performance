@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from "react";
-import gql from "graphql-tag";
-import { ReactNavigationPerformanceView } from "@shopify/react-native-performance-navigation";
-import { Text } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
-import { useApolloClient } from "@apollo/client";
+import React, {useCallback, useState} from 'react';
+import gql from 'graphql-tag';
+import {ReactNavigationPerformanceView} from '@shopify/react-native-performance-navigation';
+import {Text} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
+import {useApolloClient} from '@apollo/client';
 
-import { NavigationKeys } from "../constants";
+import {NavigationKeys} from '../constants';
 
 const AllRickAndMortyCharacters = gql`
   query AllRickAndMortyCharacters {
@@ -17,24 +17,24 @@ const AllRickAndMortyCharacters = gql`
   }
 `;
 
-type QueryState = "loading" | "cache" | "network";
+type QueryState = 'loading' | 'cache' | 'network';
 
 function useRickAndMortyData() {
   const client = useApolloClient();
 
-  const [{ response, queryState }, setQueryState] = useState<{
-    response?: { [key: string]: unknown };
+  const [{response, queryState}, setQueryState] = useState<{
+    response?: {[key: string]: unknown};
     queryState: QueryState;
-  }>({ queryState: "loading" });
+  }>({queryState: 'loading'});
 
   const doQuery = useCallback(async () => {
     try {
       const cacheResponse = await client.query({
         query: AllRickAndMortyCharacters,
-        fetchPolicy: "cache-only",
+        fetchPolicy: 'cache-only',
       });
       if (cacheResponse.data.characters !== undefined) {
-        setQueryState({ response: cacheResponse.data, queryState: "cache" });
+        setQueryState({response: cacheResponse.data, queryState: 'cache'});
       }
     } catch (error) {
       // cache-miss. no-op
@@ -42,9 +42,9 @@ function useRickAndMortyData() {
 
     const networkResponse = await client.query({
       query: AllRickAndMortyCharacters,
-      fetchPolicy: "network-only",
+      fetchPolicy: 'network-only',
     });
-    setQueryState({ response: networkResponse.data, queryState: "network" });
+    setQueryState({response: networkResponse.data, queryState: 'network'});
   }, [client]);
 
   return {
@@ -55,15 +55,15 @@ function useRickAndMortyData() {
 }
 
 const FastRenderPassesScreen = () => {
-  const { queryState, doQuery } = useRickAndMortyData();
+  const {queryState, doQuery} = useRickAndMortyData();
 
-  const interactive = queryState !== "loading";
+  const interactive = queryState !== 'loading';
   const renderPassName = queryState;
 
   useFocusEffect(
     useCallback(() => {
       doQuery();
-    }, [doQuery])
+    }, [doQuery]),
   );
 
   return (

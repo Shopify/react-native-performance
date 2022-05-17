@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {useContext} from 'react';
 
 export type ErrorHandler = (_: Error) => void;
 

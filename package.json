@@ -15,7 +15,7 @@
     "ios": "yarn workspace fixture ios",
     "android": "yarn workspace fixture android",
     "start": "yarn workspace fixture start",
-    "bootstrap": "yarn && bundle install && yarn workspace fixture pods",
+    "up": "yarn && bundle install && yarn workspace fixture pods",
     "prerelease": "bin/prerelease.mjs",
     "purge": "rm -rf node_modules fixture/node_modules fixture/dist fixture/Pods"
   },

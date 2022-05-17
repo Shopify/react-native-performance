@@ -1,4 +1,4 @@
-import { requireNativeComponent } from "react-native";
+import {requireNativeComponent} from 'react-native';
 
 export interface OnInteractiveEvent {
   nativeEvent: {
@@ -22,7 +22,5 @@ interface FlatListPerformanceViewNativeComponentProps {
 }
 
 const FlatListPerformanceViewNativeComponent =
-  requireNativeComponent<FlatListPerformanceViewNativeComponentProps>(
-    "FlatListPerformanceView"
-  );
-export { FlatListPerformanceViewNativeComponent };
+  requireNativeComponent<FlatListPerformanceViewNativeComponentProps>('FlatListPerformanceView');
+export {FlatListPerformanceViewNativeComponent};

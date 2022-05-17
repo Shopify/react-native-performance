@@ -2,20 +2,17 @@
 // Fast refresh saves the React state but unmounts and mounts the component again.
 // Since for `PerformanceProfiler` the state depends on mount/unmount, it would often result in invalid operations
 // such as `PerformaneProfilerNotStartedError`
-import React, { useCallback } from "react";
-import { InteractionManager } from "react-native";
+import React, {useCallback} from 'react';
+import {InteractionManager} from 'react-native';
 
-import { ErrorHandler, ErrorHandlerContextProvider, LogLevel } from "../utils";
-import {
-  StateControllerContextProvider,
-  useStateControllerInitializer,
-} from "../state-machine";
-import logger from "../utils/Logger";
-import { PerformanceProfilerError } from "../exceptions";
+import {ErrorHandler, ErrorHandlerContextProvider, LogLevel} from '../utils';
+import {StateControllerContextProvider, useStateControllerInitializer} from '../state-machine';
+import logger from '../utils/Logger';
+import {PerformanceProfilerError} from '../exceptions';
 
-import ReportObserver from "./ReportObserver";
-import useNativeRenderCompletionEvents from "./useNativeRenderCompletionEvents";
-import useReportEmitter from "./useReportEmitter";
+import ReportObserver from './ReportObserver';
+import useNativeRenderCompletionEvents from './useNativeRenderCompletionEvents';
+import useReportEmitter from './useReportEmitter';
 
 const DEFAULT_RENDER_TIMEOUT_MILLIS = 10 * 1000;
 
@@ -38,7 +35,7 @@ const PerformanceProfiler = ({
   useRenderTimeouts = false,
   logLevel = LogLevel.Warn,
 }: Props) => {
-  const reportEmitter = useReportEmitter({ onReportPrepared, errorHandler });
+  const reportEmitter = useReportEmitter({onReportPrepared, errorHandler});
 
   logger.logLevel = logLevel;
 
@@ -54,10 +51,10 @@ const PerformanceProfiler = ({
         // We want to provide a custom message for `bug` errors.
         // We also don't want to run `errorHandler` for these bugs since then users would have to make that distinction themselves
         // and we want to save them from that complexity.
-        if (error instanceof PerformanceProfilerError && error.type === "bug") {
+        if (error instanceof PerformanceProfilerError && error.type === 'bug') {
           logger.error(
             `You have hit an internal error, please report this: https://github.com/Shopify/react-native-performance/issues/new\n` +
-              `${error.name}: ${error.message}`
+              `${error.name}: ${error.message}`,
           );
         } else {
           logger.error(`${error.name}: ${error.message}`);
@@ -65,7 +62,7 @@ const PerformanceProfiler = ({
         }
       });
     },
-    [errorHandler]
+    [errorHandler],
   );
 
   const stateController = useStateControllerInitializer({
@@ -76,13 +73,11 @@ const PerformanceProfiler = ({
     renderTimeoutMillis,
   });
 
-  useNativeRenderCompletionEvents({ stateController });
+  useNativeRenderCompletionEvents({stateController});
 
   return (
     <StateControllerContextProvider value={stateController}>
-      <ErrorHandlerContextProvider value={performanceProfilerErrorHandler}>
-        {children}
-      </ErrorHandlerContextProvider>
+      <ErrorHandlerContextProvider value={performanceProfilerErrorHandler}>{children}</ErrorHandlerContextProvider>
     </StateControllerContextProvider>
   );
 };

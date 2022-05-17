@@ -1,8 +1,8 @@
-import { act } from "@testing-library/react-native";
+import {act} from '@testing-library/react-native';
 
-import PromiseController from "../../utils/PromiseController";
+import PromiseController from '../../utils/PromiseController';
 
-describe("utils/PromiseController", () => {
+describe('utils/PromiseController', () => {
   const resultFn = jest.fn();
   const errorFn = jest.fn();
   let controller: PromiseController<number>;
@@ -13,7 +13,7 @@ describe("utils/PromiseController", () => {
     controller.promise.then(resultFn).catch(errorFn);
   });
 
-  it("resolves the promise when asked", async () => {
+  it('resolves the promise when asked', async () => {
     expect(resultFn).not.toHaveBeenCalled();
     expect(errorFn).not.toHaveBeenCalled();
 
@@ -26,11 +26,11 @@ describe("utils/PromiseController", () => {
     expect(errorFn).not.toHaveBeenCalled();
   });
 
-  it("rejects the promise when asked", async () => {
+  it('rejects the promise when asked', async () => {
     expect(resultFn).not.toHaveBeenCalled();
     expect(errorFn).not.toHaveBeenCalled();
 
-    const actualError = new Error("some error");
+    const actualError = new Error('some error');
     controller.reject(actualError);
 
     await act(async () => {});
@@ -40,7 +40,7 @@ describe("utils/PromiseController", () => {
     expect(errorFn).toHaveBeenCalledWith(actualError);
   });
 
-  it("remembers the resolution result", () => {
+  it('remembers the resolution result', () => {
     expect(controller.rejectionReason).toBeUndefined();
     expect(controller.result).toBeUndefined();
 
@@ -50,30 +50,30 @@ describe("utils/PromiseController", () => {
     expect(controller.result).toBe(10);
   });
 
-  it("remembers the rejection reason", () => {
+  it('remembers the rejection reason', () => {
     expect(controller.rejectionReason).toBeUndefined();
     expect(controller.result).toBeUndefined();
 
-    const actualError = new Error("some error");
+    const actualError = new Error('some error');
     controller.reject(actualError);
 
     expect(controller.rejectionReason).toBe(actualError);
     expect(controller.result).toBeUndefined();
   });
 
-  it("marks the promise as completed after reject", () => {
+  it('marks the promise as completed after reject', () => {
     expect(controller.hasCompleted).toBe(false);
-    controller.reject(new Error("some error"));
+    controller.reject(new Error('some error'));
     expect(controller.hasCompleted).toBe(true);
   });
 
-  it("marks the promise as completed after resolve", () => {
+  it('marks the promise as completed after resolve', () => {
     expect(controller.hasCompleted).toBe(false);
     controller.resolve(10);
     expect(controller.hasCompleted).toBe(true);
   });
 
-  it("marks the promise as a completed after resolving with an undefined value", () => {
+  it('marks the promise as a completed after resolving with an undefined value', () => {
     const controller = new PromiseController<void>();
     controller.promise.then(resultFn).catch(errorFn);
 

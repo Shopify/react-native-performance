@@ -1,12 +1,8 @@
-import { RenderTimeoutError } from "../../exceptions";
-import GestureResponderEvent from "../../GestureResponderEvent";
-import { State } from "../states";
+import {RenderTimeoutError} from '../../exceptions';
+import GestureResponderEvent from '../../GestureResponderEvent';
+import {State} from '../states';
 
-export type OnStateChangedListener = (
-  destinationScreen: string,
-  oldState: State | undefined,
-  newState: State
-) => void;
+export type OnStateChangedListener = (destinationScreen: string, oldState: State | undefined, newState: State) => void;
 
 export type RenderTimeoutConfig =
   | {
@@ -31,14 +27,8 @@ interface StateController {
     renderTimeoutMillisOverride?: number;
   }): void;
   stopFlowIfNeeded(componentInstanceId: string): void;
-  onScreenMounted(props: {
-    destinationScreen: string;
-    componentInstanceId: string;
-  }): void;
-  onScreenUnmounted(props: {
-    destinationScreen: string;
-    componentInstanceId: string;
-  }): void;
+  onScreenMounted(props: {destinationScreen: string; componentInstanceId: string}): void;
+  onScreenUnmounted(props: {destinationScreen: string; componentInstanceId: string}): void;
   onFlowReset(props: {
     sourceScreen?: string;
     destinationScreen: string;

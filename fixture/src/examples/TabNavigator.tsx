@@ -1,10 +1,10 @@
-import React, { useState, useContext, useRef } from "react";
-import { Text, Button } from "react-native";
-import { useStartProfiler } from "@shopify/react-native-performance";
-import { ReactNavigationPerformanceView } from "@shopify/react-native-performance-navigation";
-import { createProfiledBottomTabNavigator } from "@shopify/react-native-performance-navigation-bottom-tabs";
+import React, {useState, useContext, useRef} from 'react';
+import {Text, Button} from 'react-native';
+import {useStartProfiler} from '@shopify/react-native-performance';
+import {ReactNavigationPerformanceView} from '@shopify/react-native-performance-navigation';
+import {createProfiledBottomTabNavigator} from '@shopify/react-native-performance-navigation-bottom-tabs';
 
-import { NavigationKeys } from "../constants";
+import {NavigationKeys} from '../constants';
 
 /**
  * This screen simulates an example where multiple screens can be
@@ -16,31 +16,19 @@ import { NavigationKeys } from "../constants";
 type ValueOf<T> = T[keyof T];
 
 type Props = {
-  [key in ValueOf<
-    Pick<
-      typeof NavigationKeys,
-      "TAB_NAVIGATOR_SCREEN_1" | "TAB_NAVIGATOR_SCREEN_2"
-    >
-  >]: undefined;
+  [key in ValueOf<Pick<typeof NavigationKeys, 'TAB_NAVIGATOR_SCREEN_1' | 'TAB_NAVIGATOR_SCREEN_2'>>]: undefined;
 };
 
-const { Tab, buildProfiledBottomTabBarButton } =
-  createProfiledBottomTabNavigator<Props>();
+const {Tab, buildProfiledBottomTabBarButton} = createProfiledBottomTabNavigator<Props>();
 
 interface GlobalState {
   counter: number;
   incrementCounter: () => void;
 }
 
-const GlobalStateContext = React.createContext<GlobalState | undefined>(
-  undefined
-);
+const GlobalStateContext = React.createContext<GlobalState | undefined>(undefined);
 
-const TabScreen = ({
-  navigationKey,
-}: {
-  navigationKey: keyof typeof NavigationKeys;
-}) => {
+const TabScreen = ({navigationKey}: {navigationKey: keyof typeof NavigationKeys}) => {
   const screenName = NavigationKeys[navigationKey];
   const globalState = useContext(GlobalStateContext);
   const startProfiler = useStartProfiler();
@@ -65,21 +53,14 @@ const TabScreen = ({
     <ReactNavigationPerformanceView
       screenName={screenName}
       interactive={globalState !== undefined}
-      renderPassName={
-        globalState === undefined
-          ? "loading"
-          : `interactive_${globalState.counter}`
-      }
+      renderPassName={globalState === undefined ? 'loading' : `interactive_${globalState.counter}`}
     >
       {globalState && (
         <>
           <Text>
             Hello {screenName}. Counter: {globalState.counter}
           </Text>
-          <Button
-            onPress={globalState.incrementCounter}
-            title="Increment counter"
-          />
+          <Button onPress={globalState.incrementCounter} title="Increment counter" />
         </>
       )}
     </ReactNavigationPerformanceView>
@@ -98,7 +79,7 @@ const TabNavigator = () => {
   const [contextValue, setContextValue] = useState<GlobalState>({
     counter: 0,
     incrementCounter: () => {
-      setContextValue((currentContext) => {
+      setContextValue(currentContext => {
         return {
           ...currentContext,
           counter: currentContext.counter + 1,

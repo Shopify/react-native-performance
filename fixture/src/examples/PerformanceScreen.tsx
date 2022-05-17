@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   StatusBar,
   SafeAreaView,
@@ -8,24 +8,17 @@ import {
   Button,
   NativeSyntheticEvent,
   NativeTouchEvent,
-} from "react-native";
-import {
-  RenderStateProps,
-  useStartProfiler,
-  GestureResponderEvent,
-} from "@shopify/react-native-performance";
-import {
-  ReactNavigationPerformanceView,
-  useProfiledNavigation,
-} from "@shopify/react-native-performance-navigation";
-import gql from "graphql-tag";
-import { ScrollView } from "react-native-gesture-handler";
-import { useQuery } from "@apollo/client";
+} from 'react-native';
+import {RenderStateProps, useStartProfiler, GestureResponderEvent} from '@shopify/react-native-performance';
+import {ReactNavigationPerformanceView, useProfiledNavigation} from '@shopify/react-native-performance-navigation';
+import gql from 'graphql-tag';
+import {ScrollView} from 'react-native-gesture-handler';
+import {useQuery} from '@apollo/client';
 
-import { NavigationKeys } from "../constants";
+import {NavigationKeys} from '../constants';
 
-import useSimulatedSlowOperation from "./useSimulatedSlowOperation";
-import useCountdownTimer from "./useCountdownTimer";
+import useSimulatedSlowOperation from './useSimulatedSlowOperation';
+import useCountdownTimer from './useCountdownTimer';
 
 const RENDER_DELAY_SECONDS = 5;
 
@@ -47,7 +40,7 @@ const PerformanceScreen = () => {
   });
   const simulatedSlowOperation = useSimulatedSlowOperation({
     delaySeconds: RENDER_DELAY_SECONDS,
-    result: "<some simulated slow API result>",
+    result: '<some simulated slow API result>',
   });
   const rickAndMortyQueryResult = useQuery(AllRickAndMortyCharacters);
   const startProfiler = useStartProfiler();
@@ -59,29 +52,21 @@ const PerformanceScreen = () => {
     })();
   }, [simulatedSlowOperation]);
 
-  const rendered =
-    rickAndMortyQueryResult.data !== undefined &&
-    simulatedSlowData !== undefined;
+  const rendered = rickAndMortyQueryResult.data !== undefined && simulatedSlowData !== undefined;
 
   const goHome = useCallback(
     (uiEvent: GestureResponderEvent) => {
-      navigation.navigate(
-        { uiEvent },
-        { name: NavigationKeys.EXAMPLES, params: {} }
-      );
+      navigation.navigate({uiEvent}, {name: NavigationKeys.EXAMPLES, params: {}});
     },
-    [navigation]
+    [navigation],
   );
 
   const RenderedBody = () => {
     return (
       <ScrollView>
+        <Text style={styles.helperText}>Rendered: {JSON.stringify({simulatedSlowData})}</Text>
         <Text style={styles.helperText}>
-          Rendered: {JSON.stringify({ simulatedSlowData })}
-        </Text>
-        <Text style={styles.helperText}>
-          All Rick and Morty characters:{" "}
-          {JSON.stringify(rickAndMortyQueryResult.data)}
+          All Rick and Morty characters: {JSON.stringify(rickAndMortyQueryResult.data)}
         </Text>
       </ScrollView>
     );
@@ -91,9 +76,7 @@ const PerformanceScreen = () => {
     return (
       <>
         <ActivityIndicator />
-        <Text style={styles.helperText}>
-          Rendering in: {secondsLeft} seconds.
-        </Text>
+        <Text style={styles.helperText}>Rendering in: {secondsLeft} seconds.</Text>
       </>
     );
   };
@@ -120,20 +103,15 @@ const PerformanceScreen = () => {
       restartTimer();
       rickAndMortyQueryResult.refetch();
     },
-    [startProfiler, restartTimer, rickAndMortyQueryResult]
+    [startProfiler, restartTimer, rickAndMortyQueryResult],
   );
 
   return (
-    <ReactNavigationPerformanceView
-      screenName={NavigationKeys.PERFORMANCE}
-      {...renderStateProps}
-    >
+    <ReactNavigationPerformanceView screenName={NavigationKeys.PERFORMANCE} {...renderStateProps}>
       <Button onPress={onFakePullToRefresh} title="Simulate Pull-to-refresh" />
       <Button title="Go to home" onPress={goHome} />
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={styles.container}>
-        {rendered ? <RenderedBody /> : <WaitingBody />}
-      </SafeAreaView>
+      <SafeAreaView style={styles.container}>{rendered ? <RenderedBody /> : <WaitingBody />}</SafeAreaView>
     </ReactNavigationPerformanceView>
   );
 };
@@ -141,12 +119,12 @@ const PerformanceScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     margin: 64,
   },
   helperText: {
     margin: 16,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });
 
