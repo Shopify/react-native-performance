@@ -7,7 +7,8 @@
     "ios": "react-native run-ios --project-path .",
     "start": "react-native start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "pods": "bundle exec pod install"
+    "pods": "bundle exec pod install",
+    "build": "tsc -b"
   },
   "dependencies": {
     "@apollo/client": "3.5.4",
