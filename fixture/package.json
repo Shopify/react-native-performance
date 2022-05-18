@@ -22,7 +22,7 @@
     "@shopify/react-native-performance-navigation": "2.0.9",
     "@shopify/react-native-performance-navigation-bottom-tabs": "2.0.6",
     "@shopify/react-native-performance-navigation-drawer": "2.0.7",
-    "graphql": "16.3.0",
+    "graphql": "16.5.0",
     "graphql-tag": "2.12.6",
     "react": "17.0.2",
     "react-native": "0.68.1",
