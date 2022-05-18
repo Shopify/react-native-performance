@@ -2,6 +2,10 @@
   "name": "@shopify/react-native-performance-navigation-bottom-tabs",
   "version": "2.0.6",
   "description": "Extension library atop @shopify/react-native-performance. Contains some utilities for easier profiling of apps using @react-navigation/bottom-tabs.",
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org/"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "keywords": [
