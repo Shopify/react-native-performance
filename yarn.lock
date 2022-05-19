@@ -7171,10 +7171,10 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.5.tgz#76c8584f4fc843db64702a6bd04ab7a8bd666da3"
   integrity sha512-WIWGi2L3DyTUvUrwRKgGi9TwxQMUEqPOPQBVi71R96jZXJdFskXEmf54BoZaS1kknGODoIGASGEzBUYdyMCBJg==
 
-flipper-babel-transformer@0.145.0:
-  version "0.145.0"
-  resolved "https://registry.yarnpkg.com/flipper-babel-transformer/-/flipper-babel-transformer-0.145.0.tgz#667762eb754aef8ee52278f53f290ded7eccdd51"
-  integrity sha512-JE9yc5HPd7IYUAWd06RQKmd/ThTpAhL43AlhDuEcJMU1psPmn+7cTaidSfNGyWxCBbblA8M8pZnzKWPwzDUdiA==
+flipper-babel-transformer@0.146.0:
+  version "0.146.0"
+  resolved "https://registry.yarnpkg.com/flipper-babel-transformer/-/flipper-babel-transformer-0.146.0.tgz#28d1719792c911df9e79f2d537115e114b6b6b2b"
+  integrity sha512-6wXJ5Q2jxLcG2+3TEmlB0RRUzMSMj9FZxU9vLe0MAGKZfbRayJWhC51ox5ITNxKif6FrQZHQyyShwJqllfkazg==
   dependencies:
     "@babel/core" "^7.17.10"
     "@babel/generator" "^7.17.10"
@@ -7201,23 +7201,30 @@ flipper-common@0.145.0:
   resolved "https://registry.yarnpkg.com/flipper-common/-/flipper-common-0.145.0.tgz#065477267adedc3bcd6421fb76cf3560d41bd94f"
   integrity sha512-FkMYt4XR5V9anqWsMWVQWt2NT7wiI95+OEDjaJ2BZL+g2G64/3cXzB8Cb3Ms4JiGAYbf6h1hv8IlcAGwetY+0A==
 
-flipper-pkg-lib@0.145.0:
-  version "0.145.0"
-  resolved "https://registry.yarnpkg.com/flipper-pkg-lib/-/flipper-pkg-lib-0.145.0.tgz#0750106032275c69d0ccbef81076c539daa9c6b8"
-  integrity sha512-463cDEDUyA+NEu8Ie3z5x6U+8QIhUzicji4zL21UcBRiBjjGCapwjSLBRSIWPmxPx1FUNd4oS0hhlblOZ/ZFdQ==
+flipper-common@0.146.0:
+  version "0.146.0"
+  resolved "https://registry.yarnpkg.com/flipper-common/-/flipper-common-0.146.0.tgz#87e415e1cdade57ec0db3f6fea03053aaefa7f07"
+  integrity sha512-7U/WtR/tWSvHHZnd+sYMEIfa1gFlw3zC6DVSvPgxvnM53b47lJVfCHnx1GMk9qYqoWSiMZyYr0RoGiASaHqJLQ==
   dependencies:
-    flipper-babel-transformer "0.145.0"
-    flipper-plugin-lib "0.145.0"
+    uuid "^8.3.2"
+
+flipper-pkg-lib@0.146.0:
+  version "0.146.0"
+  resolved "https://registry.yarnpkg.com/flipper-pkg-lib/-/flipper-pkg-lib-0.146.0.tgz#a1d3c7e55b895214425737461041f323f8eac5da"
+  integrity sha512-KKZfCDBZmRJb6TUPVkPuB9I97H5P33T6Wle0+mM6ZwiI/AS0P0kbia+XQtzmXaWHuiLbncDCD04n3PHASNgNZw==
+  dependencies:
+    flipper-babel-transformer "0.146.0"
+    flipper-plugin-lib "0.146.0"
     fs-extra "^10.1.0"
     metro "^0.70.2"
     metro-cache "^0.70.2"
     metro-minify-terser "^0.70.2"
     npm-packlist "^4.0.0"
 
-flipper-pkg@^0.145.0:
-  version "0.145.0"
-  resolved "https://registry.yarnpkg.com/flipper-pkg/-/flipper-pkg-0.145.0.tgz#f65c4e1cb3b4627996a0ad0c82618e913c3a8e64"
-  integrity sha512-qV5eLyVITmqfJqUcwjoU9j010MFc2IUPUmw60M7ylGkkrZ4nyT4GK4YOwZCZ8tRKTgg1kGhRzfQWrsNSvEjtmQ==
+flipper-pkg@^0.146.0:
+  version "0.146.0"
+  resolved "https://registry.yarnpkg.com/flipper-pkg/-/flipper-pkg-0.146.0.tgz#5c8387665aff29d779bbc3eb6726a380f0fcf7ea"
+  integrity sha512-nA+nxws6gBEn27kRBP6sXR7l2zS4vH24I8etiCvgqSF5l8Q2y+7QPva4GkUkkOOsI4QjLIPsPqn1LxhfOEwVKA==
   dependencies:
     "@oclif/command" "^1"
     "@oclif/config" "^1"
@@ -7227,23 +7234,23 @@ flipper-pkg@^0.145.0:
     ajv "^6.12.2"
     ajv-errors "^1.0.1"
     cli-ux "^6.0.9"
-    flipper-pkg-lib "0.145.0"
-    flipper-plugin-lib "0.145.0"
+    flipper-pkg-lib "0.146.0"
+    flipper-plugin-lib "0.146.0"
     fs-extra "^10.1.0"
     inquirer "^8.2.4"
     lodash "^4.17.21"
     recursive-readdir "^2.2.2"
 
-flipper-plugin-lib@0.145.0:
-  version "0.145.0"
-  resolved "https://registry.yarnpkg.com/flipper-plugin-lib/-/flipper-plugin-lib-0.145.0.tgz#f490bf526443d15024fed547b6100b3eb6b53764"
-  integrity sha512-VYOnI5OMrFpgB9IC9a9qZ1+gLByZVqk+EWBpnFxfrStSKh901PQvTdgbx6UCVKTAPqYq0gI4EKn34oKQAciCbg==
+flipper-plugin-lib@0.146.0:
+  version "0.146.0"
+  resolved "https://registry.yarnpkg.com/flipper-plugin-lib/-/flipper-plugin-lib-0.146.0.tgz#7e00e6aaf7ddcefc0d47241ebb5c362240e9c56a"
+  integrity sha512-OuG53SelSVoF21HyCRnVCbgQf/3UoVTjzErmAeC6jd78rppjaYWukDfl3t7sxY6zSifABocM2UfPjfLnZAvo0A==
   dependencies:
     algoliasearch "^4.13.0"
     decompress "^4.2.1"
     decompress-targz "^4.1.1"
     decompress-unzip "^4.0.1"
-    flipper-common "0.145.0"
+    flipper-common "0.146.0"
     fs-extra "^10.1.0"
     live-plugin-manager "^0.17.1"
     npm-api "^1.0.1"
