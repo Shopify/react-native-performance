@@ -7196,11 +7196,6 @@ flipper-babel-transformer@0.146.0:
     fs-extra "^10.1.0"
     tslib "^2.3.1"
 
-flipper-common@0.145.0:
-  version "0.145.0"
-  resolved "https://registry.yarnpkg.com/flipper-common/-/flipper-common-0.145.0.tgz#065477267adedc3bcd6421fb76cf3560d41bd94f"
-  integrity sha512-FkMYt4XR5V9anqWsMWVQWt2NT7wiI95+OEDjaJ2BZL+g2G64/3cXzB8Cb3Ms4JiGAYbf6h1hv8IlcAGwetY+0A==
-
 flipper-common@0.146.0:
   version "0.146.0"
   resolved "https://registry.yarnpkg.com/flipper-common/-/flipper-common-0.146.0.tgz#87e415e1cdade57ec0db3f6fea03053aaefa7f07"
@@ -7259,10 +7254,10 @@ flipper-plugin-lib@0.146.0:
     semver "^7.3.7"
     tmp "^0.2.1"
 
-flipper-plugin@^0.145.0:
-  version "0.145.0"
-  resolved "https://registry.yarnpkg.com/flipper-plugin/-/flipper-plugin-0.145.0.tgz#a08861b16b3690fed740990f3021ccce70535a09"
-  integrity sha512-VPzb17HQdWMshfDnSmI35oLu1zdzR9TJLqhr1VmVdmfWo6sTQMVkYaoZWuMylg3f1uTdsL7SW5+oCp1jAqhb8A==
+flipper-plugin@^0.146.0:
+  version "0.146.0"
+  resolved "https://registry.yarnpkg.com/flipper-plugin/-/flipper-plugin-0.146.0.tgz#5a3f4e617882d81d0fcedee5361fc8c0d88b02e4"
+  integrity sha512-j6ejeiRgywWdwGOf/Y8G9/o6rxx5GHqUYjj/03hOaQ1RCVkINVhEMV8jMeg1DeYPXyfpZUCpDIXncsDcW9blNg==
   dependencies:
     "@ant-design/colors" "^6.0.0"
     "@emotion/css" "^11.7.1"
@@ -7272,7 +7267,7 @@ flipper-plugin@^0.145.0:
     "@types/react-color" "^3.0.6"
     "@types/react-dom" "^17.0.13"
     eventemitter3 "^4.0.7"
-    flipper-common "0.145.0"
+    flipper-common "0.146.0"
     immer "^9.0.12"
     js-base64 "^3.7.2"
     lodash "^4.17.21"
@@ -7280,7 +7275,6 @@ flipper-plugin@^0.145.0:
     react-element-to-jsx-string "^14.3.4"
     react-virtual "^2.10.4"
     string-natural-compare "^3.0.0"
-    uuid "^8.3.2"
 
 flow-parser@0.*:
   version "0.177.0"
