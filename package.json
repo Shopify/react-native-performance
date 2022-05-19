@@ -39,7 +39,7 @@
     "@testing-library/react-native": "^9.0.0",
     "@types/jest": "^27.0.3",
     "@types/react": "17.0.44",
-    "@types/react-native": "0.67.6",
+    "@types/react-native": "0.67.7",
     "@typescript-eslint/parser": "^5.5.0",
     "abort-controller": "^3.0.0",
     "babel-jest": "^28.0.3",
