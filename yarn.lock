@@ -3863,10 +3863,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-native@0.67.6":
-  version "0.67.6"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.67.6.tgz#9a7de5feba6065aec9f44f9a1e8f6e55ee5d015c"
-  integrity sha512-NM6atxrefIXMLE/PyQ1bIQjQ/lWLdls3uVxItzKvNUUVZlGqgn/uGN4MarM9quSf90uSqJYPIAeAgTtBTUjhgg==
+"@types/react-native@0.67.7":
+  version "0.67.7"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.67.7.tgz#903b7d56fb6a95ca0de897f2925c04ee0d4adee3"
+  integrity sha512-G7vi9vE226diNNXVNbIa8HH/wPxMWHTHkn9iQtQSezaWzO5WNsKZZW2/TOzCehtBDVx4MZieTs6GsdtpBBttMA==
   dependencies:
     "@types/react" "*"
 
@@ -12326,10 +12326,10 @@ react-native-codegen@^0.0.17:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
-react-native-flipper@^0.145.0:
-  version "0.145.0"
-  resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.145.0.tgz#4f94552e286c4fd0e0493fca96141b41877ee233"
-  integrity sha512-FZJsQsMfvn6y6+xouvfFOtcNiZ8nkXT2/p1D7rBLIb1kTUw5357+sveg4qwp77UhmcBYiE9IRGHlgLp+tLWbnw==
+react-native-flipper@^0.146.0:
+  version "0.146.0"
+  resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.146.0.tgz#031350cb2bd9ebbc9e0e85be441c3be4b2c25356"
+  integrity sha512-v+7OKTXjmijt5kGZKrZeud7JTPogFHc8/714BLb6+4TRTp1Q3Peyen3LHphRruHIdKRjex5LfJ7v/PEW+deDbQ==
 
 react-native-gesture-handler@^2.0.0:
   version "2.4.2"
