@@ -1,6 +1,7 @@
-import {useCallback} from 'react';
+import {useCallback, useContext} from 'react';
 
 import GestureResponderEvent from '../GestureResponderEvent';
+import {ComponentInstanceIdContext} from '../PerformanceMeasureView';
 import {useStateController} from '../state-machine';
 
 interface CommonArgs {
@@ -23,6 +24,9 @@ export type StartTimerArgs = FlowStartArgs | FlowResetArgs;
 
 const useStartProfiler = () => {
   const stateController = useStateController();
+  const componentInstanceId = useContext(ComponentInstanceIdContext);
+
+  console.log('componentInstanceId from context in useStartProfiler', componentInstanceId);
 
   const startTimer = useCallback(
     (args: StartTimerArgs) => {
@@ -32,6 +36,7 @@ const useStartProfiler = () => {
           destinationScreen: args.destination,
           uiEvent: args.uiEvent,
           renderTimeoutMillisOverride: args.renderTimeoutMillisOverride,
+          componentInstanceId,
         });
       } else {
         stateController.onNavigationStarted({
@@ -41,7 +46,7 @@ const useStartProfiler = () => {
         });
       }
     },
-    [stateController],
+    [stateController, componentInstanceId],
   );
 
   return startTimer;

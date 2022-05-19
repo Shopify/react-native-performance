@@ -1,6 +1,6 @@
 import React, {useState, useContext, useRef} from 'react';
 import {Text, Button} from 'react-native';
-import {useStartProfiler} from '@shopify/react-native-performance';
+import {useStartProfiler, ComponentInstanceIdContext} from '@shopify/react-native-performance';
 import {ReactNavigationPerformanceView} from '@shopify/react-native-performance-navigation';
 import {createProfiledDrawerNavigator} from '@shopify/react-native-performance-navigation-drawer';
 
@@ -31,7 +31,10 @@ const GlobalStateContext = React.createContext<GlobalState | undefined>(undefine
 const DrawerScreen = ({navigationKey}: {navigationKey: keyof typeof NavigationKeys}) => {
   const screenName = NavigationKeys[navigationKey];
   const globalState = useContext(GlobalStateContext);
+
+  const componentInstanceId = useContext(ComponentInstanceIdContext);
   const startProfiler = useStartProfiler();
+  console.log('componentInstanceId from context in Drawer Navigator', componentInstanceId);
 
   const isFirstRender = useRef(true);
 
@@ -39,7 +42,7 @@ const DrawerScreen = ({navigationKey}: {navigationKey: keyof typeof NavigationKe
     if (isFirstRender.current) {
       isFirstRender.current = false;
     } else {
-      console.log(`Resetting flow for screen: ${screenName}`);
+      console.log(`Resetting flow for screen and waiting for componentinstance id: ${screenName}`);
       startProfiler({
         destination: screenName,
         reset: true,

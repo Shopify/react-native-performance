@@ -1,4 +1,4 @@
-import React, {ReactNode, useEffect, useState, useRef} from 'react';
+import React, {ReactNode, useEffect, useState, useRef, createContext} from 'react';
 import {InteractionManager, StyleSheet} from 'react-native';
 
 import {inMemoryCounter} from './utils';
@@ -45,6 +45,14 @@ const normalizeRenderState = (props: RenderStateProps): {interactive: boolean; r
   };
 };
 
+export const ComponentInstanceIdContext = createContext<string | undefined>(undefined);
+
+// const ComponentInstanceIdContextProvider = ({children, componentInstanceId}: any) => {
+//   return (
+//     <ComponentInstanceIdContext.Provider value={componentInstanceId}>{children}</ComponentInstanceIdContext.Provider>
+//   );
+// };
+
 const PerformanceMeasureView = ({
   screenName,
   children,
@@ -53,6 +61,7 @@ const PerformanceMeasureView = ({
   ...renderStateProps
 }: PerformanceMeasureViewProps) => {
   const stateController = useStateController();
+  console.log('Im being execyted');
 
   const [show, setShow] = useState(!optimizeForSlowRenderComponents);
 
@@ -67,13 +76,16 @@ const PerformanceMeasureView = ({
   }, [optimizeForSlowRenderComponents]);
 
   const componentInstanceId = useRef(renderStateProps.componentInstanceId ?? inMemoryCounter()).current;
+
   useTrackComponentMounts({stateController, screenName, componentInstanceId});
 
   if (stateController.isEnabled) {
     if (show) {
       const PerformanceMarker = getPerformanceMarker();
+      console.log('ComponentInstanceId in PerfMeasureView', componentInstanceId);
+      console.log(children);
       return (
-        <>
+        <ComponentInstanceIdContext.Provider value={componentInstanceId}>
           <PerformanceMarker
             componentInstanceId={componentInstanceId}
             key={renderPassName}
@@ -83,7 +95,7 @@ const PerformanceMeasureView = ({
             style={styles.invisible}
           />
           {children}
-        </>
+        </ComponentInstanceIdContext.Provider>
       );
     } else if (slowRenderPlaceholder) {
       return <>{slowRenderPlaceholder}</>;
@@ -91,7 +103,10 @@ const PerformanceMeasureView = ({
       return null;
     }
   } else {
-    return <>{children}</>;
+    console.log('this is rendering first');
+    return (
+      <ComponentInstanceIdContext.Provider value={componentInstanceId}>{children}</ComponentInstanceIdContext.Provider>
+    );
   }
 };
 

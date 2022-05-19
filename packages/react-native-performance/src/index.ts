@@ -1,7 +1,11 @@
 import * as States from './state-machine/states';
 
 export {PerformanceProfiler} from './context';
-export {default as PerformanceMeasureView, RenderStateProps} from './PerformanceMeasureView';
+export {
+  default as PerformanceMeasureView,
+  RenderStateProps,
+  ComponentInstanceIdContext,
+} from './PerformanceMeasureView';
 export * from './hooks';
 export * from './RenderPassReport';
 export * from './exceptions';
