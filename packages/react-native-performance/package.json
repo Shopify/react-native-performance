@@ -33,7 +33,7 @@
     "react-native": "*"
   },
   "devDependencies": {
-    "@quilted/react-testing": "^0.3.10",
+    "@quilted/react-testing": "^0.5.11",
     "@testing-library/react-hooks": "^8.0.0",
     "@testing-library/react-native": "^9.0.0",
     "jest-extended": "^2.0.0",
