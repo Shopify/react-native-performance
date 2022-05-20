@@ -1,6 +1,6 @@
 import React, {useState, useContext, useRef} from 'react';
 import {Text, Button} from 'react-native';
-import {useStartProfiler, ComponentInstanceIdContext} from '@shopify/react-native-performance';
+import {useStartProfiler, ComponentInstanceIdContext, useComponentInstanceId} from '@shopify/react-native-performance';
 import {ReactNavigationPerformanceView} from '@shopify/react-native-performance-navigation';
 import {createProfiledDrawerNavigator} from '@shopify/react-native-performance-navigation-drawer';
 
@@ -32,7 +32,7 @@ const DrawerScreen = ({navigationKey}: {navigationKey: keyof typeof NavigationKe
   const screenName = NavigationKeys[navigationKey];
   const globalState = useContext(GlobalStateContext);
 
-  const componentInstanceId = useContext(ComponentInstanceIdContext);
+  const componentInstanceId = useComponentInstanceId();
   const startProfiler = useStartProfiler();
   console.log('componentInstanceId from context in Drawer Navigator', componentInstanceId);
 
@@ -46,6 +46,7 @@ const DrawerScreen = ({navigationKey}: {navigationKey: keyof typeof NavigationKe
       startProfiler({
         destination: screenName,
         reset: true,
+        componentInstanceId,
       });
     }
   }
@@ -54,6 +55,7 @@ const DrawerScreen = ({navigationKey}: {navigationKey: keyof typeof NavigationKe
 
   return (
     <ReactNavigationPerformanceView
+      componentInstanceId={componentInstanceId}
       screenName={screenName}
       interactive={globalState !== undefined}
       renderPassName={globalState === undefined ? 'loading' : `interactive_${globalState.counter}`}

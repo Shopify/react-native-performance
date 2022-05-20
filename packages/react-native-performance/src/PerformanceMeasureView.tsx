@@ -45,14 +45,6 @@ const normalizeRenderState = (props: RenderStateProps): {interactive: boolean; r
   };
 };
 
-export const ComponentInstanceIdContext = createContext<string | undefined>(undefined);
-
-// const ComponentInstanceIdContextProvider = ({children, componentInstanceId}: any) => {
-//   return (
-//     <ComponentInstanceIdContext.Provider value={componentInstanceId}>{children}</ComponentInstanceIdContext.Provider>
-//   );
-// };
-
 const PerformanceMeasureView = ({
   screenName,
   children,
@@ -82,10 +74,8 @@ const PerformanceMeasureView = ({
   if (stateController.isEnabled) {
     if (show) {
       const PerformanceMarker = getPerformanceMarker();
-      console.log('ComponentInstanceId in PerfMeasureView', componentInstanceId);
-      console.log(children);
       return (
-        <ComponentInstanceIdContext.Provider value={componentInstanceId}>
+        <>
           <PerformanceMarker
             componentInstanceId={componentInstanceId}
             key={renderPassName}
@@ -95,7 +85,7 @@ const PerformanceMeasureView = ({
             style={styles.invisible}
           />
           {children}
-        </ComponentInstanceIdContext.Provider>
+        </>
       );
     } else if (slowRenderPlaceholder) {
       return <>{slowRenderPlaceholder}</>;

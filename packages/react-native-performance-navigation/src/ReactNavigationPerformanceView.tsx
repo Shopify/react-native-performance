@@ -23,7 +23,7 @@ export const ReactNavigationPerformanceView = (props: Props) => {
   // We only want to report `TRANSITION_END` render pass once.
   const transitionEndReported = useRef(false);
 
-  const componentInstanceId = useRef(inMemoryCounter()).current;
+  const componentInstanceId = useRef(props.componentInstanceId ?? inMemoryCounter()).current;
   const stateController = useStateController();
 
   useFocusEffect(
