@@ -4,18 +4,19 @@ import {useStateController} from '../state-machine';
 
 import {CommonArgs} from './FlowCommonArgs';
 
-export interface FlowStartArgs extends CommonArgs {
-  destination?: never;
-  componentInstanceId?: never;
+export interface FlowResetArgs extends CommonArgs {
+  destination: string;
+  componentInstanceId: string;
 }
 
-const useStartProfiler = () => {
+const useResetFlow = () => {
   const stateController = useStateController();
 
   const startTimer = useCallback(
-    (args: FlowStartArgs) => {
-      stateController.onNavigationStarted({
+    (args: FlowResetArgs) => {
+      stateController.onFlowReset({
         sourceScreen: args.source,
+        destinationScreen: args.destination,
         uiEvent: args.uiEvent,
         renderTimeoutMillisOverride: args.renderTimeoutMillisOverride,
       });
@@ -26,4 +27,4 @@ const useStartProfiler = () => {
   return startTimer;
 };
 
-export default useStartProfiler;
+export default useResetFlow;

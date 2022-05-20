@@ -1,4 +1,4 @@
-import React, {ReactNode, useEffect, useState, useRef, createContext} from 'react';
+import React, {ReactNode, useEffect, useState, useRef} from 'react';
 import {InteractionManager, StyleSheet} from 'react-native';
 
 import {inMemoryCounter} from './utils';
@@ -53,7 +53,6 @@ const PerformanceMeasureView = ({
   ...renderStateProps
 }: PerformanceMeasureViewProps) => {
   const stateController = useStateController();
-  console.log('Im being execyted');
 
   const [show, setShow] = useState(!optimizeForSlowRenderComponents);
 
@@ -93,10 +92,7 @@ const PerformanceMeasureView = ({
       return null;
     }
   } else {
-    console.log('this is rendering first');
-    return (
-      <ComponentInstanceIdContext.Provider value={componentInstanceId}>{children}</ComponentInstanceIdContext.Provider>
-    );
+    return <>{children}</>;
   }
 };
 

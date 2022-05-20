@@ -51,7 +51,6 @@ describe('hooks/useStartProfiler', () => {
           timestamp: 1000,
         },
       },
-      reset: false,
     });
 
     expect(mockStateController.onNavigationStarted).toHaveBeenCalledTimes(1);
@@ -91,23 +90,6 @@ describe('hooks/useStartProfiler', () => {
     expect(mockStateController.onNavigationStarted).toHaveBeenCalledTimes(1);
     expect(mockStateController.onNavigationStarted).toHaveBeenCalledWith({
       sourceScreen: 'SomeSourceScreen',
-      renderTimeoutMillisOverride: 34,
-    });
-  });
-
-  it('provides the renderTimeoutMillisOverride when one is provided on flow reset', () => {
-    const start = renderHook(() => useStartProfiler(), {wrapper}).result.current;
-    expect(mockStateController.onFlowReset).not.toHaveBeenCalled();
-    start({
-      source: 'SomeSourceScreen',
-      destination: 'SomeSourceScreen',
-      renderTimeoutMillisOverride: 34,
-      reset: true,
-    });
-    expect(mockStateController.onFlowReset).toHaveBeenCalledTimes(1);
-    expect(mockStateController.onFlowReset).toHaveBeenCalledWith({
-      sourceScreen: 'SomeSourceScreen',
-      destinationScreen: 'SomeSourceScreen',
       renderTimeoutMillisOverride: 34,
     });
   });

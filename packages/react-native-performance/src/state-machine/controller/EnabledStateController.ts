@@ -572,13 +572,15 @@ function assertRenderPassNamesUnique(finalState: State) {
       const previousRenderedState = seenRenderPasses.get(state.renderPassName);
       if (previousRenderedState !== undefined && previousRenderedState.snapshotId !== state.snapshotId) {
         logger.info(
+          // TODOs: add link to docs
           `Looks like you used the same render pass name '${state.renderPassName}' multiple times on the ${state.destinationScreen} screen. ` +
             'A renderPassName can help uniquely identifying a UI state in which a given screen can render (e.g., "loading", "cached_render", "first_contentful_paint", etc.). ' +
             'If you do not expect to see the same renderPassName multiple times, it is often a sign that your screen might be going through ' +
             'some unexpected state changes. If you are debugging a performance issue, we recommend:\n' +
             'i) debugging the prop/state change that is leading to these unnecessary re-renders, and fix them if the re-renders were not expected,\n' +
             'ii) assigning different renderPassNames to these render passes so that you can distinguish between them in the output reports if the re-renders were expected or\n' +
-            'iii) notifying the profiler library of that via the useProfilerStart hook and by setting "reset: true" if the re-render is occurring because the flow is essentially being restarted.',
+            'iii) notifying the profiler library of that via the useResetFlow hook and by setting a componentInstanceId to ReactNavigationPerformanceView' +
+            'if the re-render is occurring because the flow is essentially being restarted.',
         );
       }
       seenRenderPasses.set(state.renderPassName, state);

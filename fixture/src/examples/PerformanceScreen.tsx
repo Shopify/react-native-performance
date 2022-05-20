@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState, useMemo} from 'react';
 import {
   StatusBar,
   SafeAreaView,
@@ -9,7 +9,12 @@ import {
   NativeSyntheticEvent,
   NativeTouchEvent,
 } from 'react-native';
-import {RenderStateProps, useStartProfiler, GestureResponderEvent} from '@shopify/react-native-performance';
+import {
+  RenderStateProps,
+  useResetFlow,
+  useComponentInstanceId,
+  GestureResponderEvent,
+} from '@shopify/react-native-performance';
 import {ReactNavigationPerformanceView, useProfiledNavigation} from '@shopify/react-native-performance-navigation';
 import gql from 'graphql-tag';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -43,7 +48,9 @@ const PerformanceScreen = () => {
     result: '<some simulated slow API result>',
   });
   const rickAndMortyQueryResult = useQuery(AllRickAndMortyCharacters);
-  const startProfiler = useStartProfiler();
+
+  const resetFlow = useResetFlow();
+  const componentInstanceId = useComponentInstanceId();
 
   useEffect(() => {
     (async () => {
@@ -61,7 +68,7 @@ const PerformanceScreen = () => {
     [navigation],
   );
 
-  const RenderedBody = () => {
+  const RenderedBody = useMemo(() => {
     return (
       <ScrollView>
         <Text style={styles.helperText}>Rendered: {JSON.stringify({simulatedSlowData})}</Text>
@@ -70,16 +77,16 @@ const PerformanceScreen = () => {
         </Text>
       </ScrollView>
     );
-  };
+  }, [simulatedSlowData, rickAndMortyQueryResult]);
 
-  const WaitingBody = () => {
+  const WaitingBody = useMemo(() => {
     return (
       <>
         <ActivityIndicator />
         <Text style={styles.helperText}>Rendering in: {secondsLeft} seconds.</Text>
       </>
     );
-  };
+  }, [secondsLeft]);
 
   let renderStateProps: RenderStateProps;
   if (rendered) {
@@ -95,23 +102,23 @@ const PerformanceScreen = () => {
 
   const onFakePullToRefresh = useCallback(
     async (uiEvent: NativeSyntheticEvent<NativeTouchEvent>) => {
-      startProfiler({
-        uiEvent,
-        destination: NavigationKeys.PERFORMANCE,
-        reset: true,
-      });
+      resetFlow({uiEvent, destination: NavigationKeys.PERFORMANCE, componentInstanceId});
       restartTimer();
       rickAndMortyQueryResult.refetch();
     },
-    [startProfiler, restartTimer, rickAndMortyQueryResult],
+    [resetFlow, restartTimer, rickAndMortyQueryResult, componentInstanceId],
   );
 
   return (
-    <ReactNavigationPerformanceView screenName={NavigationKeys.PERFORMANCE} {...renderStateProps}>
+    <ReactNavigationPerformanceView
+      screenName={NavigationKeys.PERFORMANCE}
+      {...renderStateProps}
+      componentInstanceId={componentInstanceId}
+    >
       <Button onPress={onFakePullToRefresh} title="Simulate Pull-to-refresh" />
       <Button title="Go to home" onPress={goHome} />
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={styles.container}>{rendered ? <RenderedBody /> : <WaitingBody />}</SafeAreaView>
+      <SafeAreaView style={styles.container}>{rendered ? RenderedBody : WaitingBody}</SafeAreaView>
     </ReactNavigationPerformanceView>
   );
 };
