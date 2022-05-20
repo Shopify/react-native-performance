@@ -16,47 +16,25 @@ describe('hooks/useResetFlow', () => {
     const reset = renderHook(() => useResetFlow(), {wrapper}).result.current;
     expect(mockStateController.onFlowReset).not.toHaveBeenCalled();
     reset({
-      source: 'SomeSourceScreen',
       destination: 'SomeDestinationScreen',
       componentInstanceId: 'id',
     });
     expect(mockStateController.onFlowReset).toHaveBeenCalledTimes(1);
     expect(mockStateController.onFlowReset).toHaveBeenCalledWith({
-      sourceScreen: 'SomeSourceScreen',
       destinationScreen: 'SomeDestinationScreen',
       componentInstanceId: 'id',
-    });
-  });
-
-  it('provides the renderTimeoutMillisOverride when one is provided on navigation start', () => {
-    const reset = renderHook(() => useResetFlow(), {wrapper}).result.current;
-    expect(mockStateController.onNavigationStarted).not.toHaveBeenCalled();
-    reset({
-      source: 'SomeSourceScreen',
-      renderTimeoutMillisOverride: 34,
-      componentInstanceId: 'id',
-      destination: 'SomeSourceScreen',
-    });
-    expect(mockStateController.onNavigationStarted).toHaveBeenCalledTimes(1);
-    expect(mockStateController.onNavigationStarted).toHaveBeenCalledWith({
-      sourceScreen: 'SomeSourceScreen',
-      destinationScreen: 'SomeDestinationScreen',
-      renderTimeoutMillisOverride: 34,
     });
   });
 
   it('provides the renderTimeoutMillisOverride when one is provided on flow reset', () => {
     const reset = renderHook(() => useResetFlow(), {wrapper}).result.current;
-    expect(mockStateController.onFlowReset).not.toHaveBeenCalled();
     reset({
-      source: 'SomeSourceScreen',
       destination: 'SomeSourceScreen',
       renderTimeoutMillisOverride: 34,
       componentInstanceId: 'id',
     });
     expect(mockStateController.onFlowReset).toHaveBeenCalledTimes(1);
-    expect(mockStateController.onFlowReset).toHaveBeenCalledWith({
-      sourceScreen: 'SomeSourceScreen',
+    expect(mockStateController.onFlowReset).toBeCalledWith({
       destinationScreen: 'SomeSourceScreen',
       renderTimeoutMillisOverride: 34,
       componentInstanceId: 'id',

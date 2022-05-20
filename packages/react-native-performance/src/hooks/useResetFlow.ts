@@ -12,19 +12,20 @@ export interface FlowResetArgs extends CommonArgs {
 const useResetFlow = () => {
   const stateController = useStateController();
 
-  const startTimer = useCallback(
+  const resetTimer = useCallback(
     (args: FlowResetArgs) => {
       stateController.onFlowReset({
         sourceScreen: args.source,
         destinationScreen: args.destination,
         uiEvent: args.uiEvent,
         renderTimeoutMillisOverride: args.renderTimeoutMillisOverride,
+        componentInstanceId: args.componentInstanceId,
       });
     },
     [stateController],
   );
 
-  return startTimer;
+  return resetTimer;
 };
 
 export default useResetFlow;

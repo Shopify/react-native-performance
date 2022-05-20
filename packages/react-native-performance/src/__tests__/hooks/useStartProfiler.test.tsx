@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {renderHook, WrapperComponent} from '@testing-library/react-hooks';
 
 import useStartProfiler from '../../hooks/useStartProfiler';
@@ -13,7 +12,7 @@ describe('hooks/useStartProfiler', () => {
     ({wrapper, stateController: mockStateController} = profilerTestWrapper());
   });
 
-  it('calls stateController.onNavigationStarted when reset is undefined', () => {
+  it('calls stateController.onNavigationStarted', () => {
     const start = renderHook(() => useStartProfiler(), {wrapper}).result.current;
 
     expect(mockStateController.onNavigationStarted).not.toHaveBeenCalled();
@@ -35,47 +34,6 @@ describe('hooks/useStartProfiler', () => {
           timestamp: 1000,
         },
       },
-    });
-  });
-
-  it('calls stateController.onNavigationStarted when reset is explicitly set to false', () => {
-    const start = renderHook(() => useStartProfiler(), {wrapper}).result.current;
-
-    // @ts-ignore
-    expect(mockStateController.onNavigationStarted).not.toHaveBeenCalled();
-
-    start({
-      source: 'SomeSourceScreen',
-      uiEvent: {
-        nativeEvent: {
-          timestamp: 1000,
-        },
-      },
-    });
-
-    expect(mockStateController.onNavigationStarted).toHaveBeenCalledTimes(1);
-    expect(mockStateController.onNavigationStarted).toHaveBeenCalledWith({
-      sourceScreen: 'SomeSourceScreen',
-      uiEvent: {
-        nativeEvent: {
-          timestamp: 1000,
-        },
-      },
-    });
-  });
-
-  it('calls stateController.onFlowReset when the flow is reset', () => {
-    const start = renderHook(() => useStartProfiler(), {wrapper}).result.current;
-    expect(mockStateController.onFlowReset).not.toHaveBeenCalled();
-    start({
-      source: 'SomeSourceScreen',
-      destination: 'SomeDestinationScreen',
-      reset: true,
-    });
-    expect(mockStateController.onFlowReset).toHaveBeenCalledTimes(1);
-    expect(mockStateController.onFlowReset).toHaveBeenCalledWith({
-      sourceScreen: 'SomeSourceScreen',
-      destinationScreen: 'SomeDestinationScreen',
     });
   });
 
@@ -85,7 +43,6 @@ describe('hooks/useStartProfiler', () => {
     start({
       source: 'SomeSourceScreen',
       renderTimeoutMillisOverride: 34,
-      reset: false,
     });
     expect(mockStateController.onNavigationStarted).toHaveBeenCalledTimes(1);
     expect(mockStateController.onNavigationStarted).toHaveBeenCalledWith({
