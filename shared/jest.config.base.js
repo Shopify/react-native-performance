@@ -10,4 +10,5 @@ module.exports = {
   testMatch: ['<rootDir>/src/**/__tests__/**/*.(test|spec).(ts|tsx|js)'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/'],
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
+  resolver: path.join(__dirname, './resolver.js'),
 };
