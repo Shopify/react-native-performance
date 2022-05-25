@@ -4,16 +4,11 @@ import {useStateController} from '../state-machine';
 
 import {FlowCommonArgs} from './FlowCommonArgs';
 
-export interface FlowStartArgs extends FlowCommonArgs {
-  destination?: never;
-  componentInstanceId?: never;
-}
-
 const useStartProfiler = () => {
   const stateController = useStateController();
 
   const startTimer = useCallback(
-    (args: FlowStartArgs) => {
+    (args: FlowCommonArgs) => {
       stateController.onNavigationStarted({
         sourceScreen: args.source,
         uiEvent: args.uiEvent,

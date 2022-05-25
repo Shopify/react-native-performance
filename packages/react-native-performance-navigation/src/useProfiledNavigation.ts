@@ -1,7 +1,7 @@
 import {useNavigation, NavigationProp, ParamListBase, StackActionHelpers} from '@react-navigation/native';
 import {
   useStartProfiler,
-  FlowStartArgs,
+  FlowCommonArgs,
   isGestureResponderEvent,
   useErrorHandler,
   DESTINATION_SCREEN_NAME_PLACEHOLDER,
@@ -10,7 +10,7 @@ import {
 import {useCallback, useMemo} from 'react';
 import isDeepEqual from 'lodash.isequal';
 
-type StartTimerArgs = Omit<FlowStartArgs, 'reset' | 'destination'>;
+type StartTimerArgs = Omit<FlowCommonArgs, 'reset' | 'destination'>;
 
 const PROFILED_APIS = ['navigate', 'push', 'replace'] as const;
 type ProfiledAPISType = typeof PROFILED_APIS[number];
