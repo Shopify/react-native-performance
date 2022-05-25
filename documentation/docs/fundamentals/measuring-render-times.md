@@ -111,11 +111,13 @@ _Note that the companion libraries to this package--[performance-react-navigatio
 
 The screen re-render starts when a certain UI event within the current screen causes the screen to be re-painted. Think of scenarios such as pull-to-refresh in a list screen or a change in the query term in a search screen.
 
-Just like before, you can use the `useStartProfiler` hook to start this timer. However, this time, you need to specify the `reset` prop as `true`. You also need to provide a `destination` to identify which screen is being re-painted. By default, the `sourceScreen` is the same as the `destinationScreen`, implying that the user triggered the re-paint from the same screen as the one being re-painted. You can optionally use a different `sourceScreen` if that's not the case; for example, if the re-paint is being triggered by a button in a modal or a different tab.
+This time instead of `useStartProfiler` hook you need to use `useResetFlow` hook. This hook requires passing a `destination` prop to identify which screen is being re-painted. By default, the `sourceScreen` is the same as the `destinationScreen`, implying that the user triggered the re-paint from the same screen as the one being re-painted. You can optionally use a different `sourceScreen` if that's not the case; for example, if the re-paint is being triggered by a button in a modal or a different tab.
+
+Using `useResetFlow` also requires you to pass `componentInstanceId` to `PerformanceMeasureView`/`ReactNavigationPerformanceMeasureView`. This allows the library to match the restarted flow with the corresponding `MeasureView`:
 
 ```tsx
 const HomeScreen = () => {
-  const startReRenderTimer = useStartProfiler()
+  const {resetFlow, componentInstanceId} = useResetFlow();
 
   const {data, refetch, networkStatus} = useQuery(...)
   const homeItems = data?.homeItems
@@ -126,13 +128,12 @@ const HomeScreen = () => {
   }
 
   return (
-    <PerformanceMeasureView screenName="HomeScreen" {...renderStateProps}>
+    <PerformanceMeasureView componentInstanceId={componentInstanceId} screenName="HomeScreen" {...renderStateProps}>
       <FlatList
         { /* configure your FlatList */ }
         onRefresh={() => {
-          startReRenderTimer({
-            destination: 'ScreenA',
-            reset: true
+          resetFlow({
+            destination: 'ScreenA'
           })
           refetch()
         }}
@@ -142,7 +143,7 @@ const HomeScreen = () => {
 }
 ```
 
-This use-case is similar to the previous navigation one, except that you start and end the render timer on the same screen. There is no navigation involved. Hence, the same screen contains both the start call via the `useStartProfiler` hook, and the end call via the `PerformanceMeasureView` component usage.
+This use-case is similar to the previous navigation one, except that you start and end the render timer on the same screen. There is no navigation involved. Hence, the same screen contains both the start call via the `useResetFlow` hook, and the end call via the `PerformanceMeasureView` component usage.
 
 The above example also showcases how you can use the `renderPassName` prop for representing these complex render-pass scenarios.
 

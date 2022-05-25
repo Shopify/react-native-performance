@@ -572,7 +572,6 @@ function assertRenderPassNamesUnique(finalState: State) {
       const previousRenderedState = seenRenderPasses.get(state.renderPassName);
       if (previousRenderedState !== undefined && previousRenderedState.snapshotId !== state.snapshotId) {
         logger.info(
-          // TODOs: add link to docs
           `Looks like you used the same render pass name '${state.renderPassName}' multiple times on the ${state.destinationScreen} screen. ` +
             'A renderPassName can help uniquely identifying a UI state in which a given screen can render (e.g., "loading", "cached_render", "first_contentful_paint", etc.). ' +
             'If you do not expect to see the same renderPassName multiple times, it is often a sign that your screen might be going through ' +
