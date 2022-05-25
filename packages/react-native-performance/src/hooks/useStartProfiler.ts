@@ -2,9 +2,9 @@ import {useCallback} from 'react';
 
 import {useStateController} from '../state-machine';
 
-import {CommonArgs} from './FlowCommonArgs';
+import {FlowCommonArgs} from './FlowCommonArgs';
 
-export interface FlowStartArgs extends CommonArgs {
+export interface FlowStartArgs extends FlowCommonArgs {
   destination?: never;
   componentInstanceId?: never;
 }

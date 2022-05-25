@@ -2,10 +2,10 @@ import {useCallback} from 'react';
 
 import {useStateController} from '../state-machine';
 
-import {CommonArgs} from './FlowCommonArgs';
+import {FlowCommonArgs} from './FlowCommonArgs';
 import useComponentInstanceId from './useComponentInstanceId';
 
-export interface FlowResetArgs extends CommonArgs {
+export interface FlowResetArgs extends FlowCommonArgs {
   destination: string;
 }
 

@@ -1,6 +1,6 @@
 import GestureResponderEvent from '../GestureResponderEvent';
 
-export interface CommonArgs {
+export interface FlowCommonArgs {
   source?: string;
   uiEvent?: GestureResponderEvent;
   renderTimeoutMillisOverride?: number;
