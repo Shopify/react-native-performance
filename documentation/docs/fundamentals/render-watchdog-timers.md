@@ -14,6 +14,7 @@ Additionally, one needs to communicate the transitions among the different rende
 It is possible that a developer may use the `useStartProfiler` hook, but forget to wrap the target screen with an `PerformanceMeasureView`. A developer may also make a mistake while writing the logic to evaluate the `interactive` prop's value such that it never transitions to `true`. Both of these developer errors may lead to interactive `RenderPassReports` not getting generated, since the library will never be able to determine whether the screen became interactive or not.
 
 The library can help you catch these kinds of errors via the use of render watchdog timers. This is an enabled by default functionality that is recommended to be used in at least the development builds of the apps.
+The default render timeout is `10000ms`, however it can be overridden for a specific flow or for the whole app:
 
 ```tsx
 const App = () => {
