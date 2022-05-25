@@ -113,7 +113,7 @@ The screen re-render starts when a certain UI event within the current screen ca
 
 This time instead of `useStartProfiler` hook you need to use `useResetFlow` hook. This hook requires passing a `destination` prop to identify which screen is being re-painted. By default, the `sourceScreen` is the same as the `destinationScreen`, implying that the user triggered the re-paint from the same screen as the one being re-painted. You can optionally use a different `sourceScreen` if that's not the case; for example, if the re-paint is being triggered by a button in a modal or a different tab.
 
-Using `useResetFlow` also requires you to pass `componentInstanceId` to `PerformanceMeasureView`/`ReactNavigationPerformanceMeasureView`. This allows the library to match the restarted flow with the corresponding `MeasureView`:
+Using `useResetFlow` also requires you to pass `componentInstanceId` to `PerformanceMeasureView`/`ReactNavigationPerformanceView`. This allows the library to match the restarted flow with the corresponding `MeasureView`:
 
 ```tsx
 const HomeScreen = () => {
