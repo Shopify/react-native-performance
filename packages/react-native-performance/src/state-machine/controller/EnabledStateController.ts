@@ -577,9 +577,7 @@ function assertRenderPassNamesUnique(finalState: State) {
             'If you do not expect to see the same renderPassName multiple times, it is often a sign that your screen might be going through ' +
             'some unexpected state changes. If you are debugging a performance issue, we recommend:\n' +
             'i) debugging the prop/state change that is leading to these unnecessary re-renders, and fix them if the re-renders were not expected,\n' +
-            'ii) assigning different renderPassNames to these render passes so that you can distinguish between them in the output reports if the re-renders were expected or\n' +
-            'iii) notifying the profiler library of that via the useResetFlow hook and by setting a componentInstanceId to ReactNavigationPerformanceView' +
-            'if the re-render is occurring because the flow is essentially being restarted.',
+            'ii) assigning different renderPassNames to these render passes so that you can distinguish between them in the output reports if the re-renders were expected.',
         );
       }
       seenRenderPasses.set(state.renderPassName, state);
