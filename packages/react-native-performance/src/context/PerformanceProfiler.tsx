@@ -32,7 +32,7 @@ const PerformanceProfiler = ({
   renderTimeoutMillis = DEFAULT_RENDER_TIMEOUT_MILLIS,
   errorHandler = () => {},
   enabled = true,
-  useRenderTimeouts = false,
+  useRenderTimeouts = true,
   logLevel = LogLevel.Warn,
 }: Props) => {
   const reportEmitter = useReportEmitter({onReportPrepared, errorHandler});

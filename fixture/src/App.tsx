@@ -53,7 +53,7 @@ const App = () => {
   return (
     <>
       <ApolloProvider client={apolloClient}>
-        <PerformanceProfiler renderTimeoutMillis={6 * 1000} useRenderTimeouts logLevel={LogLevel.Debug}>
+        <PerformanceProfiler logLevel={LogLevel.Debug}>
           <ListsProfiler onInteractive={onInteractiveCallback} onBlankArea={onBlankAreaCallback}>
             <NavigationTree />
           </ListsProfiler>
