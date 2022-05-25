@@ -59,8 +59,9 @@ describe('context/PerformanceProfiler', () => {
 
     renderHook(() => useStateController(), {wrapper});
 
-    // @ts-ignore
-    expect(useStateControllerInitializer.mock.calls[0][0].reportEmitter).toBe(mockReportEmitter);
+    expect(useStateControllerInitializer).toHaveBeenCalledWith(
+      expect.objectContaining({reportEmitter: mockReportEmitter}),
+    );
   });
 
   it('sets up the native render completion event listener', () => {
@@ -71,5 +72,43 @@ describe('context/PerformanceProfiler', () => {
     expect(useNativeRenderCompletionEvents).not.toHaveBeenCalled();
     renderHook(() => useStateController(), {wrapper});
     expect(useNativeRenderCompletionEvents).toHaveBeenCalledTimes(1);
+  });
+
+  it('uses render timeouts by default', () => {
+    const wrapper = ({children}: {children: React.ReactElement}) => (
+      <PerformanceProfiler onReportPrepared={jest.fn()}>{children}</PerformanceProfiler>
+    );
+    renderHook(() => useStateController(), {wrapper});
+    expect(useStateControllerInitializer).toHaveBeenCalledWith(expect.objectContaining({useRenderTimeouts: true}));
+  });
+
+  it('does not use render timeouts if turned off', () => {
+    const wrapper = ({children}: {children: React.ReactElement}) => (
+      <PerformanceProfiler useRenderTimeouts={false} onReportPrepared={jest.fn()}>
+        {children}
+      </PerformanceProfiler>
+    );
+    renderHook(() => useStateController(), {wrapper});
+    expect(useStateControllerInitializer).toHaveBeenCalledWith(expect.objectContaining({useRenderTimeouts: false}));
+  });
+
+  it('overrides render timeout if provided', () => {
+    const wrapper = ({children}: {children: React.ReactElement}) => (
+      <PerformanceProfiler renderTimeoutMillis={3000} onReportPrepared={jest.fn()}>
+        {children}
+      </PerformanceProfiler>
+    );
+    renderHook(() => useStateController(), {wrapper});
+    expect(useStateControllerInitializer).toHaveBeenCalledWith(expect.objectContaining({renderTimeoutMillis: 3000}));
+  });
+
+  it('does not use render timeout if turned off, but override is provided', () => {
+    const wrapper = ({children}: {children: React.ReactElement}) => (
+      <PerformanceProfiler renderTimeoutMillis={3000} useRenderTimeouts={false} onReportPrepared={jest.fn()}>
+        {children}
+      </PerformanceProfiler>
+    );
+    renderHook(() => useStateController(), {wrapper});
+    expect(useStateControllerInitializer).toHaveBeenCalledWith(expect.objectContaining({useRenderTimeouts: false}));
   });
 });

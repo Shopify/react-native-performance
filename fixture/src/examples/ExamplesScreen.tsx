@@ -8,6 +8,10 @@ import {NavigationKeys, RootStackParamList} from '../constants';
 export const ExamplesScreen = () => {
   const {navigate} = useProfiledNavigation<StackNavigationProp<RootStackParamList, 'Examples'>>();
 
+  const renderTimeoutMillisOverride = (screenName: string) => {
+    return screenName === NavigationKeys.PERFORMANCE ? 6 * 1000 : undefined;
+  };
+
   return (
     <ReactNavigationPerformanceView screenName={NavigationKeys.EXAMPLES} interactive>
       <StatusBar barStyle="dark-content" />
@@ -45,6 +49,7 @@ export const ExamplesScreen = () => {
                 {
                   source: NavigationKeys.EXAMPLES,
                   uiEvent,
+                  renderTimeoutMillisOverride: renderTimeoutMillisOverride(item.destination),
                 },
                 item.destination,
               );

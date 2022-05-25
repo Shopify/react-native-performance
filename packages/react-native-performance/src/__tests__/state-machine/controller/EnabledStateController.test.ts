@@ -21,7 +21,7 @@ import {
   MultipleFlowsError,
 } from '../../../state-machine/controller/EnabledStateController';
 
-const RENDER_TIMEOUT_MILLIS = 10000;
+const RENDER_TIMEOUT_MILLIS = 5000;
 
 jest.mock('../../../utils/native-performance-module', () => {
   const actual = jest.requireActual('../../../utils/native-performance-module');

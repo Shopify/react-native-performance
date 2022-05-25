@@ -14,7 +14,7 @@ import ReportObserver from './ReportObserver';
 import useNativeRenderCompletionEvents from './useNativeRenderCompletionEvents';
 import useReportEmitter from './useReportEmitter';
 
-const DEFAULT_RENDER_TIMEOUT_MILLIS = 10 * 1000;
+const DEFAULT_RENDER_TIMEOUT_MILLIS = 5 * 1000;
 
 interface Props {
   children: React.ReactNode;
@@ -32,7 +32,7 @@ const PerformanceProfiler = ({
   renderTimeoutMillis = DEFAULT_RENDER_TIMEOUT_MILLIS,
   errorHandler = () => {},
   enabled = true,
-  useRenderTimeouts = false,
+  useRenderTimeouts = true,
   logLevel = LogLevel.Warn,
 }: Props) => {
   const reportEmitter = useReportEmitter({onReportPrepared, errorHandler});
