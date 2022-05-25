@@ -1,6 +1,6 @@
 import React, {useState, useContext, useRef} from 'react';
 import {Text, Button} from 'react-native';
-import {useStartProfiler} from '@shopify/react-native-performance';
+import {useResetFlow} from '@shopify/react-native-performance';
 import {ReactNavigationPerformanceView} from '@shopify/react-native-performance-navigation';
 import {createProfiledDrawerNavigator} from '@shopify/react-native-performance-navigation-drawer';
 
@@ -31,7 +31,8 @@ const GlobalStateContext = React.createContext<GlobalState | undefined>(undefine
 const DrawerScreen = ({navigationKey}: {navigationKey: keyof typeof NavigationKeys}) => {
   const screenName = NavigationKeys[navigationKey];
   const globalState = useContext(GlobalStateContext);
-  const startProfiler = useStartProfiler();
+
+  const {resetFlow, componentInstanceId} = useResetFlow();
 
   const isFirstRender = useRef(true);
 
@@ -39,10 +40,8 @@ const DrawerScreen = ({navigationKey}: {navigationKey: keyof typeof NavigationKe
     if (isFirstRender.current) {
       isFirstRender.current = false;
     } else {
-      console.log(`Resetting flow for screen: ${screenName}`);
-      startProfiler({
+      resetFlow({
         destination: screenName,
-        reset: true,
       });
     }
   }
@@ -51,6 +50,7 @@ const DrawerScreen = ({navigationKey}: {navigationKey: keyof typeof NavigationKe
 
   return (
     <ReactNavigationPerformanceView
+      componentInstanceId={componentInstanceId}
       screenName={screenName}
       interactive={globalState !== undefined}
       renderPassName={globalState === undefined ? 'loading' : `interactive_${globalState.counter}`}

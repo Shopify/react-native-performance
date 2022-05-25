@@ -6,7 +6,7 @@ slug: /fundamentals/render-watchdog-timers
 
 As mentioned in the previous sections, capturing the render-time reports is a two-part process:
 
-1. starting the timer via the `useStartProfiler` hook or `onAppStarted` native call, and
+1. starting the timer via `useStartProfiler`, `useResetFlow` hooks or `onAppStarted` native call, and
 2. ending it via the `PerformanceMeasureView` component.
 
 Additionally, one needs to communicate the transitions among the different render passes via the `interactive` and the `renderPassName` props.

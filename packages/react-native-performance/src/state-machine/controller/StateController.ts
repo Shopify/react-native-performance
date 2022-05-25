@@ -34,6 +34,7 @@ interface StateController {
     destinationScreen: string;
     uiEvent?: GestureResponderEvent;
     renderTimeoutMillisOverride?: number;
+    componentInstanceId?: string;
   }): void;
   onRenderPassCompleted(props: {
     renderPassName: string;

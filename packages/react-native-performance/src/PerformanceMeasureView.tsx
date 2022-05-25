@@ -67,6 +67,7 @@ const PerformanceMeasureView = ({
   }, [optimizeForSlowRenderComponents]);
 
   const componentInstanceId = useRef(renderStateProps.componentInstanceId ?? inMemoryCounter()).current;
+
   useTrackComponentMounts({stateController, screenName, componentInstanceId});
 
   if (stateController.isEnabled) {
