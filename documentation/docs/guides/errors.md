@@ -18,7 +18,10 @@ Read more about how to initialize `PerformanceProfiler` [here](fundamentals/gett
 
 ### RenderTimeoutError
 
-`RenderTimeoutError` is thrown when a given screen is not rendered in the time set by `renderTimeoutMillis`. This is either because `renderTimeoutMillis` is too small or you probably have forgotten to mark the screen `interactive` via the `PerformanceMeasureView`.
+`RenderTimeoutError` is thrown when a given screen is not rendered in the time set by `renderTimeoutMillis`. This is either because:
+- `renderTimeoutMillis` is too small
+- you have forgotten to mark the screen `interactive` via the `PerformanceMeasureView`
+- you used `useStartProfiler` instead of `useResetFlow` hook when re-render is occurring because the flow is essentially being restarted.
 
 Read more about render timers [here](fundamentals/render-watchdog-timers).
 
