@@ -1,6 +1,6 @@
 import React, {useState, useContext, useRef} from 'react';
 import {Text, Button} from 'react-native';
-import {useResetFlow, useComponentInstanceId} from '@shopify/react-native-performance';
+import {useResetFlow} from '@shopify/react-native-performance';
 import {ReactNavigationPerformanceView} from '@shopify/react-native-performance-navigation';
 import {createProfiledDrawerNavigator} from '@shopify/react-native-performance-navigation-drawer';
 
@@ -32,8 +32,7 @@ const DrawerScreen = ({navigationKey}: {navigationKey: keyof typeof NavigationKe
   const screenName = NavigationKeys[navigationKey];
   const globalState = useContext(GlobalStateContext);
 
-  const resetFlow = useResetFlow();
-  const componentInstanceId = useComponentInstanceId();
+  const {resetFlow, componentInstanceId} = useResetFlow();
 
   const isFirstRender = useRef(true);
 
@@ -43,7 +42,6 @@ const DrawerScreen = ({navigationKey}: {navigationKey: keyof typeof NavigationKe
     } else {
       resetFlow({
         destination: screenName,
-        componentInstanceId,
       });
     }
   }

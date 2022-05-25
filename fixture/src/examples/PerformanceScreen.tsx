@@ -9,12 +9,7 @@ import {
   NativeSyntheticEvent,
   NativeTouchEvent,
 } from 'react-native';
-import {
-  RenderStateProps,
-  useResetFlow,
-  useComponentInstanceId,
-  GestureResponderEvent,
-} from '@shopify/react-native-performance';
+import {RenderStateProps, useResetFlow, GestureResponderEvent} from '@shopify/react-native-performance';
 import {ReactNavigationPerformanceView, useProfiledNavigation} from '@shopify/react-native-performance-navigation';
 import gql from 'graphql-tag';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -49,8 +44,7 @@ const PerformanceScreen = () => {
   });
   const rickAndMortyQueryResult = useQuery(AllRickAndMortyCharacters);
 
-  const resetFlow = useResetFlow();
-  const componentInstanceId = useComponentInstanceId();
+  const {resetFlow, componentInstanceId} = useResetFlow();
 
   useEffect(() => {
     (async () => {
@@ -102,11 +96,11 @@ const PerformanceScreen = () => {
 
   const onFakePullToRefresh = useCallback(
     async (uiEvent: NativeSyntheticEvent<NativeTouchEvent>) => {
-      resetFlow({uiEvent, destination: NavigationKeys.PERFORMANCE, componentInstanceId});
+      resetFlow({uiEvent, destination: NavigationKeys.PERFORMANCE});
       restartTimer();
       rickAndMortyQueryResult.refetch();
     },
-    [resetFlow, restartTimer, rickAndMortyQueryResult, componentInstanceId],
+    [resetFlow, restartTimer, rickAndMortyQueryResult],
   );
 
   return (

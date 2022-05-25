@@ -13,31 +13,29 @@ describe('hooks/useResetFlow', () => {
   });
 
   it('calls stateController.onFlowReset when the flow is reset', () => {
-    const reset = renderHook(() => useResetFlow(), {wrapper}).result.current;
+    const {resetFlow, componentInstanceId} = renderHook(() => useResetFlow(), {wrapper}).result.current;
     expect(mockStateController.onFlowReset).not.toHaveBeenCalled();
-    reset({
+    resetFlow({
       destination: 'SomeDestinationScreen',
-      componentInstanceId: 'id',
     });
     expect(mockStateController.onFlowReset).toHaveBeenCalledTimes(1);
     expect(mockStateController.onFlowReset).toHaveBeenCalledWith({
       destinationScreen: 'SomeDestinationScreen',
-      componentInstanceId: 'id',
+      componentInstanceId,
     });
   });
 
   it('provides the renderTimeoutMillisOverride when one is provided on flow reset', () => {
-    const reset = renderHook(() => useResetFlow(), {wrapper}).result.current;
-    reset({
+    const {resetFlow, componentInstanceId} = renderHook(() => useResetFlow(), {wrapper}).result.current;
+    resetFlow({
       destination: 'SomeSourceScreen',
       renderTimeoutMillisOverride: 34,
-      componentInstanceId: 'id',
     });
     expect(mockStateController.onFlowReset).toHaveBeenCalledTimes(1);
     expect(mockStateController.onFlowReset).toBeCalledWith({
       destinationScreen: 'SomeSourceScreen',
       renderTimeoutMillisOverride: 34,
-      componentInstanceId: 'id',
+      componentInstanceId,
     });
   });
 });

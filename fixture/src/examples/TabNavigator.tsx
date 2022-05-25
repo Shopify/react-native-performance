@@ -1,6 +1,6 @@
 import React, {useState, useContext, useRef} from 'react';
 import {Text, Button} from 'react-native';
-import {useResetFlow, useComponentInstanceId} from '@shopify/react-native-performance';
+import {useResetFlow} from '@shopify/react-native-performance';
 import {ReactNavigationPerformanceView} from '@shopify/react-native-performance-navigation';
 import {createProfiledBottomTabNavigator} from '@shopify/react-native-performance-navigation-bottom-tabs';
 
@@ -31,8 +31,7 @@ const GlobalStateContext = React.createContext<GlobalState | undefined>(undefine
 const TabScreen = ({navigationKey}: {navigationKey: keyof typeof NavigationKeys}) => {
   const screenName = NavigationKeys[navigationKey];
   const globalState = useContext(GlobalStateContext);
-  const resetFlow = useResetFlow();
-  const componentInstanceId = useComponentInstanceId();
+  const {resetFlow, componentInstanceId} = useResetFlow();
 
   const isFirstRender = useRef(true);
 
@@ -43,7 +42,6 @@ const TabScreen = ({navigationKey}: {navigationKey: keyof typeof NavigationKeys}
       console.log(`Resetting flow for screen: ${screenName}`);
       resetFlow({
         destination: screenName,
-        componentInstanceId,
       });
     }
   }
