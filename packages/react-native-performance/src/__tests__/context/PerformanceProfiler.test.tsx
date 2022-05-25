@@ -59,8 +59,9 @@ describe('context/PerformanceProfiler', () => {
 
     renderHook(() => useStateController(), {wrapper});
 
-    // @ts-ignore
-    expect(useStateControllerInitializer.mock.calls[0][0].reportEmitter).toBe(mockReportEmitter);
+    expect(useStateControllerInitializer).toHaveBeenCalledWith(
+      expect.objectContaining({reportEmitter: mockReportEmitter}),
+    );
   });
 
   it('sets up the native render completion event listener', () => {
@@ -78,8 +79,7 @@ describe('context/PerformanceProfiler', () => {
       <PerformanceProfiler onReportPrepared={jest.fn()}>{children}</PerformanceProfiler>
     );
     renderHook(() => useStateController(), {wrapper});
-    // @ts-ignore
-    expect(useStateControllerInitializer.mock.calls[0][0].useRenderTimeouts).toBe(true);
+    expect(useStateControllerInitializer).toHaveBeenCalledWith(expect.objectContaining({useRenderTimeouts: true}));
   });
 
   it('does not use render timeouts if turned off', () => {
@@ -89,8 +89,7 @@ describe('context/PerformanceProfiler', () => {
       </PerformanceProfiler>
     );
     renderHook(() => useStateController(), {wrapper});
-    // @ts-ignore
-    expect(useStateControllerInitializer.mock.calls[0][0].useRenderTimeouts).toBe(false);
+    expect(useStateControllerInitializer).toHaveBeenCalledWith(expect.objectContaining({useRenderTimeouts: false}));
   });
 
   it('overrides render timeout if provided', () => {
@@ -100,8 +99,7 @@ describe('context/PerformanceProfiler', () => {
       </PerformanceProfiler>
     );
     renderHook(() => useStateController(), {wrapper});
-    // @ts-ignore
-    expect(useStateControllerInitializer.mock.calls[0][0].renderTimeoutMillis).toBe(3000);
+    expect(useStateControllerInitializer).toHaveBeenCalledWith(expect.objectContaining({renderTimeoutMillis: 3000}));
   });
 
   it('does not use render timeout if turned off, but override is provided', () => {
@@ -111,7 +109,6 @@ describe('context/PerformanceProfiler', () => {
       </PerformanceProfiler>
     );
     renderHook(() => useStateController(), {wrapper});
-    // @ts-ignore
-    expect(useStateControllerInitializer.mock.calls[0][0].useRenderTimeouts).toBe(false);
+    expect(useStateControllerInitializer).toHaveBeenCalledWith(expect.objectContaining({useRenderTimeouts: false}));
   });
 });
