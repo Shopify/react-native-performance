@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-native-performance-lists-profiler",
-  "version": "0.0.11",
+  "version": "1.0.0",
   "description": "Extension library atop @shopify/react-native-performance. Contains utilities for profiling the FlatList component.",
   "publishConfig": {
     "access": "public",

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-native-performance-navigation-drawer",
-  "version": "2.0.7",
+  "version": "3.0.0",
   "description": "Extension library atop @shopify/react-native-performance. Contains some utilities for easier profiling of apps using @react-navigation/drawer.",
   "publishConfig": {
     "access": "public",

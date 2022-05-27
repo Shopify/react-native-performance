@@ -7,7 +7,7 @@
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org/"
   },
-  "version": "0.0.13",
+  "version": "1.0.0",
   "pluginType": "client",
   "main": "dist/bundle.js",
   "flipperBundlerEntry": "src/index.tsx",
