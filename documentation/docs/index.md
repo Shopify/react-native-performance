@@ -6,7 +6,8 @@ slug: /
 
 # React Native Performance
 
-[<img src="https://badge.buildkite.com/a19f57510b2dae4110bba6bdf73051dc6b080e43a22f2ff5f3.svg" alt="CI build status"/>](https://buildkite.com/shopify/react-native-performance) <img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="lerna"/> <img src="https://img.shields.io/npm/l/@shopify/react-native-performance" alt="license: MIT"/> <img src="https://img.shields.io/discord/928252803867107358" alt="Discord chat"/>
+<img src="https://github.com/Shopify/react-native-performance/actions/workflows/react-native-performance.yml/badge.svg?branch=main" alt="Build status"/>
+<img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="lerna"/> <img src="https://img.shields.io/npm/l/@shopify/react-native-performance" alt="license: MIT"/> <img src="https://img.shields.io/discord/928252803867107358" alt="Discord chat"/>
 
 ## Welcome to React Native Performance 👋
 
