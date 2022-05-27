@@ -7014,10 +7014,10 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.5.tgz#76c8584f4fc843db64702a6bd04ab7a8bd666da3"
   integrity sha512-WIWGi2L3DyTUvUrwRKgGi9TwxQMUEqPOPQBVi71R96jZXJdFskXEmf54BoZaS1kknGODoIGASGEzBUYdyMCBJg==
 
-flipper-babel-transformer@0.146.1:
-  version "0.146.1"
-  resolved "https://registry.yarnpkg.com/flipper-babel-transformer/-/flipper-babel-transformer-0.146.1.tgz#c3d37e277c7e7643112025522e6d9c093058d364"
-  integrity sha512-H+Q3T7AhbAqIQQT83+wOAkxbHpw/EoeJImMeYIgdGNMa1JSHIzBA1I4lJ9Lu8YMkboOosVZdcFBLVDhs3OIifg==
+flipper-babel-transformer@0.147.0:
+  version "0.147.0"
+  resolved "https://registry.yarnpkg.com/flipper-babel-transformer/-/flipper-babel-transformer-0.147.0.tgz#71ee7e175dbb5781274f1255daaa9710b0de0fcc"
+  integrity sha512-DlSwEC0fS9U7wXmzeB908hkOxahDn8Y2/jMknvsSD7ElZmvjpWEbp8z3GbPJuVmwAXUBPlWXKuUJaXIHfRA+gg==
   dependencies:
     "@babel/core" "^7.17.10"
     "@babel/generator" "^7.17.10"
@@ -7046,23 +7046,30 @@ flipper-common@0.146.1:
   dependencies:
     uuid "^8.3.2"
 
-flipper-pkg-lib@0.146.1:
-  version "0.146.1"
-  resolved "https://registry.yarnpkg.com/flipper-pkg-lib/-/flipper-pkg-lib-0.146.1.tgz#72ca318f81c09f3a7e993af59160977352b42e5e"
-  integrity sha512-1TOi4WKBmyoFkgkmiREKLRb+gDZyKAzUJ6sfY4dRnZ1v30WphSjWyzvLD60kr+Y66XGHGGYxpEvlN/js5+zjVg==
+flipper-common@0.147.0:
+  version "0.147.0"
+  resolved "https://registry.yarnpkg.com/flipper-common/-/flipper-common-0.147.0.tgz#a9f6f4be2af920e26eebf3890eb3f482f6c62e40"
+  integrity sha512-l7lI6CIxdtkbAvE5ADPotJtNLXR/HlIlBYdDX7WbJUzdzf8N/gQ8akynr5GqBC74aSnokBg76MCf3kIXH548/w==
   dependencies:
-    flipper-babel-transformer "0.146.1"
-    flipper-plugin-lib "0.146.1"
+    uuid "^8.3.2"
+
+flipper-pkg-lib@0.147.0:
+  version "0.147.0"
+  resolved "https://registry.yarnpkg.com/flipper-pkg-lib/-/flipper-pkg-lib-0.147.0.tgz#3e4ba4f0571d59ba4a3c4ff8847d1df6520c50f3"
+  integrity sha512-TF4TifM/au0KzPZ/2ew2BbJH2XBIEZRvcjS5OY4XPBSBRhsyTshFDJME8VLTcXuDaUxUQIv1M5CjT3qqbJHtsQ==
+  dependencies:
+    flipper-babel-transformer "0.147.0"
+    flipper-plugin-lib "0.147.0"
     fs-extra "^10.1.0"
     metro "^0.70.2"
     metro-cache "^0.70.2"
     metro-minify-terser "^0.70.2"
     npm-packlist "^4.0.0"
 
-flipper-pkg@^0.146.0:
-  version "0.146.1"
-  resolved "https://registry.yarnpkg.com/flipper-pkg/-/flipper-pkg-0.146.1.tgz#abb1f4d91e3e8ae39491f83e6942c56a2ec24e60"
-  integrity sha512-bf6Y/c/ssjwBgFAxg4Y5OOPQ0QjbnyGkH4osUIjUVuudRjY63SDP6XVDGawye9YtG7dZpBeUhacxOUbfsjBwCw==
+flipper-pkg@^0.147.0:
+  version "0.147.0"
+  resolved "https://registry.yarnpkg.com/flipper-pkg/-/flipper-pkg-0.147.0.tgz#1970dd0e1c9d83cbf99caa2a2ed1d109cc51540b"
+  integrity sha512-kG0Fuurxk4BPS/rmnTH56gg9eXWMLJOpec+s71adXfB7/KXvrx0tWivCnsND9IyGO8vzRE5DWp1Dejdr0iIJEg==
   dependencies:
     "@oclif/command" "^1"
     "@oclif/config" "^1"
@@ -7072,23 +7079,23 @@ flipper-pkg@^0.146.0:
     ajv "^6.12.2"
     ajv-errors "^1.0.1"
     cli-ux "^6.0.9"
-    flipper-pkg-lib "0.146.1"
-    flipper-plugin-lib "0.146.1"
+    flipper-pkg-lib "0.147.0"
+    flipper-plugin-lib "0.147.0"
     fs-extra "^10.1.0"
     inquirer "^8.2.4"
     lodash "^4.17.21"
     recursive-readdir "^2.2.2"
 
-flipper-plugin-lib@0.146.1:
-  version "0.146.1"
-  resolved "https://registry.yarnpkg.com/flipper-plugin-lib/-/flipper-plugin-lib-0.146.1.tgz#54c9bb5f4496baef98984b65cd21dd068741b0f5"
-  integrity sha512-jb+PH5+o/HPDVoRuYaa/tC/S90K8EhUF+ptArkdSPgTpqniJe0uv7qYIoHQvyTFmAyeBJvScO0vzEKtdvqQMbw==
+flipper-plugin-lib@0.147.0:
+  version "0.147.0"
+  resolved "https://registry.yarnpkg.com/flipper-plugin-lib/-/flipper-plugin-lib-0.147.0.tgz#560d14683acd369ae0e7b3c627726a7360c39946"
+  integrity sha512-sek2GdiT5dQ1QMrObn8HB9RMaxXsWUMkmeVbtuO+qwdsI3gk5gZNiu9wv4anupQBiEpbSF5ki8nIvfIOvW13JQ==
   dependencies:
     algoliasearch "^4.13.0"
     decompress "^4.2.1"
     decompress-targz "^4.1.1"
     decompress-unzip "^4.0.1"
-    flipper-common "0.146.1"
+    flipper-common "0.147.0"
     fs-extra "^10.1.0"
     live-plugin-manager "^0.17.1"
     npm-api "^1.0.1"
