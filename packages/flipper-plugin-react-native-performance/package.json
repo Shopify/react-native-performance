@@ -43,7 +43,7 @@
     "@types/react-dom": "^18.0.0",
     "antd": "^4.18.8",
     "flipper-pkg": "^0.146.0",
-    "flipper-plugin": "^0.146.0",
+    "flipper-plugin": "^0.147.0",
     "jest": "^27.5.1",
     "jest-mock-console": "^1.2.3",
     "react": "^17.0.2",
