@@ -3,15 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0] - 2022-05-27
+
+* Public release.
+
+### Features
+
+* render timeout is now enabled by default. Previously it was opt-in functionality ([a052e31](https://github.com/Shopify/react-native-performance/commit/eb460932ba45fa0e446ebf3946dcc3a1789b7327))
+
+### Bug Fixes
+
+* fix flow reset throwing `ScreenProfilerNotStartedError` ([eb46093](https://github.com/Shopify/react-native-performance/commit/a052e317ce62ad86274a8d8ffe982d55f8370427))
+
+### BREAKING CHANGES
+
+* `useStartProfiler` hook no longer accepts `reset` prop. Use a new `useResetFlow` hook instead ([eb46093](https://github.com/Shopify/react-native-performance/commit/a052e317ce62ad86274a8d8ffe982d55f8370427))
+
 ## [3.0.6] - 2022-05-03
-
-**Note:** Version bump only for package @shopify/react-native-performance
-
-
-
-
-
-## [Unreleased]
 
 - ScreenProfilerNotStartedError now includes both `destinationScreen` and `componentInstanceId`
 
@@ -121,14 +129,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
   for componentInstanceId...".
   - This would happen if a screen were unmounted after the flow was previously `reset`
     via the `useStartProfiler` hook.
-    
+
 - If a timer is started 2x without first rendering a screen, the library will now simply
   warn of this situation, and will try to continue executing gracefully.
   - Previously, the library would throw an error in this case.
   - It would also not record the new "started" event. It would instead continue
     retaining the state corresponding to the first event.
   - It may have also thrown some `RenderTimeoutErrors`.
-  
+
 
 ## [1.1.7] - 2021-03-29
 
@@ -145,13 +153,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
     re-render. Now that won't happen
   - The library would now show warnings only if the same render pass name
     is reused at a later stage: `renderPass1 -> renderPass2 -> renderPass1`.
-    
+
 
 ## [1.1.6] - 2021-03-26
 
 - Fixed an issue where the `sourceScreen` would not be included in the final
   reports, even when one was provided via `useStartProfiler`.
-  
+
 
 ## [1.1.5] - 2021-03-24
 
@@ -166,7 +174,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
     `screenName`, and configured the `renderPassName` and `interactive` props
     correctly, the library would previously sometimes throw the aforementioned
     error. This should now be fixed.
-    
+
 
 ## [1.1.4] - 2021-03-24
 
@@ -199,7 +207,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
   - The previous behaviour would lead to vastly different render/render-abort times
     depending on whether a given screen was opened as a result of app startup or
     in-app navigations. This new behaviour makes these values more comparable.
-    
+
 - `flowStartTimeSinceEpochMillis` for a render-pass-report generated on app startup
   now corresponds the moment in time when the RN portion of the app had started.
   - Previously it used to point to the moment when the native portion of the app
@@ -208,7 +216,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
     and `timeToAbortMillis`.
   - You can still compute the native startup timestamp by subtracting
     `timeToBootJsMillis` from `flowStartTimeSinceEpochMillis`.
-    
+
 
 ## [1.1.0] - 2021-03-10
 
@@ -216,7 +224,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
   render-pass-reports for some render passes.
   - This would occur if a screen would go through multiple
     incremental render passes really quickly.
-    
+
 - Calling the native `ReactNativePerformance.onAppStarted` function
   (on both iOS and Android) multiple times no-longer throws exceptions.
   - Useful for brownfield apps, since they go in and out of the RN portion
@@ -225,7 +233,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
     again to reset the native startup timestamp.
   - When the JS `<PerformanceProfiler>` component gets initialized again,
     it'll fetch the up-to-date native startup timestamp again.
-    
+
 
 ## [1.0.1] - 2021-03-03
 
@@ -241,12 +249,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
   - Providing a `renderTimeoutMillisOverride` does nothing if the `useRenderTimeouts` prop
     of `<PerformanceProfiler>` component is set to `false`. No watchdog timers are used in that
     case, just like before.
-    
+
 
 ## [0.1.0] - 2021-02-24
 
 - Initial release inheriting all the features of the deprecated `react-native-apdex@0.10.0`.
 - Fixed an issue where you might sometimes get the following error on slower devices on app startup:
   `Performance profiler was not initialized correctly. Did you forget to mount the <PerformanceProfiler /> component in the App tree?`
-  
+
 - Don't require iOS apps to have C++ modules enabled

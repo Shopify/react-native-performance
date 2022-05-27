@@ -3,15 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0] - 2022-05-27
+
+* Public release.
+
 ## [2.0.9] - 2022-05-03
 
 **Note:** Version bump only for package @shopify/react-native-performance-navigation
-
-
-
-
-
-<!-- ## [Unreleased] -->
 
 ## [2.0.8] - 2022-03-15
 
