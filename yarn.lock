@@ -3083,9 +3083,9 @@
     "@octokit/openapi-types" "^11.2.0"
 
 "@quilted/react-testing@^0.5.11":
-  version "0.5.11"
-  resolved "https://registry.yarnpkg.com/@quilted/react-testing/-/react-testing-0.5.11.tgz#52c7c1afbd49bf763ea1f7d3d209a0731fe11287"
-  integrity sha512-heNYrDI1yflSXhxbquUurjeKFxh8JQBLuUpnr816vJ8jet31/Q4jlCSnUG8GW1Ln21ZS7BAgaqpxCXDXEsvxnA==
+  version "0.5.12"
+  resolved "https://registry.yarnpkg.com/@quilted/react-testing/-/react-testing-0.5.12.tgz#ba70eb01c2ecbb4bbd1939498ee4fb39153714fe"
+  integrity sha512-ER20sjs7vZ93mD8QuhBw7OYvLJkpFAorfiNq872HF2XykP9WqWWjioTYGbhigXjR1yG6qfN/LYKqMqQYOPZptQ==
   dependencies:
     "@types/react-test-renderer" "^17.0.0"
     jest-matcher-utils "^27.0.0"
@@ -3722,19 +3722,10 @@
   dependencies:
     "@types/react" "^17"
 
-"@types/react@*", "@types/react@17.0.44", "@types/react@^17", "@types/react@^17.0.39":
+"@types/react@*", "@types/react@17.0.39", "@types/react@17.0.44", "@types/react@^17", "@types/react@^17.0.39":
   version "17.0.44"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.44.tgz#c3714bd34dd551ab20b8015d9d0dbec812a51ec7"
   integrity sha512-Ye0nlw09GeMp2Suh8qoOv0odfgCoowfM/9MG6WeRD60Gq9wS90bdkdRtYbRkNhXOpG4H+YXGvj4wOWhAC0LJ1g==
-  dependencies:
-    "@types/prop-types" "*"
-    "@types/scheduler" "*"
-    csstype "^3.0.2"
-
-"@types/react@17.0.39":
-  version "17.0.39"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.39.tgz#d0f4cde092502a6db00a1cded6e6bf2abb7633ce"
-  integrity sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
