@@ -5,17 +5,12 @@ import {renderHook} from '@testing-library/react-hooks';
 import {PerformanceProfiler} from '../../context';
 import useReportEmitter from '../../context/useReportEmitter';
 import {OnStateChangedListener, useStateController, useStateControllerInitializer} from '../../state-machine';
-import useNativeRenderCompletionEvents from '../../context/useNativeRenderCompletionEvents';
 
 jest.mock('../../state-machine/controller/useStateControllerInitializer', () => {
   return jest.fn();
 });
 
 jest.mock('../../context/useReportEmitter', () => {
-  return jest.fn();
-});
-
-jest.mock('../../context/useNativeRenderCompletionEvents', () => {
   return jest.fn();
 });
 
@@ -29,9 +24,6 @@ describe('context/PerformanceProfiler', () => {
     useStateControllerInitializer.mockReturnValue(mockStateController);
     // @ts-ignore
     useReportEmitter.mockReturnValue(mockReportEmitter);
-
-    // @ts-ignore
-    useNativeRenderCompletionEvents.mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -62,16 +54,6 @@ describe('context/PerformanceProfiler', () => {
     expect(useStateControllerInitializer).toHaveBeenCalledWith(
       expect.objectContaining({reportEmitter: mockReportEmitter}),
     );
-  });
-
-  it('sets up the native render completion event listener', () => {
-    const wrapper = ({children}: {children: React.ReactElement}) => (
-      <PerformanceProfiler onReportPrepared={jest.fn()}>{children}</PerformanceProfiler>
-    );
-
-    expect(useNativeRenderCompletionEvents).not.toHaveBeenCalled();
-    renderHook(() => useStateController(), {wrapper});
-    expect(useNativeRenderCompletionEvents).toHaveBeenCalledTimes(1);
   });
 
   it('uses render timeouts by default', () => {

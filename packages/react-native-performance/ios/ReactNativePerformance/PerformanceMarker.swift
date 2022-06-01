@@ -6,6 +6,9 @@ import Foundation
     private var interactive: Interactive? = nil
     private var destinationScreen: String? = nil
     private var componentInstanceId: String? = nil
+    
+    @objc(onRenderComplete)
+    var onRenderComplete: RCTDirectEventBlock?
 
     @objc func setComponentInstanceId(_ componentInstanceId: String) {
         assertSetOnlyOnce(currentVal: self.componentInstanceId, newVal: componentInstanceId, propertyName: "componentInstanceId")
@@ -55,14 +58,16 @@ import Foundation
 
         reportedOnce = true
 
-        RenderCompletionEventEmitter.INSTANCE?.onRenderComplete(
-            destinationScreen: destinationScreen,
-            renderPassName: renderPassName,
-            interactive: interactive,
-            componentInstanceId: componentInstanceId
-        ) ?? assertionFailure(
-            "RenderCompletionEventEmitter.INSTANCE was not initialized by the time PerformanceMarker got rendered for screen " +
-                "'\(destinationScreen)', renderPassName '\(renderPassName)'.")
+        let timestamp = Timestamp.nowMillis()
+        let onRenderCompleteEvent = [
+            "timestamp": String(timestamp),
+            "renderPassName": renderPassName,
+            "interactive": interactive.description,
+            "destinationScreen": destinationScreen,
+            "componentInstanceId": componentInstanceId
+        ]
+
+        onRenderComplete?(onRenderCompleteEvent)
 
     }
 }
