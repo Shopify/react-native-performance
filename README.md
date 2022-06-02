@@ -8,7 +8,7 @@
 
 Performance measurement for your React Native apps.
 
-Documentation can be found at [react-native-performance.docs.shopify.io](https://react-native-performance.docs.shopify.io/)
+Documentation can be found at [shopify.github.io/react-native-performance](https://shopify.github.io/react-native-performance/)
 
 
 <img src="https://github.com/Shopify/react-native-performance/actions/workflows/react-native-performance.yml/badge.svg?branch=main" alt="Build status"/>

@@ -1,7 +1,7 @@
 ---
 id: split-common-operations
 title: Splitting `react-native-performance-common-operations`
-sidebar_position: 2
+sidebar_position: 0
 ---
 
 #### November 11, 2021

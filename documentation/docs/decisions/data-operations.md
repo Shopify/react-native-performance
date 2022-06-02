@@ -1,7 +1,7 @@
 ---
 id: data-operations
 title: Removal of data operations
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 ## Removal of data operations

@@ -1,7 +1,7 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation
-    url: https://react-native-performance.docs.shopify.io/
+    url: https://shopify.github.io/react-native-performance/
     about: Read the official documentation.
   - name: Feature proposals
     url: https://github.com/Shopify/react-native-performance/discussions

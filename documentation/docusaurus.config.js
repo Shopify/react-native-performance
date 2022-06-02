@@ -4,8 +4,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 module.exports = {
   title: 'React Native Performance',
   tagline: 'Performance monitoring for React Native apps',
-  url: 'https://special-umbrella-36993078.pages.github.io/',
-  baseUrl: '/',
+  url: 'https://shopify.github.io/',
+  baseUrl: '/react-native-performance/',
   onBrokenLinks: 'error',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',

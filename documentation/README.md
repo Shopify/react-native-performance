@@ -2,7 +2,7 @@
 
 Welcome to our docs! 👋
 
-This website is built using [Docusaurus 2](https://docusaurus.io/) and is published on [react-native-performance.docs.shopify.io](https://react-native-performance.docs.shopify.io).
+This website is built using [Docusaurus 2](https://docusaurus.io/) and is published on [shopify.github.io/react-native-performance](https://shopify.github.io/react-native-performance).
 
 ## Installation and Local Development
 

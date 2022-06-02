@@ -4,4 +4,4 @@ Extension library atop [@shopify/react-native-performance-navigation](../react-n
 
 ## Usage & installation
 
-Please refer to [documentation](https://react-native-performance.docs.shopify.io/guides/react-native-performance-navigation/bottom-tabs) to see more information and usage examples.
+Please refer to [documentation](https://shopify.github.io/react-native-performance/guides/react-native-performance-navigation/react-native-performance-navigation-bottom-tabs) to see more information and usage examples.
