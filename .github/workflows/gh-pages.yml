@@ -5,7 +5,7 @@ name: Deploy documentation
       - main
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Setup node
         uses: actions/setup-node@v3

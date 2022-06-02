@@ -8,8 +8,8 @@ env:
 
 jobs:
   build-ts:
-    name: "Build Typescript"
-    runs-on: self-hosted
+    name: 'Build Typescript'
+    runs-on: ubuntu-latest
     steps:
       - name: Setup node
         uses: actions/setup-node@v3
@@ -24,8 +24,8 @@ jobs:
           yarn
           yarn build
   build-fixture-ts:
-    name: "Build fixture Typescript"
-    runs-on: self-hosted
+    name: 'Build fixture Typescript'
+    runs-on: ubuntu-latest
     steps:
       - name: Setup node
         uses: actions/setup-node@v3
@@ -42,8 +42,8 @@ jobs:
           yarn
           yarn build
   lint-ts:
-    name: "Lint Typescript"
-    runs-on: self-hosted
+    name: 'Lint Typescript'
+    runs-on: ubuntu-latest
     steps:
       - name: Setup node
         uses: actions/setup-node@v3
@@ -58,8 +58,8 @@ jobs:
           yarn
           yarn lint
   test-ts:
-    name: "Test Typescript"
-    runs-on: self-hosted
+    name: 'Test Typescript'
+    runs-on: ubuntu-latest
     steps:
       - name: Setup node
         uses: actions/setup-node@v3
