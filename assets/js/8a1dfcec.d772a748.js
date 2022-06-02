@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkreact_native_performance=self.webpackChunkreact_native_performance||[]).push([[245],{3769:function(e){e.exports=JSON.parse('{"plugin":{"name":"docusaurus-plugin-content-docs","id":"default"}}')}}]);
