@@ -17,13 +17,13 @@ jobs:
         uses: actions/checkout@v3
       - name: Install & Build Docs
         run: |
-          cd documentation
+          cd docs
           yarn
           yarn build
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./documentation/build
+          publish_dir: ./docs/build
           user_name: github-actions[bot]
           user_email: github-actions[bot]@users.noreply.github.com
