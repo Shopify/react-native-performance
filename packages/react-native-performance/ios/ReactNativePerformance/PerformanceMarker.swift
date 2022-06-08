@@ -6,9 +6,13 @@ import Foundation
     private var interactive: Interactive? = nil
     private var destinationScreen: String? = nil
     private var componentInstanceId: String? = nil
-    
-    @objc(onRenderComplete)
-    var onRenderComplete: RCTDirectEventBlock?
+    private var onRenderComplete: RCTDirectEventBlock? = nil
+
+    @objc func setOnRenderComplete(_ onRenderComplete: @escaping RCTDirectEventBlock) {
+        assertSetOnlyOnce(currentVal: self.onRenderComplete, newVal: onRenderComplete, propertyName: "onRenderComplete")
+        self.onRenderComplete = onRenderComplete
+        self.sendRenderCompletionEventIfNeeded()
+    }
 
     @objc func setComponentInstanceId(_ componentInstanceId: String) {
         assertSetOnlyOnce(currentVal: self.componentInstanceId, newVal: componentInstanceId, propertyName: "componentInstanceId")
@@ -51,7 +55,8 @@ import Foundation
         let renderPassName = renderPassName,
         let interactive = interactive,
         let destinationScreen = destinationScreen,
-        let componentInstanceId = componentInstanceId
+        let componentInstanceId = componentInstanceId,
+        let onRenderComplete = onRenderComplete
         else {
             return
         }
@@ -67,7 +72,7 @@ import Foundation
             "componentInstanceId": componentInstanceId
         ]
 
-        onRenderComplete?(onRenderCompleteEvent)
+        onRenderComplete(onRenderCompleteEvent)
 
     }
 }
