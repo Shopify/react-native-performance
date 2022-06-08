@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.license          = package['license']
   s.author           = package['author']
   s.platform         = :ios, '11.0'
-  s.source           = { :git => 'https://github.com/shopify/react-native-performance.git', :tag => 'v#{s.version}' }
+  s.source           = { :git => 'https://github.com/shopify/react-native-performance.git', :tag => "v#{s.version}" }
   s.source_files     = 'ios/**/*.{h,m,swift}'
   s.exclude_files    = 'ios/**/*Tests.{h,m,swift}'
   s.requires_arc     = true
@@ -27,4 +27,3 @@ Pod::Spec.new do |s|
     test_spec.framework = 'XCTest'
   end
 end
-
