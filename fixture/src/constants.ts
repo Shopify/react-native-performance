@@ -11,7 +11,6 @@ export const NavigationKeys = {
   DRAWER_NAVIGATOR_SCREEN_2: 'DrawerNavigatorScreen2' as const,
   FLAT_LIST_SCREEN: 'FlatListScreen' as const,
   NESTED_NAVIGATION_SCREEN: 'NestedNavigationScreen' as const,
-  NESTED_PERFORMANCE_PROFILER_SCREEN: 'NestedPerformanceProfilerScreen' as const,
 };
 
 type ValueOf<T> = T[keyof T];
