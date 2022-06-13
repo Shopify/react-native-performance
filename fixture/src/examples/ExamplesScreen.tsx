@@ -2,11 +2,13 @@ import React from 'react';
 import {StatusBar, StyleSheet, FlatList, Text, TouchableOpacity, Image} from 'react-native';
 import {ReactNavigationPerformanceView, useProfiledNavigation} from '@shopify/react-native-performance-navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useNavigation} from '@react-navigation/native';
 
 import {NavigationKeys, RootStackParamList} from '../constants';
 
 export const ExamplesScreen = () => {
   const {navigate} = useProfiledNavigation<StackNavigationProp<RootStackParamList, 'Examples'>>();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'Examples'>>();
 
   const renderTimeoutMillisOverride = (screenName: string) => {
     return screenName === NavigationKeys.PERFORMANCE ? 6 * 1000 : undefined;
@@ -40,19 +42,27 @@ export const ExamplesScreen = () => {
             title: 'FlatList Screen',
             destination: NavigationKeys.FLAT_LIST_SCREEN,
           },
+          {
+            title: 'Nested Context Screen',
+            destination: NavigationKeys.NESTED_PROFILER_CONTEXT,
+          },
         ]}
         renderItem={({item}) => (
           <TouchableOpacity
             style={styles.row}
             onPress={uiEvent => {
-              navigate(
-                {
-                  source: NavigationKeys.EXAMPLES,
-                  uiEvent,
-                  renderTimeoutMillisOverride: renderTimeoutMillisOverride(item.destination),
-                },
-                item.destination,
-              );
+              if (item.destination === NavigationKeys.NESTED_PROFILER_CONTEXT) {
+                navigation.navigate(item.destination);
+              } else {
+                navigate(
+                  {
+                    source: NavigationKeys.EXAMPLES,
+                    uiEvent,
+                    renderTimeoutMillisOverride: renderTimeoutMillisOverride(item.destination),
+                  },
+                  item.destination,
+                );
+              }
             }}
           >
             <Text style={styles.rowTitle}>{item.title}</Text>
