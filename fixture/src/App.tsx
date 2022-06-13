@@ -70,7 +70,7 @@ const App = () => {
   return (
     <>
       <ApolloProvider client={apolloClient}>
-        <PerformanceProfiler logLevel={LogLevel.Error}>
+        <PerformanceProfiler logLevel={LogLevel.Debug}>
           <ListsProfiler onInteractive={onInteractiveCallback} onBlankArea={onBlankAreaCallback}>
             <NavigationTree />
           </ListsProfiler>
