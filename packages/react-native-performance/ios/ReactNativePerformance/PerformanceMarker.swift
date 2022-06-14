@@ -6,6 +6,13 @@ import Foundation
     private var interactive: Interactive? = nil
     private var destinationScreen: String? = nil
     private var componentInstanceId: String? = nil
+    private var onRenderComplete: RCTDirectEventBlock? = nil
+
+    @objc func setOnRenderComplete(_ onRenderComplete: @escaping RCTDirectEventBlock) {
+        assertSetOnlyOnce(currentVal: self.onRenderComplete, newVal: onRenderComplete, propertyName: "onRenderComplete")
+        self.onRenderComplete = onRenderComplete
+        self.sendRenderCompletionEventIfNeeded()
+    }
 
     @objc func setComponentInstanceId(_ componentInstanceId: String) {
         assertSetOnlyOnce(currentVal: self.componentInstanceId, newVal: componentInstanceId, propertyName: "componentInstanceId")
@@ -48,21 +55,24 @@ import Foundation
         let renderPassName = renderPassName,
         let interactive = interactive,
         let destinationScreen = destinationScreen,
-        let componentInstanceId = componentInstanceId
+        let componentInstanceId = componentInstanceId,
+        let onRenderComplete = onRenderComplete
         else {
             return
         }
 
         reportedOnce = true
 
-        RenderCompletionEventEmitter.INSTANCE?.onRenderComplete(
-            destinationScreen: destinationScreen,
-            renderPassName: renderPassName,
-            interactive: interactive,
-            componentInstanceId: componentInstanceId
-        ) ?? assertionFailure(
-            "RenderCompletionEventEmitter.INSTANCE was not initialized by the time PerformanceMarker got rendered for screen " +
-                "'\(destinationScreen)', renderPassName '\(renderPassName)'.")
+        let timestamp = Timestamp.nowMillis()
+        let onRenderCompleteEvent = [
+            "timestamp": String(timestamp),
+            "renderPassName": renderPassName,
+            "interactive": interactive.description,
+            "destinationScreen": destinationScreen,
+            "componentInstanceId": componentInstanceId
+        ]
+
+        onRenderComplete(onRenderCompleteEvent)
 
     }
 }

@@ -2,12 +2,17 @@ package com.shopify.reactnativeperformance
 
 import android.content.Context
 import android.view.View
+import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
+import com.facebook.react.uimanager.events.RCTEventEmitter
 import kotlin.reflect.KProperty
 import kotlin.properties.ReadWriteProperty
+import com.facebook.react.common.MapBuilder
+
+private const val RENDER_COMPLETION_EVENT_NAME = "@shopify/react-native-performance/onRenderComplete"
 
 class PerformanceMarker(context: Context?) : View(context) {
 
@@ -35,7 +40,7 @@ class PerformanceMarker(context: Context?) : View(context) {
       But that should be relatively negligible in the bigger scheme of things. Also note that we're using the
       moment when `PerformanceMarker` is rendered as a proxy for when the rest of its siblings (the actual
       screen content) is rendered. So we're already using these kinds of approximations at the native layer.
-      Adding this 1 additional approximation shouldn't affect the final render times signficantly.
+      Adding this 1 additional approximation shouldn't affect the final render times significantly.
     */
     private fun sendRenderCompletionEventIfNeeded() {
         val _destinationScreen = this.destinationScreen
@@ -52,13 +57,19 @@ class PerformanceMarker(context: Context?) : View(context) {
         }
 
         reportedOnce = true
-        RenderCompletionEventEmitter.onRenderComplete(
-            context as ReactContext,
-            destinationScreen = _destinationScreen,
-            renderPassName = _renderPassName,
-            interactive = _interactive,
-            componentInstanceId = _componentInstanceId,
-        )
+
+        val event = Arguments.createMap().apply {
+            putString("timestamp", System.currentTimeMillis().toString())
+            putString("renderPassName", _renderPassName)
+            putString("interactive", _interactive.toString())
+            putString("destinationScreen", _destinationScreen)
+            putString("componentInstanceId", _componentInstanceId)
+        }
+
+        val reactContext = context as ReactContext
+        reactContext
+            .getJSModule(RCTEventEmitter::class.java)
+            .receiveEvent(id, "onRenderComplete", event)
     }
 
     private class PerformanceMarkerProp<T : Any> : ReadWriteProperty<PerformanceMarker, T?> {
@@ -108,6 +119,14 @@ class PerformanceMarkerManager : SimpleViewManager<PerformanceMarker>() {
     @ReactProp(name = "componentInstanceId")
     fun setComponentInstanceId(view: PerformanceMarker, componentInstanceId: String) {
         view.componentInstanceId = componentInstanceId
+    }
+
+    override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
+        return MapBuilder.builder<String, Any>().put(
+                "onRenderComplete",
+                MapBuilder.of(
+                        "registrationName", "onRenderComplete")
+        ).build();
     }
 
     override fun getName() = "PerformanceMarker"
