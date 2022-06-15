@@ -612,7 +612,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: b960b687d2dfef0d3761fbb187e01812ebab8b23
   ReactCommon: 095366164a276d91ea704ce53cb03825c487a3f2
   ReactNativePerformance: cc4ceb26a5c7d341393229c210eb193a1447c71b
-  ReactNativePerformanceListsProfiler: 48e7cd673a45d8938eccb6e2644907ded4362c7d
+  ReactNativePerformanceListsProfiler: f4e932539648721d81ea4c3a08c626a71bc49c19
   RNGestureHandler: 61628a2c859172551aa2100d3e73d1e57878392f
   RNReanimated: 64573e25e078ae6bec03b891586d50b9ec284393
   RNScreens: 40a2cb40a02a609938137a1e0acfbf8fc9eebf19
