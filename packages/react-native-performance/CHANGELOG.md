@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/shopify/react-native-performance/compare/@shopify/react-native-performance@4.0.0...@shopify/react-native-performance@4.1.0) (2022-06-16)
+
+
+### Features
+
+* allow using multiple performance profilers ([#76](https://github.com/shopify/react-native-performance/issues/76)) ([a9b6a97](https://github.com/shopify/react-native-performance/commit/a9b6a97bb4ddecb7d8ba4fc8262f08b78f15fed0))
+
+
+
+
+
 ## [4.0.0] - 2022-05-27
 
 * Public release.
