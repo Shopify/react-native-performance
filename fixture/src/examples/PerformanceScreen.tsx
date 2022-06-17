@@ -96,11 +96,14 @@ const PerformanceScreen = () => {
 
   const onFakePullToRefresh = useCallback(
     async (uiEvent: NativeSyntheticEvent<NativeTouchEvent>) => {
-      resetFlow({uiEvent, destination: NavigationKeys.PERFORMANCE});
+      resetFlow({uiEvent, destination: NavigationKeys.PERFORMANCE, renderTimeoutMillisOverride: 6 * 1000});
       restartTimer();
+      setSimulatedSlowData(undefined);
       rickAndMortyQueryResult.refetch();
+      const data = await simulatedSlowOperation();
+      setSimulatedSlowData(data);
     },
-    [resetFlow, restartTimer, rickAndMortyQueryResult],
+    [resetFlow, restartTimer, rickAndMortyQueryResult, simulatedSlowOperation],
   );
 
   return (
