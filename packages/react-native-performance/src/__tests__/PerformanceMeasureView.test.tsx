@@ -27,9 +27,7 @@ jest.mock('../utils/inMemoryCounter', () => {
 const TestView = (_props: {[key: string]: any}) => {
   return null;
 };
-const emptyComponent = () => {
-  return null;
-};
+const emptyComponent = () => null;
 
 const inMemoryCounterMock = inMemoryCounter as jest.Mock;
 describe('PerformanceMeasureView', () => {
@@ -40,7 +38,7 @@ describe('PerformanceMeasureView', () => {
   beforeEach(() => {
     inMemoryCounterMock.mockReturnValue('some-uuid');
     // @ts-ignore
-    PerformanceMarker = emptyComponent();
+    PerformanceMarker = emptyComponent;
     // @ts-ignore
     getPerformanceMarker.mockReturnValue(PerformanceMarker);
 
