@@ -11,7 +11,7 @@ Performance measurement for your React Native apps.
 Documentation can be found at [shopify.github.io/react-native-performance/docs/](https://shopify.github.io/react-native-performance/docs/)
 
 
-<img src="https://badge.buildkite.com/a19f57510b2dae4110bba6bdf73051dc6b080e43a22f2ff5f3.svg" alt="Build status"/>
+<img src="https://github.com/Shopify/react-native-performance/actions/workflows/react-native-performance.yml/badge.svg?branch=main" alt="Build status"/>
 <a href="https://lerna.js.org" title="lerna">
   <img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="lerna"/>
 </a>
