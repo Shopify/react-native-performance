@@ -24,7 +24,7 @@ React Native Performance monorepo contains several packages:
   - [react-native-performance-navigation](guides/react-native-performance-navigation/getting-started) - useful higher-order profiles as well as additional components for easier profiling of apps using the [React Navigation library](https://reactnavigation.org/).
     - [react-native-performance-navigation-bottom-tabs](guides/react-native-performance-navigation/react-native-performance-navigation-bottom-tabs) - extension library atop [react-native-performance-navigation](guides/react-native-performance-navigation/getting-started) with additional helper methods for `@react-navigation/bottom-tabs` library.
     - [react-native-performance-navigation-drawer](guides/react-native-performance-navigation/react-native-performance-navigation-drawer) - extension library atop [react-native-performance-navigation](guides/react-native-performance-navigation/getting-started) with additional helper methods for `@react-navigation/drawer` library.
-- [react-native-performance-lists-profiler](guides/react-native-performance-lists-profiler) contains utilities for profiling `FlatList`.
+- [react-native-performance-lists-profiler](guides/react-native-performance-lists-profiler) contains utilities for profiling `FlatList` and [FlashList.](https://github.com/Shopify/flash-list)
 - [flipper-plugin-react-native-performance](guides/react-native-performance-lists-profiler.md) contains a Flipper plugin to make lists profiling easier. The plugin visualises TTI, blank areas, and its averages.
 
 

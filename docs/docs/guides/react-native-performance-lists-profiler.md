@@ -7,7 +7,7 @@ slug: /guides/react-native-performance-lists-profiler
 
 # react-native-performance-lists-profiler
 
-This library contains components for profiling `FlatList`.
+This library contains components for profiling [`FlatList`](https://reactnative.dev/docs/flatlist) and [`FlashList`](https://github.com/Shopify/flash-list).
 
 ## Installation
 
@@ -82,3 +82,17 @@ It has the following parameters:
 ```
 
 `listName` prop will be used in the callbacks `onInteractive` and `onBlankArea`. You can also use both of these callbacks directly on the `FlatListPerformanceView` if you don't want to use the `ListsProfiler` component.
+
+## FlashListPerformanceView
+
+`FlashListPerformanceView` is a component used to profile a specific instance of a `FlashList` and its API is the same as `FlatListPerformanceView`:
+
+```tsx
+<FlashListPerformanceView listName="FlatList">
+  <FlashList
+    keyExtractor={...}
+    renderItem={...}
+    data={data}
+  />
+</FlashListPerformanceView>
+```
