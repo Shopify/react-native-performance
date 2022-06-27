@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.1](https://github.com/shopify/react-native-performance/compare/@shopify/react-native-performance@4.1.0...@shopify/react-native-performance@4.1.1) (2022-06-27)
+
+
+### Bug Fixes
+
+* wrong documentation url lead to page not found ([#82](https://github.com/shopify/react-native-performance/issues/82)) ([83c325c](https://github.com/shopify/react-native-performance/commit/83c325ce145703ff4b642055409c7e88aea1af67))
+
+
+
+
+
 # [4.1.0](https://github.com/shopify/react-native-performance/compare/@shopify/react-native-performance@4.0.0...@shopify/react-native-performance@4.1.0) (2022-06-16)
 
 
