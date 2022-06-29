@@ -73,3 +73,71 @@ jobs:
         run: |
           yarn
           yarn test --forceExit
+  metro-ios:
+    name: 'Metro bundling for iOS'
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: |
+          yarn
+          yarn build
+          cd fixture
+          yarn
+          mkdir -p /tmp/artifacts
+          yarn react-native bundle --entry-file index.js --platform ios --bundle-output /tmp/artifacts/bundle.js --sourcemap-output /tmp/artifacts/output.map
+  metro-android:
+    name: 'Metro bundling for Android'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: |
+          cd fixture
+          yarn
+          cd android
+          mkdir -p /tmp/artifacts
+          ./gradlew bundleDebugJsAndAssets
+  build-ios:
+    name: 'Build iOS'
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: ruby setup
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+      - run: |
+          bundle install
+          cd fixture
+          yarn
+          bundle exec pod install
+          mkdir -p /tmp/artifacts
+          set -o pipefail && env NSUnbufferedIO=YES xcodebuild clean build -scheme ReactNativePerformanceFixture -workspace ReactNativePerformanceFixture.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 11,OS=latest' | tee /tmp/artifacts/ios_build.log
+  build-android:
+    name: 'Build Android'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: ruby setup
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+      - run: |
+          bundle install
+          cd fixture
+          yarn
+          cd android
+          ./gradlew assembleDebug

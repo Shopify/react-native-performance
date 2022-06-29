@@ -16,13 +16,11 @@ Documentation can be found at [shopify.github.io/react-native-performance](https
   <img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="lerna"/>
 </a>
 <img src="https://img.shields.io/npm/l/@shopify/react-native-performance" alt="license: MIT"/>
-<a href="https://discord.com/channels/928252803867107358/928253059375726622" title="Discord chat">
-  <img src="https://img.shields.io/discord/928252803867107358" alt="Discord chat"/>
-</a>
+<img src="https://img.shields.io/discord/928252803867107358" alt="Discord chat"/>
 
 ---
 
-[Installation](#install) | [Packages](#package-versions) | [Playground app](#playground-app) | [Contributing](#contributing) | [Discord channel](https://discord.com/channels/928252803867107358/928253059375726622)
+[Installation](#install-⬇️) | [Packages](#packages) | [Playground app](#playground-app) | [Contributing](#contributing)
 
 
 ## Install
@@ -35,9 +33,9 @@ Packages are set up to be compatible with [autolinking](https://github.com/react
 
 | Name | Version |
 | ---- | ------- |
-| [@shopify/flipper-plugin-react-native-performance](/packages/flipper-plugin-react-native-performance) | [1.0.0](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Fflipper-plugin-react-native-performance%401.0.0) |
-| [@shopify/react-native-performance](/packages/react-native-performance) | [4.0.0](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance%404.0.0) |
-| [@shopify/react-native-performance-lists-profiler](/packages/react-native-performance-lists-profiler) | [1.0.0](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance-lists-profiler%401.0.0) |
+| [@shopify/flipper-plugin-react-native-performance](/packages/flipper-plugin-react-native-performance) | [1.0.1](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Fflipper-plugin-react-native-performance%401.0.1) |
+| [@shopify/react-native-performance](/packages/react-native-performance) | [4.1.1](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance%404.1.1) |
+| [@shopify/react-native-performance-lists-profiler](/packages/react-native-performance-lists-profiler) | [1.1.0](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance-lists-profiler%401.1.0) |
 | [@shopify/react-native-performance-navigation](/packages/react-native-performance-navigation) | [3.0.0](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance-navigation%403.0.0) |
 | [@shopify/react-native-performance-navigation-bottom-tabs](/packages/react-native-performance-navigation-bottom-tabs) | [3.0.0](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance-navigation-bottom-tabs%403.0.0) |
 | [@shopify/react-native-performance-navigation-drawer](/packages/react-native-performance-navigation-drawer) | [3.0.0](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance-navigation-drawer%403.0.0) |

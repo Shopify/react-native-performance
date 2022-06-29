@@ -4,4 +4,4 @@ This package contains some additional higher-order profilers that we anticipate 
 
 ## Usage & installation
 
-Please refer to [documentation](https://shopify.github.io/react-native-performance/guides/react-native-performance-navigation/getting-started) to see more information and usage examples.
+Please refer to [documentation](https://shopify.github.io/react-native-performance/docs/guides/react-native-performance-navigation/getting-started) to see more information and usage examples.

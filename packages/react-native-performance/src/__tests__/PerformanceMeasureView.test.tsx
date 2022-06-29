@@ -27,6 +27,8 @@ jest.mock('../utils/inMemoryCounter', () => {
 const TestView = (_props: {[key: string]: any}) => {
   return null;
 };
+const emptyComponent = () => null;
+
 const inMemoryCounterMock = inMemoryCounter as jest.Mock;
 describe('PerformanceMeasureView', () => {
   let stateController: MockStateController;
@@ -36,7 +38,7 @@ describe('PerformanceMeasureView', () => {
   beforeEach(() => {
     inMemoryCounterMock.mockReturnValue('some-uuid');
     // @ts-ignore
-    PerformanceMarker = () => null;
+    PerformanceMarker = emptyComponent;
     // @ts-ignore
     getPerformanceMarker.mockReturnValue(PerformanceMarker);
 
@@ -323,5 +325,40 @@ describe('PerformanceMeasureView', () => {
     });
 
     expect(stateController.onScreenUnmounted).not.toHaveBeenCalledBefore(stateController.onScreenMounted);
+  });
+
+  it('notifies the state controller when the screen is rendered', () => {
+    inMemoryCounterMock.mockReturnValueOnce('mock-mount-id');
+
+    expect(stateController.onRenderPassCompleted).not.toHaveBeenCalled();
+
+    const screen = render(
+      <Wrapper>
+        <PerformanceMeasureView screenName="SomeScreen" renderPassName="renderPass1">
+          <TestView />
+        </PerformanceMeasureView>
+      </Wrapper>,
+    );
+
+    const view = screen.UNSAFE_getByType(PerformanceMarker);
+
+    view.props.onRenderComplete({
+      nativeEvent: {
+        timestamp: 2000,
+        renderPassName: 'renderPass1',
+        interactive: 'TRUE',
+        destinationScreen: 'SomeScreen',
+        componentInstanceId: 'mock-mount-id',
+      },
+    });
+
+    expect(stateController.onRenderPassCompleted).toHaveBeenCalledTimes(1);
+    expect(stateController.onRenderPassCompleted).toHaveBeenCalledWith({
+      timestamp: 2000,
+      renderPassName: 'renderPass1',
+      interactive: true,
+      destinationScreen: 'SomeScreen',
+      componentInstanceId: 'mock-mount-id',
+    });
   });
 });

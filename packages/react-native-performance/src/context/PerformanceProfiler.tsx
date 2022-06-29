@@ -11,7 +11,6 @@ import logger from '../utils/Logger';
 import {PerformanceProfilerError} from '../exceptions';
 
 import ReportObserver from './ReportObserver';
-import useNativeRenderCompletionEvents from './useNativeRenderCompletionEvents';
 import useReportEmitter from './useReportEmitter';
 
 const DEFAULT_RENDER_TIMEOUT_MILLIS = 5 * 1000;
@@ -72,8 +71,6 @@ const PerformanceProfiler = ({
     useRenderTimeouts,
     renderTimeoutMillis,
   });
-
-  useNativeRenderCompletionEvents({stateController});
 
   return (
     <StateControllerContextProvider value={stateController}>

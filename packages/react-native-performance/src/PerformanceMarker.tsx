@@ -4,12 +4,25 @@ import {ViewStyle, requireNativeComponent, HostComponent} from 'react-native';
 // So we are using strings. Legal values: `TRUE` and `FALSE`.
 export type Interactive = 'TRUE' | 'FALSE';
 
+export interface RenderCompletionEvent {
+  nativeEvent: {
+    timestamp: string;
+    renderPassName: string;
+    interactive: Interactive;
+    destinationScreen: string;
+    componentInstanceId: string;
+  };
+}
+
+type OnRenderCompletionEventHandler = (event: RenderCompletionEvent) => void;
+
 export interface PerformanceMarkerProps {
   componentInstanceId: string;
   renderPassName: string;
   interactive: Interactive;
   destinationScreen: string;
   style: ViewStyle;
+  onRenderComplete: OnRenderCompletionEventHandler;
 }
 
 /**

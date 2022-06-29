@@ -12,7 +12,8 @@ class ReactNativePerformanceListsProfilerPackage : ReactPackage {
 
   override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
     return listOf(
-        FlatListPerformanceViewManager()
+        FlatListPerformanceViewManager(),
+        FlashListPerformanceViewManager()
     )
   }
 }

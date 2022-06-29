@@ -14,6 +14,7 @@ import FastRenderPassesScreen from './examples/FastRenderPassesScreen';
 import ConditionalRenderingScreen from './examples/ConditionalRenderingScreen';
 import DrawerNavigator from './examples/DrawerNavigator';
 import NestedNavigationScreen from './examples/NestedNavigationScreen';
+import NestedContextScreen, {InnerNestedContextScreen} from './examples/NestedContextScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -29,10 +30,26 @@ const NavigationTree = () => {
         <Stack.Screen name={NavigationKeys.CONDITIONAL_RENDERING_SCREEN} component={ConditionalRenderingScreen} />
         <Stack.Screen name={NavigationKeys.FLAT_LIST_SCREEN} component={FlatListScreen} />
         <Stack.Screen name={NavigationKeys.NESTED_NAVIGATION_SCREEN} component={NestedNavigationScreen} />
+        <Stack.Screen
+          name={NavigationKeys.NESTED_PROFILER_CONTEXT}
+          component={NestedProfilerNavigationTree}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
+
+function NestedProfilerNavigationTree() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name={NavigationKeys.NESTED_CONTEXT_SCREEN} component={NestedContextScreen} />
+      <Stack.Group screenOptions={{presentation: 'modal'}}>
+        <Stack.Screen name={NavigationKeys.INNER_NESTED_CONTEXT_SCREEN} component={InnerNestedContextScreen} />
+      </Stack.Group>
+    </Stack.Navigator>
+  );
+}
 
 const App = () => {
   const apolloClient = useMemo(() => {

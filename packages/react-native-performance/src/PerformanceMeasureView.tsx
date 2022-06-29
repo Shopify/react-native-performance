@@ -1,8 +1,8 @@
-import React, {ReactNode, useEffect, useState, useRef} from 'react';
+import React, {ReactNode, useEffect, useState, useRef, useCallback} from 'react';
 import {InteractionManager, StyleSheet} from 'react-native';
 
 import {inMemoryCounter} from './utils';
-import {getPerformanceMarker} from './PerformanceMarker';
+import {getPerformanceMarker, RenderCompletionEvent} from './PerformanceMarker';
 import {StateController, useStateController} from './state-machine';
 
 export const DEFAULT_NON_INTERACTIVE_RENDER_PASS_NAME = 'loading';
@@ -70,6 +70,21 @@ const PerformanceMeasureView = ({
 
   useTrackComponentMounts({stateController, screenName, componentInstanceId});
 
+  const onRenderComplete = useCallback(
+    (event: RenderCompletionEvent) => {
+      const {timestamp, renderPassName, interactive, destinationScreen, componentInstanceId} = event.nativeEvent;
+
+      stateController.onRenderPassCompleted({
+        timestamp: Number.parseFloat(timestamp),
+        destinationScreen,
+        renderPassName,
+        interactive: interactive === 'TRUE',
+        componentInstanceId,
+      });
+    },
+    [stateController],
+  );
+
   if (stateController.isEnabled) {
     if (show) {
       const PerformanceMarker = getPerformanceMarker();
@@ -82,6 +97,7 @@ const PerformanceMeasureView = ({
             interactive={interactive ? 'TRUE' : 'FALSE'}
             renderPassName={renderPassName}
             style={styles.invisible}
+            onRenderComplete={onRenderComplete}
           />
           {children}
         </>
