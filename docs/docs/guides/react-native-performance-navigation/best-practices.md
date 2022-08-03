@@ -6,7 +6,7 @@ slug: /guides/react-native-performance-navigation/best-practices
 
 ### Conditional Rendering
 
-If you want to show views based on [conditional rendering](https://reactjs.org/docs/conditional-rendering.html), it is important that `ReactNavigationPerformanceView` is rendered **uncoditionally**. You can take a look at the following example for reference:
+If you want to show views based on [conditional rendering](https://reactjs.org/docs/conditional-rendering.html), it is important that `ReactNavigationPerformanceView` is rendered **unconditionally**. You can take a look at the following example for reference:
 
 ```ts
 // Property determining which component is rendered
