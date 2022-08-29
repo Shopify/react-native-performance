@@ -1,7 +1,7 @@
 {
   "$schema": "https://fbflipper.com/schemas/plugin-package/v2.json",
-  "name": "@shopify/flipper-plugin-react-native-performance",
-  "id": "@shopify/react-native-performance",
+  "name": "flipper-plugin-shopify-react-native-performance",
+  "id": "shopify-react-native-performance",
   "description": "Flipper desktop plugin with tools for measuring lists performance, TTI, and more.",
   "publishConfig": {
     "access": "public",
@@ -17,7 +17,7 @@
     "performance"
   ],
   "icon": "apps",
-  "title": "ReactNativePerformancePlugin",
+  "title": "React Native Performance",
   "scripts": {
     "lint": "flipper-pkg lint",
     "prepack": "flipper-pkg lint && flipper-pkg bundle",

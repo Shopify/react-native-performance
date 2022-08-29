@@ -36,7 +36,7 @@ Before you proceed:
 Which packages are affected by the issue?
 - [ ] @shopify/react-native-performance
 - [ ] @shopify/react-native-performance-lists-profiler
-- [ ] @shopify/flipper-plugin-react-native-performance
+- [ ] flipper-plugin-shopify-react-native-performance
 - [ ] @shopify/react-native-performance-navigation
 - [ ] @shopify/react-native-performance-navigation-bottom-tabs
 - [ ] @shopify/react-native-performance-navigation-drawer
@@ -52,7 +52,7 @@ When filling the table below, please remove the packages that you're not using. 
 | -------------------------------------------------------- | --------------- |
 | @shopify/react-native-performance                        |x.y.z            |
 | @shopify/react-native-performance-lists-profiler         |x.y.z            |
-| @shopify/flipper-plugin-react-native-performance         |x.y.z            |
+| flipper-plugin-shopify-react-native-performance          |x.y.z            |
 | @shopify/react-native-performance-navigation             |x.y.z            |
 | @shopify/react-native-performance-navigation-bottom-tabs |x.y.z            |
 | @shopify/react-native-performance-navigation-drawer      |x.y.z            |
