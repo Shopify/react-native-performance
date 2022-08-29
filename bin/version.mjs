@@ -21,7 +21,6 @@ function getAllPackageNamesToUpgrade() {
     .filter(packageJsonPath => packageJsonPath)
     .map(packageJsonPath => fs.readFileSync(packageJsonPath, 'utf8'))
     .map(jsonString => JSON.parse(jsonString))
-    .filter(packageJson => typeof packageJson.name === 'string' && packageJson.name.startsWith('@shopify/'))
     .map(packageJson => packageJson.name);
 
   return packagesToUpgrade;
