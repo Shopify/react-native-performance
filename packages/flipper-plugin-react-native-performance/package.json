@@ -4,8 +4,7 @@
   "id": "shopify-react-native-performance",
   "description": "Flipper desktop plugin with tools for measuring lists performance, TTI, and more.",
   "publishConfig": {
-    "access": "public",
-    "@shopify:registry": "https://registry.npmjs.org/"
+    "access": "public"
   },
   "version": "1.0.1",
   "pluginType": "client",
