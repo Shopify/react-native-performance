@@ -17,7 +17,7 @@
     "performance"
   ],
   "icon": "apps",
-  "title": "ReactNativePerformancePlugin",
+  "title": "React Native Performance",
   "scripts": {
     "lint": "flipper-pkg lint",
     "prepack": "flipper-pkg lint && flipper-pkg bundle",
