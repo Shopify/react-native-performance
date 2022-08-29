@@ -3394,6 +3394,13 @@
     pkg-dir "^5.0.0"
     pluralize "^8.0.0"
 
+"@shopify/flipper-plugin-react-native-performance@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@shopify/flipper-plugin-react-native-performance/-/flipper-plugin-react-native-performance-1.0.1.tgz#8d4f8f329c4568fad4c08a612789378fd47ae027"
+  integrity sha512-Ep1HxiT93W9IFa5vXnOB1dBpahCGWImLWYX9b6yJ6Z0UMnGIGLExAIJJkik78ah6g+12Q9b2QtVWwInl94DE6g==
+  dependencies:
+    recharts "^2.1.8"
+
 "@sideway/address@^4.1.3":
   version "4.1.4"
   resolved "https://registry.yarnpkg.com/@sideway/address/-/address-4.1.4.tgz#03dccebc6ea47fdc226f7d3d1ad512955d4783f0"
