@@ -88,7 +88,7 @@ It has the following parameters:
 `FlashListPerformanceView` is a component used to profile a specific instance of a `FlashList` and its API is the same as `FlatListPerformanceView`:
 
 ```tsx
-<FlashListPerformanceView listName="FlatList">
+<FlashListPerformanceView listName="FlashList">
   <FlashList
     keyExtractor={...}
     renderItem={...}
