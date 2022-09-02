@@ -40,8 +40,8 @@ class FlashListPerformanceViewManager: ReactViewManager() {
                     emptyArray()
                 } else {
                     val container = ((scrollView as ViewGroup).getChildAt(0) as ViewGroup)
-                    val autoLayoutView = (container.getChildAt(0) as ViewGroup)
-                    autoLayoutView.getChildren() + container.getChildren().filter { it.javaClass.name != "AutoLayoutView" }
+                    val autoLayoutView = (container.getChildren().first { it.javaClass.name.endsWith("AutoLayoutView") } as ViewGroup)
+                    autoLayoutView.getChildren() + container.getChildren().filter { it.javaClass.name.endsWith("AutoLayoutView") }
                 }
             }
         }
