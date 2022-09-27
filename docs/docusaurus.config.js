@@ -42,6 +42,22 @@ module.exports = {
     },
     footer: {
       style: 'dark',
+
+      links: [
+        {
+          title: 'Docs',
+          items: [{label: 'Quick Start', to: 'docs/fundamentals/getting-started'}],
+        },
+        {
+          title: 'Community',
+          items: [{label: 'Discord', href: 'https://discord.com/channels/928252803867107358/928253059375726622'}],
+        },
+        {
+          title: 'More',
+          items: [{label: 'GitHub', href: 'https://github.com/Shopify/react-native-performance'}],
+        },
+      ],
+
       copyright: `Copyright © ${new Date().getFullYear()} Shopify Inc. Built with Docusaurus.`,
     },
   },
