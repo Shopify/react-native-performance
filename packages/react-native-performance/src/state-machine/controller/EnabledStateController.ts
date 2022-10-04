@@ -3,7 +3,6 @@ import {getNativeStartupTimestamp, getNativeUuid, matchesPattern} from '../../ut
 import GestureResponderEvent from '../../GestureResponderEvent';
 import BridgedEventTimestamp, {BridgedEventTimestampBuilder} from '../../BridgedEventTimestamp';
 import {State, RenderAborted, Started, Rendered, Mounted, Unmounted} from '../states';
-import OngoingOperationsRegistry from '../OngoingOperationsRegistry';
 import {reverseReduce, reverseTraverse} from '../states/state-utils';
 import logger, {LogLevel} from '../../utils/Logger';
 
@@ -194,7 +193,6 @@ export default class EnabledStateController implements StateController {
         componentInstanceId,
         snapshotId: getNativeUuid(),
         previousState: oldState,
-        operationsSnapshot: oldState.ongoingOperations,
         timestamp: new BridgedEventTimestampBuilder().build(),
       }),
     );
@@ -217,7 +215,6 @@ export default class EnabledStateController implements StateController {
       componentInstanceId,
       snapshotId: getNativeUuid(),
       previousState: oldState,
-      operationsSnapshot: oldState.ongoingOperations,
       timestamp: new BridgedEventTimestampBuilder().build(),
     });
 
@@ -244,7 +241,6 @@ export default class EnabledStateController implements StateController {
             destinationScreen,
             componentInstanceId,
             previousState: oldState,
-            operationsSnapshot: oldState.ongoingOperations,
             timestamp: new BridgedEventTimestampBuilder().build(),
             snapshotId: getNativeUuid(),
           }),
@@ -269,13 +265,8 @@ export default class EnabledStateController implements StateController {
     renderTimeoutMillisOverride?: number;
     componentInstanceId: string;
   }) {
-    const oldState = this.safeGetCurrentState(destinationScreen, componentInstanceId);
+    const previousState = this.safeGetCurrentState(destinationScreen, componentInstanceId);
     this.stopWatchdogTimerForComponent(componentInstanceId);
-
-    const stateWithAbortedOperations = oldState.onAllOngoingOperationsCancelled();
-    if (stateWithAbortedOperations !== oldState) {
-      this.changeStateTo(destinationScreen, componentInstanceId, stateWithAbortedOperations);
-    }
 
     this.changeStateTo(
       destinationScreen,
@@ -290,9 +281,8 @@ export default class EnabledStateController implements StateController {
           .nativeTimestamp(uiEvent?.nativeEvent.timestamp)
           .systemBootReference()
           .build(),
-        previousState: stateWithAbortedOperations,
+        previousState,
         snapshotId: getNativeUuid(),
-        operationsSnapshot: new OngoingOperationsRegistry(),
         type: 'flow_reset',
       }),
     );
@@ -315,7 +305,6 @@ export default class EnabledStateController implements StateController {
     const nextState = new Rendered({
       ...props,
       previousState: oldState,
-      operationsSnapshot: oldState.ongoingOperations,
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(props.timestamp).epochReference().build(),
       snapshotId: getNativeUuid(),
     });
@@ -337,16 +326,7 @@ export default class EnabledStateController implements StateController {
     let startedMultipleFlows = false;
     if (this.stateRegistry.has(DESTINATION_SCREEN_NAME_PLACEHOLDER)) {
       startedMultipleFlows = true;
-      const oldState = this.stateRegistry.get(DESTINATION_SCREEN_NAME_PLACEHOLDER)!;
       this.stopWatchdogTimerForComponent(DESTINATION_SCREEN_NAME_PLACEHOLDER);
-      const stateWithAbortedOperations = oldState.onAllOngoingOperationsCancelled();
-      if (stateWithAbortedOperations !== oldState) {
-        this.changeStateTo(
-          DESTINATION_SCREEN_NAME_PLACEHOLDER,
-          DESTINATION_SCREEN_NAME_PLACEHOLDER,
-          stateWithAbortedOperations,
-        );
-      }
       this.stateRegistry.delete(DESTINATION_SCREEN_NAME_PLACEHOLDER);
     }
 
@@ -362,7 +342,6 @@ export default class EnabledStateController implements StateController {
         destinationScreen: DESTINATION_SCREEN_NAME_PLACEHOLDER,
         previousState: undefined,
         snapshotId: getNativeUuid(),
-        operationsSnapshot: new OngoingOperationsRegistry(),
         type,
       }),
     );

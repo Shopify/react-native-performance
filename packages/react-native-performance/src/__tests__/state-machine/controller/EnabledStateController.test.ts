@@ -8,7 +8,6 @@ import {
   State,
   Unmounted,
   Mounted,
-  OngoingOperationsRegistry,
   getFlowStartState,
 } from '../../../state-machine';
 import BridgedEventTimestamp, {BridgedEventTimestampBuilder} from '../../../BridgedEventTimestamp';
@@ -97,7 +96,6 @@ describe('state-machine/controller/EnabledStateController', () => {
       destinationScreen: DESTINATION_SCREEN_NAME_PLACEHOLDER,
       previousState: undefined,
       snapshotId: expect.any(Promise),
-      operationsSnapshot: new OngoingOperationsRegistry(),
       type: 'app_boot',
     });
     expect(onStateChangedListener).toHaveBeenCalledTimes(1);
@@ -153,7 +151,6 @@ describe('state-machine/controller/EnabledStateController', () => {
         componentInstanceId: DESTINATION_SCREEN_NAME_PLACEHOLDER,
         previousState: undefined,
         snapshotId: expect.any(Promise),
-        operationsSnapshot: new OngoingOperationsRegistry(),
         type: 'app_boot',
       }),
     );
@@ -222,7 +219,6 @@ describe('state-machine/controller/EnabledStateController', () => {
         destinationScreen: 'SomeTargetScreen',
         componentInstanceId: 'id',
         renderPassName: 'rendered_completely',
-        operationsSnapshot: new OngoingOperationsRegistry(),
         previousState: expect.any(Started),
         interactive: true,
         snapshotId: expect.any(Promise),
@@ -507,7 +503,6 @@ describe('state-machine/controller/EnabledStateController', () => {
         timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(10).epochReference().build(),
         destinationScreen: 'some_screen',
         interactive: false,
-        operationsSnapshot: new OngoingOperationsRegistry(),
         previousState: expect.any(Started),
         snapshotId: expect.any(Promise),
       }),
@@ -530,7 +525,6 @@ describe('state-machine/controller/EnabledStateController', () => {
         timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(20).epochReference().build(),
         destinationScreen: 'some_screen',
         interactive: true,
-        operationsSnapshot: new OngoingOperationsRegistry(),
         previousState: expect.any(Started),
         snapshotId: expect.any(Promise),
       }),
@@ -555,7 +549,6 @@ describe('state-machine/controller/EnabledStateController', () => {
         timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(10).epochReference().build(),
         destinationScreen: 'some_screen',
         interactive: false,
-        operationsSnapshot: new OngoingOperationsRegistry(),
         previousState: expect.any(Started),
         snapshotId: expect.any(Promise),
       }),
@@ -577,7 +570,6 @@ describe('state-machine/controller/EnabledStateController', () => {
         timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(15).epochReference().build(),
         destinationScreen: 'some_screen',
         interactive: false,
-        operationsSnapshot: new OngoingOperationsRegistry(),
         previousState: renderPass1Complete,
         snapshotId: expect.any(Promise),
       }),
@@ -602,7 +594,6 @@ describe('state-machine/controller/EnabledStateController', () => {
         timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(10).epochReference().build(),
         destinationScreen: 'some_screen',
         interactive: false,
-        operationsSnapshot: new OngoingOperationsRegistry(),
         previousState: expect.any(Started),
         snapshotId: expect.any(Promise),
       }),
@@ -624,7 +615,6 @@ describe('state-machine/controller/EnabledStateController', () => {
         timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(15).epochReference().build(),
         destinationScreen: 'some_screen',
         interactive: true,
-        operationsSnapshot: new OngoingOperationsRegistry(),
         previousState: renderPass1Complete,
         snapshotId: expect.any(Promise),
       }),
@@ -799,7 +789,7 @@ describe('state-machine/controller/EnabledStateController', () => {
 
   it('uses a custom source screen name if one is provided when resetting the flow', () => {
     stateController.onAppStarted();
-    Date.now = jest.fn().mockReturnValueOnce(1700);
+    Date.now = jest.fn().mockReturnValue(1700);
     stateController.onFlowReset({
       sourceScreen: 'some_source_screen',
       componentInstanceId: 'id',
@@ -815,7 +805,6 @@ describe('state-machine/controller/EnabledStateController', () => {
       timestamp: new BridgedEventTimestampBuilder().epochReference().build(),
       previousState: expect.any(Started),
       snapshotId: expect.any(Promise),
-      operationsSnapshot: new OngoingOperationsRegistry(),
       type: 'flow_reset',
     });
 
@@ -925,7 +914,6 @@ describe('state-machine/controller/EnabledStateController', () => {
         componentInstanceId: 'id',
         snapshotId: expect.any(Promise),
         previousState: expect.any(Started),
-        operationsSnapshot: new OngoingOperationsRegistry(),
         timestamp: expect.any(BridgedEventTimestamp),
       }),
     );
@@ -1031,7 +1019,6 @@ describe('state-machine/controller/EnabledStateController', () => {
         timestamp: new BridgedEventTimestamp(1700, undefined),
         previousState: undefined,
         snapshotId: expect.any(Promise),
-        operationsSnapshot: new OngoingOperationsRegistry(),
       }),
     );
   });

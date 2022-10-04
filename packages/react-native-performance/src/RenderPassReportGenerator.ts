@@ -1,15 +1,7 @@
 import {Platform} from 'react-native';
 
-import {
-  RenderPassReport,
-  RenderPassEndInfo,
-  RenderPassStartInfo,
-  FlowInfo,
-  SnapshotInfo,
-  ResourceAcquisitionStatus,
-} from './RenderPassReport';
+import {RenderPassReport, RenderPassEndInfo, RenderPassStartInfo, FlowInfo, SnapshotInfo} from './RenderPassReport';
 import {State, Started, Rendered, RenderAborted} from './state-machine/states';
-import OngoingOperationsRegistry from './state-machine/OngoingOperationsRegistry';
 import {PerformanceProfilerError} from './exceptions';
 import {getFlowStartState, reverseReduce} from './state-machine/states/state-utils';
 
@@ -85,7 +77,6 @@ const renderPassReportGenerator: RenderPassReportGeneratorType = async newState 
 const prepareSnapshotInfo = async (newState: RenderPassEndState): Promise<SnapshotInfo> => {
   return {
     reportId: await newState.snapshotId,
-    resourceAcquisitionStatus: prepareResourceAcquisitionStatus(newState.operationsSnapshot),
   };
 };
 
@@ -169,43 +160,6 @@ const prepareRenderPassStartInfo = async (flowStartState: Started): Promise<Rend
       timeToConsumeTouchEventMillis: jsNativeLatency,
     };
   }
-};
-
-const prepareResourceAcquisitionStatus = (state: OngoingOperationsRegistry): ResourceAcquisitionStatus => {
-  let globalStart = Infinity;
-  let globalEnd: number | undefined;
-
-  const components = Object.entries(state.operationTimestamps).reduce(
-    (report, [operationName, {startTimestamp, endTimestamp, cancelled}]) => {
-      globalStart = Math.min(globalStart, startTimestamp);
-      if (endTimestamp !== undefined) {
-        globalEnd = globalEnd === undefined ? endTimestamp : Math.max(globalEnd, endTimestamp);
-      }
-
-      if (endTimestamp === undefined) {
-        report[operationName] = {
-          status: 'ongoing',
-        };
-      } else if (cancelled) {
-        report[operationName] = {
-          durationMillis: endTimestamp - startTimestamp,
-          status: 'cancelled',
-        };
-      } else {
-        report[operationName] = {
-          durationMillis: endTimestamp - startTimestamp,
-          status: 'completed',
-        };
-      }
-      return report;
-    },
-    {} as ResourceAcquisitionStatus['components'],
-  );
-
-  return {
-    totalTimeMillis: globalEnd === undefined ? 0 : globalEnd - globalStart,
-    components,
-  };
 };
 
 export default renderPassReportGenerator;

@@ -1,6 +1,5 @@
 import renderPassReportGenerator from '../RenderPassReportGenerator';
 import {Started, Rendered, RenderAborted} from '../state-machine/states';
-import OngoingOperationsRegistry from '../state-machine/OngoingOperationsRegistry';
 import {BridgedEventTimestampBuilder} from '../BridgedEventTimestamp';
 
 const SOURCE_SCREEN = 'source';
@@ -22,7 +21,6 @@ describe('RenderPassReportGenerator', () => {
       componentInstanceId: 'id',
       timestamp: new BridgedEventTimestampBuilder().build(),
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
       type: 'flow_start',
     });
@@ -33,7 +31,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -49,7 +46,6 @@ describe('RenderPassReportGenerator', () => {
       componentInstanceId: 'id',
       timestamp: new BridgedEventTimestampBuilder().build(),
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
       type: 'flow_start',
     });
@@ -60,190 +56,12 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
 
     const report = await renderPassReportGenerator(renderState);
     expect(report?.destinationScreen).toBe(DESTINATION_SCREEN);
-  });
-
-  it('prepares the resourceAcquisitionStatus correctly if no operations were profiled', async () => {
-    const flowStartState = new Started({
-      sourceScreen: SOURCE_SCREEN,
-      destinationScreen: DESTINATION_SCREEN,
-      componentInstanceId: 'id',
-      timestamp: new BridgedEventTimestampBuilder().build(),
-      previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
-      snapshotId: Promise.resolve('1'),
-      type: 'flow_start',
-    });
-
-    const renderState = new Rendered({
-      renderPassName: 'pass_1',
-      interactive: true,
-      timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
-      destinationScreen: DESTINATION_SCREEN,
-      componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
-      previousState: flowStartState,
-      snapshotId: Promise.resolve('2'),
-    });
-
-    const report = await renderPassReportGenerator(renderState);
-    expect(report?.resourceAcquisitionStatus).toStrictEqual({
-      totalTimeMillis: 0,
-      components: {},
-    });
-  });
-
-  it('prepares the resourceAcquisitionStatus correctly if there were some ongoing operations', async () => {
-    const flowStartState = new Started({
-      sourceScreen: SOURCE_SCREEN,
-      destinationScreen: DESTINATION_SCREEN,
-      componentInstanceId: 'id',
-      timestamp: new BridgedEventTimestampBuilder().build(),
-      previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
-      snapshotId: Promise.resolve('1'),
-      type: 'flow_start',
-    });
-
-    const operationsSnapshot = new OngoingOperationsRegistry().onOperationStarted(DESTINATION_SCREEN, 'operation1');
-
-    const renderState = new Rendered({
-      renderPassName: 'pass_1',
-      interactive: true,
-      timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
-      destinationScreen: DESTINATION_SCREEN,
-      componentInstanceId: 'id',
-      operationsSnapshot,
-      previousState: flowStartState,
-      snapshotId: Promise.resolve('2'),
-    });
-
-    const report = await renderPassReportGenerator(renderState);
-    expect(report?.resourceAcquisitionStatus).toStrictEqual({
-      totalTimeMillis: 0,
-      components: {
-        operation1: {
-          status: 'ongoing',
-        },
-      },
-    });
-  });
-
-  it('prepares the resourceAcquisitionStatus correctly if there were some cancelled operations', async () => {
-    const flowStartState = new Started({
-      sourceScreen: SOURCE_SCREEN,
-      destinationScreen: DESTINATION_SCREEN,
-      componentInstanceId: 'id',
-      timestamp: new BridgedEventTimestampBuilder().build(),
-      type: 'flow_start',
-      previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
-      snapshotId: Promise.resolve('1'),
-    });
-
-    const operationsSnapshot = (() => {
-      Date.now = jest.fn().mockReturnValueOnce(101);
-      let registry = new OngoingOperationsRegistry().onOperationStarted(DESTINATION_SCREEN, 'operation1');
-
-      Date.now = jest.fn().mockReturnValueOnce(201);
-      registry = registry.onOperationStarted(DESTINATION_SCREEN, 'operation2');
-
-      Date.now = jest.fn().mockReturnValueOnce(299);
-      registry = registry.onOperationCompleted(DESTINATION_SCREEN, 'operation2', true);
-
-      return registry;
-    })();
-
-    const renderState = new Rendered({
-      renderPassName: 'pass_1',
-      interactive: true,
-      timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
-      destinationScreen: DESTINATION_SCREEN,
-      componentInstanceId: 'id',
-      operationsSnapshot,
-      previousState: flowStartState,
-      snapshotId: Promise.resolve('2'),
-    });
-
-    const report = await renderPassReportGenerator(renderState);
-    expect(report?.resourceAcquisitionStatus).toStrictEqual({
-      totalTimeMillis: 299 - 101,
-      components: {
-        operation1: {
-          status: 'ongoing',
-        },
-        operation2: {
-          status: 'cancelled',
-          durationMillis: 299 - 201,
-        },
-      },
-    });
-  });
-
-  it('prepares the resourceAcquisitionStatus correctly if there were some completed operations', async () => {
-    const flowStartState = new Started({
-      destinationScreen: DESTINATION_SCREEN,
-      componentInstanceId: 'id',
-      timestamp: new BridgedEventTimestampBuilder().build(),
-      type: 'flow_start',
-      previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
-      snapshotId: Promise.resolve('1'),
-      sourceScreen: undefined,
-    });
-
-    const operationsSnapshot = (() => {
-      Date.now = jest.fn().mockReturnValueOnce(101);
-      let registry = new OngoingOperationsRegistry().onOperationStarted(DESTINATION_SCREEN, 'operation1');
-
-      Date.now = jest.fn().mockReturnValueOnce(150);
-      registry = registry.onOperationStarted(DESTINATION_SCREEN, 'operation2');
-
-      Date.now = jest.fn().mockReturnValueOnce(160);
-      registry = registry.onOperationStarted(DESTINATION_SCREEN, 'operation3');
-
-      Date.now = jest.fn().mockReturnValueOnce(299);
-      registry = registry.onOperationCompleted(DESTINATION_SCREEN, 'operation2', true);
-
-      Date.now = jest.fn().mockReturnValueOnce(405);
-      registry = registry.onOperationCompleted(DESTINATION_SCREEN, 'operation3', false);
-
-      return registry;
-    })();
-
-    Date.now = jest.fn().mockReturnValueOnce(1000);
-    const renderState = new RenderAborted({
-      timestamp: new BridgedEventTimestampBuilder().build(),
-      destinationScreen: DESTINATION_SCREEN,
-      componentInstanceId: 'id',
-      operationsSnapshot,
-      previousState: flowStartState,
-      snapshotId: Promise.resolve('2'),
-    });
-
-    const report = await renderPassReportGenerator(renderState);
-    expect(report?.resourceAcquisitionStatus).toStrictEqual({
-      totalTimeMillis: 405 - 101,
-      components: {
-        operation1: {
-          status: 'ongoing',
-        },
-        operation2: {
-          status: 'cancelled',
-          durationMillis: 299 - 150,
-        },
-        operation3: {
-          status: 'completed',
-          durationMillis: 405 - 160,
-        },
-      },
-    });
   });
 
   it("includes the timeToConsumeTouchEventMillis if the flow start state was of type 'flow_start'", async () => {
@@ -254,7 +72,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(40).build(),
       type: 'flow_start',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
     });
 
@@ -264,7 +81,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -279,7 +95,6 @@ describe('RenderPassReportGenerator', () => {
       componentInstanceId: 'id',
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(40).build(),
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
       type: 'app_boot',
       sourceScreen: undefined,
@@ -291,7 +106,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -306,7 +120,6 @@ describe('RenderPassReportGenerator', () => {
       componentInstanceId: 'id',
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(40).build(),
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
       type: 'app_boot',
       sourceScreen: undefined,
@@ -318,7 +131,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -334,7 +146,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(40).build(),
       type: 'app_boot',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
       sourceScreen: undefined,
     });
@@ -343,7 +154,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -359,7 +169,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(40).build(),
       type: 'app_boot',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
       sourceScreen: undefined,
     });
@@ -368,7 +177,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -386,7 +194,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(50).build(),
       type: 'flow_start',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
     });
 
@@ -394,7 +201,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -412,7 +218,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().build(),
       type: 'flow_start',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
     });
 
@@ -420,7 +225,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -436,7 +240,6 @@ describe('RenderPassReportGenerator', () => {
       componentInstanceId: 'id',
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(40).build(),
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
       type: 'app_boot',
       sourceScreen: undefined,
@@ -448,7 +251,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -466,7 +268,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(60).build(),
       type: 'flow_start',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
     });
 
@@ -476,7 +277,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -494,7 +294,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().build(),
       type: 'flow_start',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
     });
 
@@ -504,7 +303,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -522,7 +320,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().build(),
       type: 'flow_start',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
     });
 
@@ -532,7 +329,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -549,7 +345,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().build(),
       type: 'flow_start',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
     });
 
@@ -559,7 +354,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -575,7 +369,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(40).build(),
       type: 'app_boot',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
       sourceScreen: undefined,
     });
@@ -584,7 +377,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -600,7 +392,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(40).build(),
       type: 'app_boot',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
       sourceScreen: undefined,
     });
@@ -613,7 +404,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: renderedSnapshotId,
     });
@@ -624,7 +414,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry().onOperationStarted(DESTINATION_SCREEN, 'some_operation'),
       previousState: firstRenderState,
       snapshotId: renderedSnapshotId,
     });
@@ -642,7 +431,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(40).build(),
       type: 'app_boot',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
       sourceScreen: undefined,
     });
@@ -653,7 +441,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -671,7 +458,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(40).build(),
       type: 'flow_start',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
     });
 
@@ -681,7 +467,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -699,7 +484,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().build(),
       type: 'flow_start',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
     });
 
@@ -709,7 +493,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -726,7 +509,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(40).build(),
       type: 'flow_start',
       previousState: undefined,
-      operationsSnapshot: new OngoingOperationsRegistry(),
       snapshotId: Promise.resolve('1'),
       sourceScreen: undefined,
     });
@@ -737,7 +519,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(1000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: flowStartState,
       snapshotId: Promise.resolve('2'),
     });
@@ -748,7 +529,6 @@ describe('RenderPassReportGenerator', () => {
       timestamp: new BridgedEventTimestampBuilder().nativeTimestamp(2000).build(),
       destinationScreen: DESTINATION_SCREEN,
       componentInstanceId: 'id',
-      operationsSnapshot: new OngoingOperationsRegistry(),
       previousState: firstRenderState,
       snapshotId: Promise.resolve('3'),
     });

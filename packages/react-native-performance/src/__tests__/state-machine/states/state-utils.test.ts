@@ -1,4 +1,3 @@
-import OngoingOperationsRegistry from '../../../state-machine/OngoingOperationsRegistry';
 import {Started} from '../../../state-machine/states';
 import State, {StateProps} from '../../../state-machine/states/State';
 import {
@@ -41,7 +40,6 @@ describe('state-machine/states/state-utils', () => {
         componentInstanceId: 'id',
         previousState: undefined,
         snapshotId: Promise.resolve('1'),
-        operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state2 = new MockState({
@@ -49,7 +47,6 @@ describe('state-machine/states/state-utils', () => {
         componentInstanceId: 'id',
         previousState: state1,
         snapshotId: Promise.resolve('2'),
-        operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state3 = new MockState({
@@ -57,7 +54,6 @@ describe('state-machine/states/state-utils', () => {
         componentInstanceId: 'id',
         previousState: state2,
         snapshotId: Promise.resolve('3'),
-        operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       let actualVisitedStates = new Array<State>();
@@ -90,7 +86,6 @@ describe('state-machine/states/state-utils', () => {
         componentInstanceId: 'id',
         previousState: undefined,
         snapshotId: Promise.resolve('1'),
-        operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state2 = new MockState({
@@ -98,7 +93,6 @@ describe('state-machine/states/state-utils', () => {
         componentInstanceId: 'id',
         previousState: state1,
         snapshotId: Promise.resolve('2'),
-        operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state3 = new MockState({
@@ -106,7 +100,6 @@ describe('state-machine/states/state-utils', () => {
         componentInstanceId: 'id',
         previousState: state2,
         snapshotId: Promise.resolve('3'),
-        operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const actualVisitedStates = new Array<State>();
@@ -126,7 +119,6 @@ describe('state-machine/states/state-utils', () => {
         componentInstanceId: 'id',
         previousState: undefined,
         snapshotId: Promise.resolve('1'),
-        operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state2 = new MockState({
@@ -134,7 +126,6 @@ describe('state-machine/states/state-utils', () => {
         componentInstanceId: 'id',
         previousState: state1,
         snapshotId: Promise.resolve('2'),
-        operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state3 = new MockState({
@@ -142,7 +133,6 @@ describe('state-machine/states/state-utils', () => {
         componentInstanceId: 'id',
         previousState: state2,
         snapshotId: Promise.resolve('3'),
-        operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const actualVisitedStates = new Array<State>();
@@ -163,7 +153,6 @@ describe('state-machine/states/state-utils', () => {
         previousState: undefined,
         payload: '1',
         snapshotId: Promise.resolve('1'),
-        operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state2 = new MockState({
@@ -172,7 +161,6 @@ describe('state-machine/states/state-utils', () => {
         previousState: state1,
         payload: '2',
         snapshotId: Promise.resolve('2'),
-        operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const state3 = new MockState({
@@ -181,7 +169,6 @@ describe('state-machine/states/state-utils', () => {
         previousState: state2,
         payload: '3',
         snapshotId: Promise.resolve('3'),
-        operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       const reduced = reverseReduce(
@@ -215,7 +202,6 @@ describe('state-machine/states/state-utils', () => {
         componentInstanceId: 'id',
         previousState: undefined,
         snapshotId: Promise.resolve('1'),
-        operationsSnapshot: new OngoingOperationsRegistry(),
       });
 
       let flowStartState: State | undefined;
