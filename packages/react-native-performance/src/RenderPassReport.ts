@@ -1,18 +1,3 @@
-export interface ResourceAcquisitionStatus {
-  totalTimeMillis: number;
-  components: {
-    [operationName: string]:
-      | {
-          durationMillis: number;
-          status: 'completed' | 'cancelled';
-        }
-      | {
-          durationMillis?: never;
-          status: 'ongoing';
-        };
-  };
-}
-
 export type RenderPassEndInfo =
   | {
       renderPassName: string;
@@ -48,7 +33,6 @@ export interface FlowInfo {
 
 export interface SnapshotInfo {
   reportId: string;
-  resourceAcquisitionStatus: ResourceAcquisitionStatus;
 }
 
 export type RenderPassReport = SnapshotInfo & FlowInfo & RenderPassStartInfo & RenderPassEndInfo;

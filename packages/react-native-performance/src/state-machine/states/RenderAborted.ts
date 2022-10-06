@@ -18,8 +18,6 @@ class RenderAborted extends State {
       destinationScreen: this.destinationScreen,
       componentInstanceId: this.componentInstanceId,
       snapshotId: this.snapshotId,
-      operationsSnapshot: this.operationsSnapshot,
-      ongoingOperations: this.ongoingOperations,
       timestamp: this.timestamp,
       previousState: this,
     });
