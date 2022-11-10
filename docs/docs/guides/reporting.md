@@ -11,7 +11,27 @@ As was mentioned in [Render Pass Reports](./../fundamentals/render-pass-report.m
 
 After integrating [React Native Firebase](https://rnfirebase.io/) to an app and adding [Analytics](https://rnfirebase.io/analytics/usage), sending the reports to Firebase is very easy:
 
-<script src="https://gist.github.com/ElviraBurchik/ca8c842765714b978def5bfbd93ae609.js"></script>
+``` tsx
+import {PerformanceProfiler, LogLevel} from '@shopify/react-native-performance';
+import analytics from '@react-native-firebase/analytics';
+
+
+const App = () => {
+...
+  return (
+    ...
+      <PerformanceProfiler
+        logLevel={LogLevel.Debug}
+        onReportPrepared={async report =>
+          await analytics().logEvent('react_native_performance', report)
+        }>
+      </PerformanceProfiler>
+    </>
+  );
+};
+
+export default App;
+```
 
 
 You can find a demo app with Firebase integration in [this repo](https://github.com/ElviraBurchik/react-native-performance-reporting-demo).
