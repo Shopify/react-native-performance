@@ -16,7 +16,6 @@ Documentation can be found at [shopify.github.io/react-native-performance](https
   <img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="lerna"/>
 </a>
 <img src="https://img.shields.io/npm/l/@shopify/react-native-performance" alt="license: MIT"/>
-<img src="https://img.shields.io/discord/928252803867107358" alt="Discord chat"/>
 <a href="https://discord.com/channels/928252803867107358/928253059375726622" title="Join the discord channel">
   <img src="https://img.shields.io/discord/928252803867107358" alt="Discord chat"/>
 </a>
