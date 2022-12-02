@@ -4,7 +4,7 @@ title: Render Pass Reports
 slug: /fundamentals/render-pass-report
 ---
 
-The profiler library measures the render times for the various screens in your app. Everytime a profiled screen is rendered, the library will emit its output as an `RenderPassReport` object. You need to supply an `onReportPrepared` callback to the `PerformanceProfiler` component to receive these reports, and do with them as you please. You may `console.log` these reports, show them in some UI dev tool, or fire them off to a telemetry service.
+The profiler library measures the render times for the various screens in your app. Everytime a profiled screen is rendered, the library will emit its output as an `RenderPassReport` object. You need to supply an `onReportPrepared` callback to the `PerformanceProfiler` component to receive these reports, and do with them as you please. You may `console.log` these reports, show them in some UI dev tool, or fire them off to a telemetry service - learn more about it in [Reporting.](./../guides/reporting.md)
 
 This callback will be invoked everytime a profiled screen is rendered. A screen may get rendered multiple times. The library expects you to assign unique names to these discrete _render passes_. A `RenderPassReport` will be generated for every such render pass.
 

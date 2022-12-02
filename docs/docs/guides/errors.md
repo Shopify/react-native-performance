@@ -2,6 +2,7 @@
 id: errors
 title: Errors
 slug: /errors
+sidebar_position: 4
 ---
 
 ## Inspecting `fatal` errors
