@@ -14,7 +14,7 @@ This library contains components for profiling [`FlatList`](https://reactnative.
 You can install the package by running the following command:
 
 ```bash
-$ yarn add @shopify/react-native-performance-lists-profiler react-native-flipper
+yarn add @shopify/react-native-performance-lists-profiler react-native-flipper
 ```
 
 ## ListsProfiler
