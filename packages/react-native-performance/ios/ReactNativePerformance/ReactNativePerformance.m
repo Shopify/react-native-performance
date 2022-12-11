@@ -1,5 +1,5 @@
 #import "ReactNativePerformance.h"
-#import "ReactNativePerformance-Swift.h"
+#import <ReactNativePerformance/ReactNativePerformance-Swift.h>
 
 static NSTimeInterval startupTimestamp = -1.0;
 
