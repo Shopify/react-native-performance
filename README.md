@@ -35,7 +35,7 @@ Packages are set up to be compatible with [autolinking](https://github.com/react
 
 | Name | Version |
 | ---- | ------- |
-| [@shopify/flipper-plugin-shopify-react-native-performance](/packages/flipper-plugin-shopify-react-native-performance) | [2.0.0](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Fflipper-plugin-shopify-react-native-performance%402.0.0) |
+| [@shopify/flipper-plugin-shopify-react-native-performance](/packages/flipper-plugin-react-native-performance) | [2.0.0](https://github.com/Shopify/react-native-performance/releases/tag/flipper-plugin-shopify-react-native-performance%402.0.0) |
 | [@shopify/react-native-performance](/packages/react-native-performance) | [4.1.2](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance%404.1.2) |
 | [@shopify/react-native-performance-lists-profiler](/packages/react-native-performance-lists-profiler) | [1.1.0](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance-lists-profiler%401.1.0) |
 | [@shopify/react-native-performance-navigation](/packages/react-native-performance-navigation) | [3.0.0](https://github.com/Shopify/react-native-performance/releases/tag/%40shopify%2Freact-native-performance-navigation%403.0.0) |
