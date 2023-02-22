@@ -9,8 +9,8 @@ This website is built using [Docusaurus 2](https://docusaurus.io/) and is publis
 Note: make sure you are in the `documentation` folder prior to performing the commands below
 
 ```bash
-yarn install        # installs the dependencies
-yarn start  # builds and serves the local content
+yarn install # installs the dependencies
+yarn start   # builds and serves the local content
 ```
 
 You should then have a local development server up and running and the website open in browser window. Most changes are reflected live without having to restart the server.
