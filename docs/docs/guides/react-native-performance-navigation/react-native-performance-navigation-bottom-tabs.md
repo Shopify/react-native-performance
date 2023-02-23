@@ -13,13 +13,13 @@ Extension library atop [@shopify/react-native-performance-navigation](../react-n
 You can install the package by running the following command:
 
 ```bash
-$ yarn add @shopify/react-native-performance-navigation-bottom-tabs
+yarn add @shopify/react-native-performance-navigation-bottom-tabs
 ```
 
 Note that this package has the following peer dependencies that should be listed in your app's package.json:
 
 ```bash
-$ yarn add @react-navigation/core @react-navigation/stack @react-navigation/native @react-navigation/bottom-tabs @shopify/react-native-performance @shopify/react-native-performance-navigation
+yarn add @react-navigation/core @react-navigation/stack @react-navigation/native @react-navigation/bottom-tabs @shopify/react-native-performance @shopify/react-native-performance-navigation
 ```
 
 ## Usage
