@@ -9,13 +9,13 @@ slug: /fundamentals/getting-started
 You can install the package by running the following command:
 
 ```bash
-$ yarn add @shopify/react-native-performance
+yarn add @shopify/react-native-performance
 ```
 
 Since this package contains code that needs to be natively linked, you'll have to run pod install:
 
 ```bash
-$ npx pod-install
+npx pod-install
 ```
 
 ## Usage

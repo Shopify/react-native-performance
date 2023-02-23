@@ -24,13 +24,13 @@ Note that there are additional helper packages to be used with the [React Naviga
 You can install the package by running the following command:
 
 ```bash
-$ yarn add @shopify/react-native-performance-navigation
+yarn add @shopify/react-native-performance-navigation
 ```
 
 Note that this package has the following peer dependencies that should be listed in your app's package.json:
 
 ```bash
-$ yarn add @react-navigation/core @react-navigation/stack @react-navigation/native @shopify/react-native-performance
+yarn add @react-navigation/core @react-navigation/stack @react-navigation/native @shopify/react-native-performance
 ```
 
 ### ReactNavigationPerformanceView
