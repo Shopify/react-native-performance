@@ -86,8 +86,9 @@ describe('PerformanceMeasureView', () => {
     const view = screen.UNSAFE_getByType(PerformanceMarker);
     expect(view.props.style).toStrictEqual(
       expect.objectContaining({
-        width: 0,
-        height: 0,
+        width: 1,
+        height: 1,
+        position: 'absolute',
       }),
     );
   });
@@ -145,7 +146,7 @@ describe('PerformanceMeasureView', () => {
 
     const view = screen.UNSAFE_getByType(PerformanceMarker);
 
-    expect(view.props.interactive).toBe('FALSE');
+    expect(view.props.interactive).toBeFalse();
   });
 
   it('configures the interactive value to true correctly', () => {
@@ -159,7 +160,7 @@ describe('PerformanceMeasureView', () => {
 
     const view = screen.UNSAFE_getByType(PerformanceMarker);
 
-    expect(view.props.interactive).toBe('TRUE');
+    expect(view.props.interactive).toBeTrue();
   });
 
   it('configures the renderPassName correctly if one is provided', () => {
@@ -256,7 +257,7 @@ describe('PerformanceMeasureView', () => {
 
     const {componentInstanceId: unmountId} = stateController.onScreenUnmounted.mock.calls[0][0];
 
-    expect(mountId === unmountId).toBe(true);
+    expect(mountId === unmountId).toBeTrue();
   });
 
   it('notifies the state controller when the screen is unmounted', () => {
@@ -346,7 +347,7 @@ describe('PerformanceMeasureView', () => {
       nativeEvent: {
         timestamp: 2000,
         renderPassName: 'renderPass1',
-        interactive: 'TRUE',
+        interactive: true,
         destinationScreen: 'SomeScreen',
         componentInstanceId: 'mock-mount-id',
       },
