@@ -1,14 +1,10 @@
 import {ViewStyle, requireNativeComponent, HostComponent} from 'react-native';
 
-// On iOS, we cannot send back non-object types to JS via a dictionary.
-// So we are using strings. Legal values: `TRUE` and `FALSE`.
-export type Interactive = 'TRUE' | 'FALSE';
-
 export interface RenderCompletionEvent {
   nativeEvent: {
     timestamp: string;
     renderPassName: string;
-    interactive: Interactive;
+    interactive: boolean;
     destinationScreen: string;
     componentInstanceId: string;
   };
@@ -19,7 +15,8 @@ type OnRenderCompletionEventHandler = (event: RenderCompletionEvent) => void;
 export interface PerformanceMarkerProps {
   componentInstanceId: string;
   renderPassName: string;
-  interactive: Interactive;
+  interactive: boolean;
+  reportOnDraw: boolean;
   destinationScreen: string;
   style: ViewStyle;
   onRenderComplete: OnRenderCompletionEventHandler;

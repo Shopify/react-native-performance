@@ -12,6 +12,11 @@ const DEFAULT_INTERACTIVE = false;
 
 interface BaseProps {
   screenName: string;
+  /**
+   * Determines whether `onRenderComplete` will be called after the view
+   * has been drawn to the screen or after all props have been set.  Defaults to `false`.
+   */
+  reportOnDraw?: boolean;
   children: ReactNode;
   componentInstanceId?: string | undefined;
 }
@@ -47,6 +52,7 @@ const normalizeRenderState = (props: RenderStateProps): {interactive: boolean; r
 
 const PerformanceMeasureView = ({
   screenName,
+  reportOnDraw = false,
   children,
   optimizeForSlowRenderComponents = false,
   slowRenderPlaceholder,
@@ -78,7 +84,7 @@ const PerformanceMeasureView = ({
         timestamp: Number.parseFloat(timestamp),
         destinationScreen,
         renderPassName,
-        interactive: interactive === 'TRUE',
+        interactive,
         componentInstanceId,
       });
     },
@@ -94,7 +100,8 @@ const PerformanceMeasureView = ({
             componentInstanceId={componentInstanceId}
             key={renderPassName}
             destinationScreen={screenName}
-            interactive={interactive ? 'TRUE' : 'FALSE'}
+            interactive={interactive}
+            reportOnDraw={reportOnDraw}
             renderPassName={renderPassName}
             style={styles.invisible}
             onRenderComplete={onRenderComplete}
@@ -137,8 +144,9 @@ const useTrackComponentMounts = ({
 
 const styles = StyleSheet.create({
   invisible: {
-    width: 0,
-    height: 0,
+    width: 1,
+    height: 1,
+    position: 'absolute',
   },
 });
 
