@@ -18,30 +18,21 @@ class PerformanceMarker(context: Context?) : View(context) {
 
     var destinationScreen: String? by PerformanceMarkerProp()
     var renderPassName: String? by PerformanceMarkerProp()
-    var interactive: Interactive? by PerformanceMarkerProp()
+    var interactive: Boolean? by PerformanceMarkerProp()
     var componentInstanceId: String? by PerformanceMarkerProp()
 
     init {
-        setWillNotDraw(true)
+        this.isEnabled = false;
     }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        sendRenderCompletionEventIfNeeded()
+    }
+
 
     private var reportedOnce = false
 
-    /**
-      We're choosing to send the onRenderComplete event back to JS the moment the view instance is created
-      + the JS props are made available. We're not waiting until the view goes through the measure/layout/draw cycle.
-
-      This is because on Android, the view may not go through this cycle until it has an active window on which
-      it can paint itself. This means that if the corresponding JS component is not in focus, the native UI will
-      not actually paint itself immediately.
-
-      As a tradeoff, we call the view as render-complete the moment the view is instantiated in memory.
-      This has an obvious drawback that we won't be including the time spent on the measure/layout/draw cycle.
-      But that should be relatively negligible in the bigger scheme of things. Also note that we're using the
-      moment when `PerformanceMarker` is rendered as a proxy for when the rest of its siblings (the actual
-      screen content) is rendered. So we're already using these kinds of approximations at the native layer.
-      Adding this 1 additional approximation shouldn't affect the final render times significantly.
-    */
     private fun sendRenderCompletionEventIfNeeded() {
         val _destinationScreen = this.destinationScreen
         val _renderPassName = this.renderPassName
@@ -53,7 +44,7 @@ class PerformanceMarker(context: Context?) : View(context) {
         }
 
         if (reportedOnce) {
-            throw IllegalStateException("Cannot report render completion event multiple times.")
+            return
         }
 
         reportedOnce = true
@@ -91,7 +82,6 @@ class PerformanceMarker(context: Context?) : View(context) {
             }
 
             field = value
-            thisRef.sendRenderCompletionEventIfNeeded()
         }
     }
 }
@@ -112,8 +102,8 @@ class PerformanceMarkerManager : SimpleViewManager<PerformanceMarker>() {
     }
 
     @ReactProp(name = "interactive")
-    fun setInteractive(view: PerformanceMarker, interactive: String) {
-        view.interactive = Interactive(interactive)
+    fun setInteractive(view: PerformanceMarker, interactive: Boolean) {
+        view.interactive = interactive
     }
 
     @ReactProp(name = "componentInstanceId")

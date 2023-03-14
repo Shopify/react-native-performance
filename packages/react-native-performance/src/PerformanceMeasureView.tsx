@@ -78,7 +78,7 @@ const PerformanceMeasureView = ({
         timestamp: Number.parseFloat(timestamp),
         destinationScreen,
         renderPassName,
-        interactive: interactive === 'TRUE',
+        interactive,
         componentInstanceId,
       });
     },
@@ -94,7 +94,7 @@ const PerformanceMeasureView = ({
             componentInstanceId={componentInstanceId}
             key={renderPassName}
             destinationScreen={screenName}
-            interactive={interactive ? 'TRUE' : 'FALSE'}
+            interactive={interactive}
             renderPassName={renderPassName}
             style={styles.invisible}
             onRenderComplete={onRenderComplete}
@@ -136,9 +136,12 @@ const useTrackComponentMounts = ({
 };
 
 const styles = StyleSheet.create({
+  // We need to set the width and height to 1 to make sure that the view
+  // is drawn and `draw(rect:)` is called on the native side (iOS).
   invisible: {
-    width: 0,
-    height: 0,
+    width: 1,
+    height: 1,
+    position: 'absolute',
   },
 });
 
