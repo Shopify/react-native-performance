@@ -42,7 +42,7 @@ buildscript {
   ext.kotlin_version = '1.6.21'
   ...
 
-  dependancies {
+  dependencies {
     ...
     classpath('org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version')
   }
