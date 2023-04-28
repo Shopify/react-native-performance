@@ -4,7 +4,7 @@
   "description": "This monorepo contains the packages related to profiling performance of React Native apps.",
   "private": true,
   "scripts": {
-    "build": "tsc -b && cd packages/flipper-plugin-react-native-performance && yarn build",
+    "build": "tsc -b && cd packages/flipper-plugin-react-native-performance && yarn build && cd ../react-native-performance && yarn build plugin",
     "version": "bin/version.mjs",
     "release": "lerna version --conventional-commits",
     "generate": "plop",
