@@ -442,7 +442,7 @@ PODS:
     - React-perflogger (= 0.71.7)
   - ReactNativePerformance (4.1.2):
     - React-Core
-  - ReactNativePerformanceListsProfiler (0.0.12):
+  - ReactNativePerformanceListsProfiler (1.1.0):
     - React-Core
   - RNGestureHandler (2.9.0):
     - React-Core
@@ -733,7 +733,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: c5c89f8f543842dd864b63ded1b0bbb9c9445328
   ReactCommon: dbfbe2f7f3c5ce4ce44f43f2fd0d5950d1eb67c5
   ReactNativePerformance: ab7dee4c4862623d72c1530a9fc71b55458edf71
-  ReactNativePerformanceListsProfiler: ac3c8b6c93edcf54b09ae806de4280d6be51e6e3
+  ReactNativePerformanceListsProfiler: b9f7cfe8d08631fbce8e4729d388a5a3f7f562c2
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNReanimated: cc5e3aa479cb9170bcccf8204291a6950a3be128
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f

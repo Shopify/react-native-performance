@@ -1842,32 +1842,32 @@
     component-type "^1.2.1"
     join-component "^1.1.0"
 
-"@shopify/flipper-plugin-react-native-performance@^0.0.3":
-  version "0.0.3"
-  resolved "https://npm.shopify.io/node/@shopify/flipper-plugin-react-native-performance/-/0.0.3/flipper-plugin-react-native-performance-0.0.3.tgz#3282436b87c6ebe2e6734af95ce87155f12b37fa"
-  integrity sha512-uVPjrtLn8NoDAvi/EZHKZ0UAnUQ7RjymRMqcPxbRzCiVufBaoTVummmnkgILczS9d25AB2hbp2vuMnNQl/wQZA==
+"@shopify/flipper-plugin-react-native-performance@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@shopify/flipper-plugin-react-native-performance/-/flipper-plugin-react-native-performance-1.0.1.tgz#8d4f8f329c4568fad4c08a612789378fd47ae027"
+  integrity sha512-Ep1HxiT93W9IFa5vXnOB1dBpahCGWImLWYX9b6yJ6Z0UMnGIGLExAIJJkik78ah6g+12Q9b2QtVWwInl94DE6g==
   dependencies:
     recharts "^2.1.8"
 
-"@shopify/react-native-performance-lists-profiler@^0.0.12":
-  version "0.0.12"
-  resolved "https://npm.shopify.io/node/@shopify/react-native-performance-lists-profiler/-/0.0.12/react-native-performance-lists-profiler-0.0.12.tgz#394846142fd3e44cc4ddecf4a53911383a586624"
-  integrity sha512-WySQB3uYUXL1iJ7M5COyg7bnsbo/CFMf6wQ9TtcWyW6FvpwdVbUQ9HXFtA/Kb5HW9+yvsDq5LD/Fau7zeqFsfQ==
+"@shopify/react-native-performance-lists-profiler@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@shopify/react-native-performance-lists-profiler/-/react-native-performance-lists-profiler-1.1.0.tgz#298d899ac43f83d38356b15c16c6ba109fd6924e"
+  integrity sha512-Jj+9gMQxMqlO4dZFS9HDb8/aI8VraJL67aDrJpV2qWzWr7HUXah96qav3X7+jS0f6YvUDVzpe0cjy6WsVdo3+g==
 
-"@shopify/react-native-performance-navigation-bottom-tabs@^2.0.6":
-  version "2.0.6"
-  resolved "https://npm.shopify.io/node/@shopify/react-native-performance-navigation-bottom-tabs/-/2.0.6/react-native-performance-navigation-bottom-tabs-2.0.6.tgz#5f59ed64cc1a898458868019e33760f075588270"
-  integrity sha512-0JfojrrHewC2LOEWDBgogXC+o4vc8UrRiyeA01GueFD1kAoZ0nVymjZEdr1Jf2eNdrA24zRO4KJJWcYu/bqsPw==
+"@shopify/react-native-performance-navigation-bottom-tabs@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@shopify/react-native-performance-navigation-bottom-tabs/-/react-native-performance-navigation-bottom-tabs-3.0.0.tgz#80a1a6c3de30525e364e9e2353c27997ca709c4e"
+  integrity sha512-RB+s7xWyqgxvzTQ2SkwtEUkMp0E0GbH0Yum+aDSAiigPYGg7H8iy2g4VY+2FAp4fvNdduMvGwfE6JN2fOim1IQ==
 
-"@shopify/react-native-performance-navigation-drawer@^2.0.7":
-  version "2.0.7"
-  resolved "https://npm.shopify.io/node/@shopify/react-native-performance-navigation-drawer/-/2.0.7/react-native-performance-navigation-drawer-2.0.7.tgz#f4aa7eb8a08b4efd057c22d3b49386548d5157fa"
-  integrity sha512-6xaO7Yd6yO9NxvERU//6sVelys2i3l1YUbz77KPR+6MUy76lI2vnh/bY8BlSdh7BjnPDLTnRxEhPFV7si6KvyA==
+"@shopify/react-native-performance-navigation-drawer@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@shopify/react-native-performance-navigation-drawer/-/react-native-performance-navigation-drawer-3.0.0.tgz#9c3c20ca01105552a141535cd791b4dd2192b324"
+  integrity sha512-8inwye0TVRzCfBK2V4PImTnBn1hFDZDXYF0CDzA3U+icdCAikRcFF+BseatKBE/Yk9tchGsZ+xpPpTiFeVNH/Q==
 
-"@shopify/react-native-performance-navigation@^2.0.10":
-  version "2.0.10"
-  resolved "https://npm.shopify.io/node/@shopify/react-native-performance-navigation/-/2.0.10/react-native-performance-navigation-2.0.10.tgz#69e556327fb55eb9a62b4989456ac8bed482ed5f"
-  integrity sha512-XxMSviw+ic28OAZPJGfMutq7W7wE7PcKQ7ucAel6foCkUMWBj1L/4Gi3SfUZ/u3OTWlNRo53DGJNfDcviKt6hQ==
+"@shopify/react-native-performance-navigation@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@shopify/react-native-performance-navigation/-/react-native-performance-navigation-3.0.0.tgz#029735cefd30382239825479869187affa2157ec"
+  integrity sha512-KhXXi3Rau2KWqwAXnW77gGuKEvWcMEmh+B5mdfRd9+oJ9QIoCkLPnnGcZYsMh0t3jFrmLFNmWTqScEB3CxkopQ==
   dependencies:
     lodash.isequal "^4.5.0"
 
