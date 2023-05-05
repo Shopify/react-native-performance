@@ -21,7 +21,7 @@ const withRequiredIOSSetup: ConfigPlugin = expoConfig => {
   return withAppDelegate(expoConfig, iosConfig => {
     if (!['objc', 'objcpp'].includes(iosConfig.modResults.language)) {
       throw new Error(
-        "react-native-google-cast config plugin does not support AppDelegate' that aren't Objective-C(++) yet.",
+        "@shopify/react-native-performance config plugin does not support AppDelegate' that aren't Objective-C(++) yet.",
       );
     }
 
@@ -52,7 +52,7 @@ const withRequiredAndroidMainApplicationSetup: ConfigPlugin = expoConfig => {
   const newLine = '    ReactNativePerformance.onAppStarted();\n';
   return withMainApplication(expoConfig, async androidConfig => {
     if (androidConfig.modResults.language !== 'java') {
-      throw new Error('react-native-google-cast config plugin does not support kotlin MainActivity yet.');
+      throw new Error('@shopify/react-native-performance config plugin does not support kotlin MainActivity yet.');
     }
 
     const srcWithNewImport = addImports(

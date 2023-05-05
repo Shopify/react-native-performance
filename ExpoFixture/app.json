@@ -11,15 +11,13 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.shopifyexamples.ExpoFixture"
     },
     "plugins": [
-      "../packages/react-native-performance/plugin/build",
+      "../packages/react-native-performance/app.plugin.js",
       [
         "expo-build-properties",
         {
