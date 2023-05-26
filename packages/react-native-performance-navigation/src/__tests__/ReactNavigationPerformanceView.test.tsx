@@ -73,6 +73,9 @@ const createAddListenerMock = () => {
 describe('ReactNavigationPerformanceView', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    useStateControllerMock.mockReturnValue({
+      isEnabled: true,
+    });
   });
 
   describe('when screen is interactive on mount', () => {
@@ -274,6 +277,27 @@ describe('ReactNavigationPerformanceView', () => {
         renderPassName: TRANSITION_END,
         interactive: true,
       });
+    });
+  });
+
+  describe('when disabled', () => {
+    beforeEach(() => {
+      useStateControllerMock.mockReturnValue({
+        isEnabled: false,
+      });
+    });
+
+    it('does not add a listener with setState for transitionEnd', () => {
+      const {wrapper, triggerTransitionEnd} = mountReactNavigationPerformanceView({
+        renderPassName: LOADING,
+        interactive: true,
+      });
+
+      wrapper.act(() => {
+        triggerTransitionEnd();
+      });
+
+      expect(wrapper.context.navigation.addListener).not.toBeCalledWith('transitionEnd', expect.anything());
     });
   });
 });
