@@ -4,10 +4,10 @@ We want this community to be **friendly and respectful** to each other. Please f
 
 ## Development workflow
 
-To get started with the project, run `yarn bootsrap` in the root directory to install the required dependencies for each package:
+To get started with the project, run `yarn up` in the root directory to install the required dependencies for each package:
 
 ```sh
-yarn bootsrap
+yarn up
 ```
 
 >  This project uses [`yarn`](https://classic.yarnpkg.com/) as a package manager. While it's possible to run individual commands with [`npm`](https://github.com/npm/cli), please refrain from using it, especially `npm install.` 🙅

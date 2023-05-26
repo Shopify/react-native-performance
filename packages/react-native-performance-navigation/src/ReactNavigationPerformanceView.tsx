@@ -33,13 +33,13 @@ export const ReactNavigationPerformanceView = (props: Props) => {
   );
 
   useEffect(() => {
-    if (!isStack) {
+    if (!isStack || !stateController.isEnabled) {
       return;
     }
     return addListener('transitionEnd', () => {
       setTransitionEnded(true);
     });
-  }, [addListener, isStack]);
+  }, [addListener, isStack, stateController.isEnabled]);
 
   let shouldReportTransitionEnd = false;
   if (isStack && transitionEnded && transitionEndReported.current === false) {
