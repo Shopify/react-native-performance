@@ -7,7 +7,7 @@ import ListsProfilerProps from './ListsProfilerProps';
 const bootstrapPlugin = (): Promise<Flipper.FlipperConnection> => {
   return new Promise(resolve => {
     addPlugin({
-      getId: () => '@shopify/react-native-performance',
+      getId: () => 'shopify-react-native-performance',
       onConnect: connection => {
         return resolve(connection);
       },
