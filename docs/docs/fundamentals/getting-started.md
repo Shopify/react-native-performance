@@ -68,7 +68,7 @@ import {RenderPassReport, PerformanceProfiler} from '@shopify/react-native-perfo
 
 const App = () => {
   const onReportPrepared = useCallback((report: RenderPassReport) => {
-    monorail.produce(convertReportToMonorailObject(report));
+    console.log(JSON.stringify(report, null, 2))
   }, []);
 
   return (
