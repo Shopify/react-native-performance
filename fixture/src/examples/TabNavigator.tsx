@@ -9,7 +9,7 @@ import {NavigationKeys} from '../constants';
 /**
  * This screen simulates an example where multiple screens can be
  * mounted in parallel at the same time. Changes in one screen can affect
- * some global state (through react context) that can cause a parallely
+ * some global state (through react context) that can cause a parallelly
  * active screen to re-render.
  */
 
