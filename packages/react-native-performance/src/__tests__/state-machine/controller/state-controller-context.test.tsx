@@ -7,7 +7,7 @@ import {ErrorHandler, ErrorHandlerContextProvider} from '../../../utils';
 
 describe('state-machine/controller/state-controller-context', () => {
   describe('useStateController', () => {
-    it('provides the state controller instance available throught the context', () => {
+    it('provides the state controller instance available through the context', () => {
       const mockStateController = {
         onSomeEvent: jest.fn(),
       } as any;
