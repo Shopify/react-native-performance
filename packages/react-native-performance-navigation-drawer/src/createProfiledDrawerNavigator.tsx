@@ -23,7 +23,7 @@ const createProfiledNavigation = ({
 
   const profiledDispatch: typeof navigation.dispatch = action => {
     // Note that the drawer navigator internally uses custom animated touchables
-    // that do not expose the native press timetamps. So we cannot
+    // that do not expose the native press timestamps. So we cannot
     // compute the `timeToConsumeTouchEvent`.
     if ('type' in action && action.type === 'NAVIGATE') {
       startProfiler({

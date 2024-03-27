@@ -152,7 +152,7 @@ const prepareRenderPassStartInfo = async (flowStartState: Started): Promise<Rend
     };
   } else {
     return {
-      // For in-app navagation, if the user had provided the uiEvent object, mark the
+      // For in-app navigation, if the user had provided the uiEvent object, mark the
       // flowStartTimeSinceEpochMillis as when the native onPress event occurred. If that
       // information is not available, fallback to the less accurate JS onPress event.
       flowStartTimeSinceEpochMillis: await (flowStartState.timestamp.nativeTimestamp ??
