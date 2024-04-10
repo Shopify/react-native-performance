@@ -15,4 +15,8 @@ jobs:
           node-version: 16.13.2
       - name: Add @commitlint
         run: npm install -g @commitlint/cli @commitlint/config-conventional
-      - run: bin/conventional-commits.sh "${{ github.event.pull_request.title }}" ${{ github.event.pull_request.commits }}
+      - name: Lint PR and commits
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+          COMMITS: ${{ github.event.pull_request.commits }}
+        run: bin/conventional-commits.sh "$TITLE" $COMMITS
