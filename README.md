@@ -6,10 +6,16 @@
 
 # @shopify/react-native-performance
 
+> [!WARNING]
+> **This project has been deprecated and we do not intend to actively maintain it anymore.**
+>
+> If you're looking into alternatives for measuring performance in React Native projects, we would recommend either:
+> 1. Forking this repository and building upon it;
+> 2. Adopting [@oblador/react-native-performance](https://github.com/oblador/react-native-performance/blob/master/packages/react-native-performance/README.md) and building custom metrics yourself.
+
 Performance measurement for your React Native apps.
 
 Documentation can be found at [shopify.github.io/react-native-performance](https://shopify.github.io/react-native-performance/)
-
 
 <img src="https://github.com/Shopify/react-native-performance/actions/workflows/react-native-performance.yml/badge.svg?branch=main" alt="Build status"/>
 <a href="https://lerna.js.org" title="lerna">
