@@ -15,6 +15,10 @@ registries:
     url: https://npm.shopify.io/node
     token: ${{secrets.NPM_REGISTRY_NPM_SHOPIFY_IO_NODE_TOKEN}}
 updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
   - package-ecosystem: bundler
     directory: '/'
     schedule:
