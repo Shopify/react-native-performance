@@ -39,6 +39,19 @@ public void onCreate() {
 }
 ```
 
+If your Android project uses `MainApplication.kt`, add the following code accordingly.
+
+```kotlin
+import com.shopify.reactnativeperformance.ReactNativePerformance;
+
+// ...
+
+public void onCreate() {
+  ReactNativePerformance.onAppStarted();
+  super.onCreate();
+  // other stuff
+}
+```
 You might also need to initialize your bug reporting service pretty early on in your app's lifecycle. We recommend initializing the library _before_ the bug reporting service, so that the time taken to initialize the latter is included in your app startup times. This, of course, leaves you vulnerable to the situation where initializing the library causes an app crash, and that does not get reported to your bug reporting service. Nevertheless, `onAppStarted` method call is simple enough that we feel confident recommending it to be excluded from the bug reporter's coverage.
 
 ### iOS Native Initialization <a name="iOS-Native-Initialization"></a>
@@ -59,6 +72,21 @@ Similarly, add this snipped in your iOS `AppDelegate.m`. Again, ensure that the 
 }
 ```
 
+If your iOS project uses `AppDelegate.swift`, add `ReactNativePerformance.onAppStarted()` as the first line in your app’s startup routine, like this:
+```swift
+import ReactNativePerformance
+
+//...
+
+@main
+class AppDelegate: RCTAppDelegate {
+  override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    ReactNativePerformance.onAppStarted()
+    // other stuff
+  }
+}
+```
+
 ### TS Initialization
 
 Mount the `<PerformanceProfiler/>` component somewhere high up in your App tree. For example:
@@ -69,7 +97,7 @@ import {RenderPassReport, PerformanceProfiler} from '@shopify/react-native-perfo
 const App = () => {
   const onReportPrepared = useCallback((report: RenderPassReport) => {
     // The console shown above is exclusively used for testing purposes.
-    // It has been designed to be flexible and can be replaced with any analytics library of your choice. 
+    // It has been designed to be flexible and can be replaced with any analytics library of your choice.
     console.log(JSON.stringify(report, null, 2))
   }, []);
 
