@@ -111,7 +111,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: ruby setup
-        uses: ruby/setup-ruby@dffc446db9ba5a0c4446edb5bca1c5c473a806c5 # v1.235.0
+        uses: ruby/setup-ruby@829114fc20da43a41d27359103ec7a63020954d4 # v1.255.0
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
@@ -131,7 +131,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: ruby setup
-        uses: ruby/setup-ruby@dffc446db9ba5a0c4446edb5bca1c5c473a806c5 # v1.235.0
+        uses: ruby/setup-ruby@829114fc20da43a41d27359103ec7a63020954d4 # v1.255.0
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
