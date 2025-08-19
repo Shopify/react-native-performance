@@ -23,7 +23,7 @@
     "@shopify/react-native-performance-navigation-bottom-tabs": "3.0.0",
     "@shopify/react-native-performance-navigation-drawer": "3.0.0",
     "flipper-plugin-shopify-react-native-performance": "2.0.0",
-    "graphql": "16.5.0",
+    "graphql": "16.8.1",
     "graphql-tag": "2.12.6",
     "react": "17.0.2",
     "react-native": "0.68.2",
