@@ -1,0 +1,1 @@
+{"version":3,"file":"NativeModuleNotFoundError.d.ts","sourceRoot":"","sources":["../../src/exceptions/NativeModuleNotFoundError.ts"],"names":[],"mappings":"AAAA,OAAO,wBAAwB,MAAM,4BAA4B,CAAC;AAElE,MAAM,CAAC,OAAO,OAAO,yBAA0B,SAAQ,wBAAwB;IAC7E,QAAQ,CAAC,IAAI,+BAA+B;IAC5C,QAAQ,CAAC,iBAAiB,YAAa;;CAUxC"}

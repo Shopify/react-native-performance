@@ -84,7 +84,7 @@ yarn-error.log
 # CocoaPods
 Pods/
 
-dist/
+# dist/ - Commented out to allow Git dependencies to work
 
 # Debug log from lerna
 lerna-debug.log

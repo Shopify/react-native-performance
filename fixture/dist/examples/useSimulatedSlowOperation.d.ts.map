@@ -1,0 +1,1 @@
+{"version":3,"file":"useSimulatedSlowOperation.d.ts","sourceRoot":"","sources":["../../src/examples/useSimulatedSlowOperation.ts"],"names":[],"mappings":"AAEA,MAAM,CAAC,OAAO,UAAU,yBAAyB,CAAC,CAAC,EAAE,EACnD,YAAY,EACZ,MAAM,GACP,EAAE;IACD,YAAY,EAAE,MAAM,CAAC;IACrB,MAAM,EAAE,CAAC,CAAC;CACX,GAAG,MAAM,OAAO,CAAC,CAAC,CAAC,CAUnB"}

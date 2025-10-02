@@ -21,10 +21,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/react-native-performance.git"
+    "url": "git+https://github.com/moonpay/react-native-performance.git"
   },
   "bugs": {
-    "url": "https://github.com/Shopify/react-native-performance/issues"
+    "url": "https://github.com/moonpay/react-native-performance/issues"
   },
   "publishConfig": {
     "access": "restricted"
@@ -61,7 +61,7 @@
   "resolutions": {
     "@types/react": "17.0.44"
   },
-  "homepage": "https://github.com/Shopify/react-native-performance#readme",
+  "homepage": "https://github.com/moonpay/react-native-performance#readme",
   "workspaces": {
     "packages": [
       "packages/*",

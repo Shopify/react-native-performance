@@ -1,0 +1,1 @@
+{"version":3,"file":"useProfilerState.d.ts","sourceRoot":"","sources":["../../src/hooks/useProfilerState.ts"],"names":[],"mappings":"AAEA,OAAO,EAAC,KAAK,EAAC,MAAM,yBAAyB,CAAC;AAI9C,UAAU,KAAK;IACb,iBAAiB,CAAC,EAAE,MAAM,GAAG,MAAM,CAAC;CACrC;AAED,MAAM,CAAC,OAAO,UAAU,gBAAgB,CAAC,EAAC,iBAAiB,EAAC,EAAE,KAAK,qBAOlE"}

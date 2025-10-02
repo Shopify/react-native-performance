@@ -1,0 +1,1 @@
+{"version":3,"file":"PerformanceProfilerUninitializedError.d.ts","sourceRoot":"","sources":["../../src/exceptions/PerformanceProfilerUninitializedError.ts"],"names":[],"mappings":"AAAA,OAAO,wBAAwB,MAAM,4BAA4B,CAAC;AAElE,MAAM,CAAC,OAAO,OAAO,qCAAsC,SAAQ,wBAAwB;IACzF,QAAQ,CAAC,IAAI,2CAA2C;IACxD,QAAQ,CAAC,iBAAiB,EAAE,MAAM,GAAG,SAAS,CAAC;gBAEnC,iBAAiB,EAAE,MAAM,GAAG,SAAS;CAQlD"}

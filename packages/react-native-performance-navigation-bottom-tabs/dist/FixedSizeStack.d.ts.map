@@ -1,0 +1,1 @@
+{"version":3,"file":"FixedSizeStack.d.ts","sourceRoot":"","sources":["../src/FixedSizeStack.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,OAAO,cAAc,CAAC,CAAC;IACnC,OAAO,CAAC,QAAQ,CAAC,OAAO,CAAS;IACjC,OAAO,CAAC,QAAQ,CAAC,KAAK,CAAkB;gBAE5B,OAAO,EAAE,MAAM;IAO3B,IAAI,CAAC,IAAI,EAAE,CAAC,GAAG,IAAI;IAQnB,GAAG,IAAI,CAAC,GAAG,SAAS;CAGrB"}

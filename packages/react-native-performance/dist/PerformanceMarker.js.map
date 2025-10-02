@@ -1,0 +1,1 @@
+{"version":3,"file":"PerformanceMarker.js","sourceRoot":"","sources":["../src/PerformanceMarker.tsx"],"names":[],"mappings":";;;AAAA,6CAA8E;AA2B9E;;;;GAIG;AACH,IAAI,iBAAoE,CAAC;AAEzE,SAAgB,oBAAoB;IAClC,IAAI,iBAAiB,KAAK,SAAS,EAAE;QACnC,iBAAiB,GAAG,IAAA,qCAAsB,EAAyB,mBAAmB,CAAC,CAAC;KACzF;IACD,OAAO,iBAAiB,CAAC;AAC3B,CAAC;AALD,oDAKC"}

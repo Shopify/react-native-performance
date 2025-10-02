@@ -1,0 +1,1 @@
+{"version":3,"file":"GestureResponderEvent.d.ts","sourceRoot":"","sources":["../src/GestureResponderEvent.ts"],"names":[],"mappings":"AAAA,UAAU,qBAAqB;IAC7B,WAAW,EAAE;QACX,SAAS,EAAE,MAAM,CAAC;KACnB,CAAC;CACH;AAED,wBAAgB,uBAAuB,CAAC,GAAG,EAAE,GAAG,GAAG,GAAG,IAAI,qBAAqB,CAE9E;AAED,eAAe,qBAAqB,CAAC"}

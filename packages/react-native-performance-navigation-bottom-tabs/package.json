@@ -20,12 +20,12 @@
     "test": "tsc -b && yarn jest"
   },
   "bugs": {
-    "url": "https://github.com/shopify/react-native-performance/issues"
+    "url": "https://github.com/moonpay/react-native-performance/issues"
   },
-  "homepage": "https://github.com/shopify/react-native-performance#readme",
+  "homepage": "https://github.com/moonpay/react-native-performance#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shopify/react-native-performance.git"
+    "url": "git+https://github.com/moonpay/react-native-performance.git"
   },
   "peerDependencies": {
     "@babel/runtime": "*",

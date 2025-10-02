@@ -1,0 +1,1 @@
+{"version":3,"file":"ScreenProfilerNotStartedError.d.ts","sourceRoot":"","sources":["../../src/exceptions/ScreenProfilerNotStartedError.ts"],"names":[],"mappings":"AAEA,OAAO,wBAAwB,MAAM,4BAA4B,CAAC;AAElE,MAAM,CAAC,OAAO,OAAO,6BAA8B,SAAQ,wBAAwB;IACjF,QAAQ,CAAC,IAAI,mCAAmC;IAChD,QAAQ,CAAC,iBAAiB,EAAE,MAAM,CAAC;gBAEvB,iBAAiB,EAAE,MAAM,EAAE,mBAAmB,EAAE,MAAM;CAWnE"}
