@@ -25,7 +25,8 @@
   "homepage": "https://github.com/moonpay/react-native-performance#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/moonpay/react-native-performance.git"
+    "url": "git+https://github.com/moonpay/react-native-performance.git",
+    "directory": "packages/react-native-performance-navigation"
   },
   "peerDependencies": {
     "@babel/runtime": "*",
